@@ -5,7 +5,7 @@
 
 const config = {
   // El nombre que mostrará el bot en los menús y mensajes.
-  botName: "𝗜𝘁𝘀𝘂𝗸𝗶 𝗨𝗹𝘁𝗿𝗮-𝗠𝗗 🪷",
+  botName: "𝙂𝘼𝘼𝙍𝘼 𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🩸",
 
   // El nombre del propietario del bot.
   ownerName: "ᴇʀᴇɴxɪᴛᴏ",
