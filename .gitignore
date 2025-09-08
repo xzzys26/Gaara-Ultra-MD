@@ -1,0 +1,7 @@
+node_modules/
+auth_info_baileys/
+# Ignora también posibles nombres personalizados de la carpeta de sesión
+baileys_auth/
+sesion_bot/
+*.log
+database/
