@@ -17,7 +17,7 @@ import { fileURLToPath } from 'url';
 import config from './config.js';
 import axios from 'axios';
 
-
+// --- CONFIGURACIÓN GLOBAL ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const baseLogger = pino({ level: 'warn' });
@@ -25,10 +25,10 @@ function shouldSkipBaileysLog(args) {
   try {
     if (!args || !args.length) return false;
     const matchStr = (s) => typeof s === 'string' && (
-      
+      // benign or noisy messages
       s.includes('failed to obtain extra info') ||
       s.includes('No image processing library available') ||
-      
+      // recurrent decrypt noise from Baileys/libsignal
       s.toLowerCase().includes('failed to decrypt message') ||
       s.toLowerCase().includes('no session record') ||
       s.toLowerCase().includes('sessionerror') ||
@@ -39,7 +39,7 @@ function shouldSkipBaileysLog(args) {
       if (a && typeof a === 'object') {
         const msg = a.msg || a.message || '';
         const trace = a.trace || a.stack || '';
-        
+        // common nested error payload in Baileys logs
         const errMsg = a.err?.message || '';
         const errStack = a.err?.stack || '';
         const errName = a.err?.name || '';
@@ -53,7 +53,7 @@ function shouldSkipBaileysLog(args) {
 function wrapLogger(lg) {
   const wrapper = {
     level: lg.level,
-    
+    // standard methods
     fatal: (...args) => lg.fatal?.(...args),
     error: (...args) => { if (!shouldSkipBaileysLog(args)) return lg.error?.(...args); },
     warn:  (...args) => { if (!shouldSkipBaileysLog(args)) return lg.warn?.(...args); },
@@ -65,23 +65,24 @@ function wrapLogger(lg) {
   return wrapper;
 }
 const logger = wrapLogger(baseLogger);
-
+// Opciones globales para utilidades (ej. vista previa de imágenes en consola)
 global.opts = global.opts || {};
 
-
+// --- COLECCIONES GLOBALES ---
 export const commands = new Map();
 export const aliases = new Map();
 export const testCache = new Map();
 export const cooldowns = new Map();
+// El nuevo sistema de sub-bots usará global.conns
+// export const subBots = new Map();
 
-
-
+// --- CONFIGURACIÓN DE TIEMPOS ---
 const COOLDOWN_SECONDS = 5;
 const RESPONSE_DELAY_MS = 2000;
 
-
+// --- FUNCIÓN PARA CARGAR COMANDOS ---
 export async function loadCommands() {
-  
+  // Limpiar mapas antes de cargar para permitir la recarga
   commands.clear();
   aliases.clear();
 
@@ -104,9 +105,9 @@ export async function loadCommands() {
   } catch (error) { console.error(`[-] No se pudo leer la carpeta de plugins:`, error); }
 }
 
-
+// --- FUNCIÓN DE INICIO DEL BOT PRINCIPAL ---
 async function connectToWhatsApp() {
-  
+  // Permitir carpeta de autenticación configurable y migrar si es necesario
   const authDir = config.authDir || 'auth_info_baileys';
   const oldAuthDir = 'auth_info_baileys';
   const absAuthDir = path.resolve(__dirname, authDir);
@@ -126,16 +127,16 @@ async function connectToWhatsApp() {
         fs.renameSync(absOldAuthDir, absAuthDir);
         console.log(`[migración] Carpeta de sesión movida: ${oldAuthDir} -> ${authDir}`);
       } else if (isEmpty(absAuthDir)) {
-        
+        // mover contenido de la vieja a la nueva si la nueva está vacía
         for (const f of fs.readdirSync(absOldAuthDir)) {
           fs.renameSync(path.join(absOldAuthDir, f), path.join(absAuthDir, f));
         }
         console.log(`[migración] Contenido de ${oldAuthDir} fusionado en ${authDir}`);
-        
+        // eliminar la carpeta vieja por política de una sola carpeta
         try { fs.rmSync(absOldAuthDir, { recursive: true, force: true }); } catch {}
         console.log(`[limpieza] Carpeta antigua eliminada: ${oldAuthDir}`);
       } else {
-        
+        // mantener solo la nueva por política de una sola carpeta
         try { fs.rmSync(absOldAuthDir, { recursive: true, force: true });
           console.log(`[limpieza] Se detectaron ambas carpetas. Eliminada la antigua: ${oldAuthDir}`);
         } catch (e) {
@@ -163,13 +164,13 @@ async function connectToWhatsApp() {
     } catch {}
     return false;
   }
-  
+  // --- Selección de método estilo referencia ---
   const PhoneNumberUtil = pkgPhone.PhoneNumberUtil;
   const phoneUtil = PhoneNumberUtil.getInstance();
   async function isValidPhoneNumber(number) {
     try {
       let n = number.replace(/\s+/g, '');
-      
+      // Normalización México (+52) elimina 521 y +52 1 variantes comunes
       if (n.startsWith('+521')) n = n.replace('+521', '+52');
       if (n.startsWith('+52') && n[3] === '1') n = '+52' + n.slice(4);
       const parsed = phoneUtil.parseAndKeepRawInput(n);
@@ -186,24 +187,14 @@ async function connectToWhatsApp() {
   if (!state?.creds?.registered && !existingSessionOnDisk()) {
     if (argsQR) option = '1';
     if (!argsQR && !argsCode) {
-      const menuDesign = `${chalk.cyanBright('╭─────────────────────────────◉')}\n`
-        + `${chalk.cyanBright('│')} ${chalk.red.bgBlueBright.bold('    ⚙ MÉTODO DE CONEXIÓN BOT    ')}\n`
-        + `${chalk.cyanBright('│')} 「 🗯 」${chalk.yellow('Selecciona cómo quieres conectarte')}\n`
-        + `${chalk.cyanBright('│')} 「 📲 」${chalk.yellow.bgRed.bold('1. Escanear Código QR')}\n`
-        + `${chalk.cyanBright('│')} 「 🔛 」${chalk.red.bgGreenBright.bold('2. Código de Emparejamiento')}\n`
-        + `${chalk.cyanBright('│')}\n`
-        + `${chalk.cyanBright('│')} 「 ℹ️ 」${chalk.gray('Usa el código si tienes problemas con el QR')}\n`
-        + `${chalk.cyanBright('│')} 「 🚀 」${chalk.gray('Ideal para la primera configuración')}\n`
-        + `${chalk.cyanBright('│')}\n`
-        + `${chalk.cyanBright('╰─────────────────────────────◉')}\n`;
       do {
-        option = await ask(menuDesign + chalk.green('Ingresa una opción (1-2): '));
+        option = await ask(chalk.bgMagenta.white('⌨ Selecciona una opción:\n') + chalk.bold.green('1. Código QR\n') + chalk.bold.cyan('2. Código de 8 dígitos\n--> '));
         if (!/^[1-2]$/.test(option)) console.log(chalk.red('Ingresa 1 o 2.'));
       } while (!['1','2'].includes(option));
     }
     if (argsCode) option = '2';
     if (option === '2') {
-      
+      // pedir número si no vino por argumento ENV
       let valid = false;
       while (!valid) {
   phoneNumber = await ask(chalk.green('Ingresa tu número con código de país (ej +57300xxxxxxx): '));
@@ -226,7 +217,7 @@ async function connectToWhatsApp() {
       keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'silent' }))
     },
     logger,
-    
+    // Cambiamos fingerprint para pairing code a Safari macOS (algunos dispositivos aceptan mejor)
     browser: usingCode ? Browsers.macOS('Safari') : ['GaaraUltraMD', 'Chrome', '1.0.0'],
     printQRInTerminal: option === '1',
     markOnlineOnConnect: false,
@@ -236,7 +227,7 @@ async function connectToWhatsApp() {
 
   let pairingRequested = false;
   let pairingAttempts = 0;
-  
+  // Eliminamos regeneración automática para evitar invalidar el código mientras lo escribes en el teléfono.
   async function attemptRequestPairing(digits) {
     if (pairingRequested) return;
     pairingRequested = true;
@@ -257,7 +248,7 @@ async function connectToWhatsApp() {
       for (let attempt = 1; attempt <= max; attempt++) {
         try {
           console.log(chalk.gray(` [code] Solicitando código (intento ${attempt}/${max})...`));
-      
+      // delay mínimo antes de primer intento para asegurar handshake completo
       if (attempt === 1) await new Promise(r => setTimeout(r, 1500));
       const code = await sock.requestPairingCode(number);
           if (!code) throw new Error('Respuesta vacía');
@@ -290,7 +281,7 @@ async function connectToWhatsApp() {
       console.log(chalk.cyan('  1) Verifica internet del teléfono (WiFi estable).'));
       console.log(chalk.cyan('  2) Cierra la pantalla y vuelve a entrar a "Introducir código".'));
       console.log(chalk.cyan('  3) Presiona ENTER aquí para generar un nuevo código solo entonces.'));
-      
+      // Preparar regeneración manual
       const regenInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
       regenInterface.on('line', async () => {
         if (sock?.authState?.creds?.registered) {
@@ -323,16 +314,17 @@ async function connectToWhatsApp() {
     }
   }
 
-  
+  // Variables para control de QR manual si se eligió qr pero queremos refresco legible
   let showedFirstQR = false;
   let lastQR = null;
 
-  
+  // Adjuntar el handler principal al socket del bot principal
+  // Esto es para alinear con la estructura que espera el nuevo código
   const mainHandler = await import('./handler.js');
   sock.handler = mainHandler.handler.bind(sock);
 
 
-  
+  // --- MANEJO DE EVENTOS DE CONEXIÓN ---
   sock.ev.on('connection.update', async (update) => {
   const { connection, lastDisconnect, qr } = update;
   if (qr && option === '1') {
@@ -362,14 +354,27 @@ async function connectToWhatsApp() {
   });
 
   sock.ev.on('creds.update', saveCreds);
+  sock.ev.on('creds.update', () => {
+    try {
+      if (sock?.authState?.creds?.registered) {
+        console.log(chalk.green(' [code] Dispositivo registrado correctamente ✅'));
+      } else {
+        console.log(chalk.gray(' [code] creds.update (aún no registrado)...'));
+      }
+    } catch {}
+  });
 
-  
+  // (Selección ya realizada antes de crear el socket si era necesario)
+
+  // --- MANEJO DE MENSAJES ---
+  // El nuevo sistema usa un handler.js, así que adjuntamos el nuestro.
+  // La lógica de comandos se moverá a handler.js para ser reutilizable.
   sock.ev.on('messages.upsert', (m) => sock.handler(m, false)); // false porque este es el bot principal
 
   // --- MANEJO DE BIENVENIDA Y DESPEDIDA ---
   sock.ev.on('group-participants.update', async (event) => {
     const { id, participants, action } = event;
-    
+    // Usamos la función centralizada de la base de datos
     const { readSettingsDb } = await import('./lib/database.js');
     const settings = readSettingsDb();
     const groupSettings = settings[id];
@@ -405,7 +410,7 @@ async function connectToWhatsApp() {
   await connectToWhatsApp();
 })();
 
-
+// --- FILTRO GLOBAL DE ERRORES NO MANEJADOS (solo para ruido de descifrado) ---
 process.on('unhandledRejection', (reason) => {
   try {
     const msg = (reason && (reason.message || reason.msg || reason.toString())) || '';
@@ -417,10 +422,10 @@ process.on('unhandledRejection', (reason) => {
       blob.includes('no session record') ||
       blob.includes('sessionerror')
     ) {
-      
+      // Silenciar solo estos errores recurrentes de Baileys/libsignal
       return;
     }
   } catch {}
-  
+  // Para cualquier otro error, mantener la visibilidad
   console.error('UnhandledRejection:', reason);
 });
