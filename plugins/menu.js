@@ -1,16 +1,16 @@
-// Mapa de emojis para las categorías
+/ Mapa de emojis para las categorías
 const categoryEmojis = {
-  '*GENERAL*': '📜',
-  '*DESCARGAS*: '📥',
-  '*DIVERSION*: '🧸',
-  '*JUEGOS*': '🎮',
-  '*GRUPOS*': '👥',
-  '*PROPIETARIO*: '👑',
-  '*HERRAMIENTAS*: '🛠️',
-  '*INFORMACION*: '📚',
-  '*SUB-BOTS*': '🤖',
-  '*GAARA-IA*': '🧠',
-  '*OTROS CMDS*': '⚙️'
+  '𝗚𝗘𝗡𝗘𝗥𝗔𝗟': '📜',
+  '𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦': '📥',
+  '𝗗𝗜𝗩𝗘𝗥𝗦𝗜𝗢𝗡': '🧸',
+  '𝗝𝗨𝗘𝗚𝗢𝗦': '🎮',
+  '𝗚𝗥𝗨𝗣𝗢𝗦': '👥',
+  '𝗣𝗥𝗢𝗣𝗜𝗘𝗧𝗔𝗥𝗜𝗢': '👑',
+  '𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦': '🛠️',
+  '𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡': '📚',
+  '𝗦𝗨𝗕-𝗕𝗢𝗧𝗦': '🤖',
+  '𝗚𝗔𝗔𝗥𝗔-𝗜𝗔': '🧠',
+  '𝗢𝗧𝗥𝗢𝗦': '⚙️'
 };
 
 const menuCommand = {
