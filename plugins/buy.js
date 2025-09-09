@@ -3,7 +3,7 @@ import { shopItems } from '../lib/shop-items.js';
 
 const buyCommand = {
   name: "buy",
-  category: "economia",
+  category: "ECONOMIA",
   description: "Compra un artículo de la tienda.",
 
   async execute({ sock, msg, args }) {
