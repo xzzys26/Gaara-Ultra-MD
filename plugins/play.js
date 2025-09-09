@@ -17,7 +17,7 @@ const playCommand = {
     let waitingMsg;
 
     try {
-      waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `📥 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗮𝘂𝗱𝗶𝗼 "${query}"...` }, { quoted: msg });
+      waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🔎 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗮𝘂𝗱𝗶𝗼 𝗠𝘂𝘀𝗶𝗰𝗮 "${query}"...` }, { quoted: msg });
 
       const searchResults = await yts(query);
       if (!searchResults.videos.length) throw new Error("𝙽𝙾 𝚂𝙴 𝙴𝙽𝙲𝙾𝙽𝚃𝚁𝙰𝚁𝙾𝙽 𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾 𝙳𝙴𝙻 𝙰𝚄𝙳𝙸𝙾");
@@ -25,7 +25,7 @@ const playCommand = {
       const videoInfo = searchResults.videos[0];
       const { title, url } = videoInfo;
 
-      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗘𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼: *${title}*.\n\n🔄 𝗱𝗲𝘀𝗰𝗮𝗿𝗴𝗮𝗻𝗱𝗼 𝘁𝘂 𝗮𝘂𝗱𝗶𝗼...` }, { edit: waitingMsg.key });
+      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗘𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼: *${title}*.\n\n🔄 𝗱𝗲𝘀𝗰𝗮𝗿𝗴𝗮𝗻𝗱𝗼 𝘁𝘂 𝗮𝘂𝗱𝗶𝗼 𝗠𝘂𝘀𝗶𝗰𝗮...` }, { edit: waitingMsg.key });
 
       let audioBuffer;
 
