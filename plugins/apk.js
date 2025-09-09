@@ -11,7 +11,7 @@ const apkCommand = {
   async execute({ sock, msg, args }) {
     const text = args.join(' ');
     if (!text) {
-      return sock.sendMessage(msg.key.remoteJid, { text: "Por favor, ingrese el nombre de la apk para buscar." }, { quoted: msg });
+      return sock.sendMessage(msg.key.remoteJid, { text: "𝙋𝙤𝙧𝙛𝙫𝙤𝙧 𝙄𝙣𝙜𝙧𝙚𝙨𝙖 𝙀𝙡 𝙉𝙤𝙢𝙗𝙧𝙚 𝘿𝙚𝙡 𝘼𝙥𝙠 𝙌𝙪𝙚 𝙌𝙪𝙞𝙚𝙧𝙚𝙨 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙨𝙧 ✨" }, { quoted: msg });
     }
 
     const senderId = msg.sender;
@@ -27,7 +27,7 @@ const apkCommand = {
       return sock.sendMessage(msg.key.remoteJid, { text: `No tienes suficientes monedas para usar este comando. Necesitas ${cost} coins, pero solo tienes ${user.coins}.` }, { quoted: msg });
     }
 
-    const waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🔎 Buscando "${text}" en Aptoide...` }, { quoted: msg });
+    const waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🔎 𝘽𝙪𝙨𝙘𝙖𝙣𝙙𝙤 𝘼𝙥𝙠 "${text}" en Aptoide...` }, { quoted: msg });
 
     try {
       const searchResults = await search(text);
