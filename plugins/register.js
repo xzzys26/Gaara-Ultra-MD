@@ -38,11 +38,17 @@ const registerCommand = {
 
     writeUsersDb(usersDb);
 
-    const successMessage = `*✅ Registro Exitoso ✅*\n\n` +
-                           `*Nombre:* ${name.trim()}\n` +
-                           `*Edad:* ${age}\n` +
-                           `*Monedas Iniciales:* ${INITIAL_COINS} coins\n\n` +
-                           `¡Bienvenido/a al sistema del bot!`;
+    const successMessage = `
+╭━━━〔 *✅ Registro Exitoso ✅* 〕━━━╮
+
+➺ *Nombre:* ${name.trim()}
+➺ *Edad:* ${age}
+➺ *Monedas Iniciales:* ${INITIAL_COINS} coins
+
+➺ ¡Bienvenido/a al sistema del bot!
+
+╰━━━〔 *🔰 Gaara Ultra MD 🔰* 〕━━━╯
+`;
 
     await sock.sendMessage(msg.key.remoteJid, { text: successMessage }, { quoted: msg });
   }
