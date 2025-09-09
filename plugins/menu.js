@@ -1,4 +1,5 @@
-/ Mapa de emojis para las categorías
+// Mapa de emojis para las categorías
+
 const categoryEmojis = {
   'general': 'ℹ️',
   'descargas': '📥',
