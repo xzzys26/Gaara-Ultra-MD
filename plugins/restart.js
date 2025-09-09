@@ -12,7 +12,7 @@ const restartCommand = {
     }
 
     try {
-      await sock.sendMessage(msg.key.remoteJid, { text: "Reiniciando el bot..." }, { quoted: msg });
+      await sock.sendMessage(msg.key.remoteJid, { text: "*Reiniciando el bot*..." }, { quoted: msg });
       process.exit(0);
     } catch (error) {
       console.error("Error al intentar reiniciar:", error);
