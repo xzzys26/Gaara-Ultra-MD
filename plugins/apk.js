@@ -44,12 +44,18 @@ const apkCommand = {
       user.coins -= cost;
       writeUsersDb(usersDb);
 
-      let caption = `*乂  APTOIDE - DESCARGAS* 乂\n\n`;
-      caption += `☁️ *Nombre*: ${appInfo.name}\n`;
-      caption += `📦 *Package*: ${appInfo.package}\n`;
-      caption += `⬆️ *Actualizado*: ${appInfo.lastup}\n`;
-      caption += `⚖️ *Peso*: ${appInfo.size}\n\n`;
-      caption += `💸 *Costo:* 200 coins.`;
+      let caption = `
+╭━━━〔 *乂  APTOIDE - DESCARGAS 乂* 〕━━━╮
+
+➺ ☁️ *Nombre:* ${appInfo.name}
+➺ 📦 *Package:* ${appInfo.package}
+➺ ⬆️ *Actualizado:* ${appInfo.lastup}
+➺ ⚖️ *Peso:* ${appInfo.size}
+
+➺ 💸 *Costo:* 200 coins
+
+╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
+`;
 
       await sock.sendMessage(msg.key.remoteJid, { image: { url: appInfo.icon }, caption: caption }, { quoted: msg });
 
