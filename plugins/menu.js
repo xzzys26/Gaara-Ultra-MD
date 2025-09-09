@@ -59,7 +59,7 @@ const menuCommand = {
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        image: { url: 'https://russellxz.click/c02f8044.png' },
+        image: { url: 'https://files.catbox.moe/vm9t7c.jpg' },
         caption: menuText,
         mimetype: 'image/png'
       },
