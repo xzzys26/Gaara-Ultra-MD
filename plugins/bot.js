@@ -16,12 +16,16 @@ const botCommand = {
         console.error("No se pudo leer la versión de Baileys desde package.json");
     }
 
-    const botInfo = `*🤖 Información del Bot 🤖*\n\n` +
-                    `*Nombre:* ${config.botName}\n` +
-                    `*Creador:* ${config.ownerName}\n` +
-                    `*Comandos Cargados:* ${commands.size}\n` +
-                    `*Librería:* @whiskeysockets/baileys ${baileysVersion}\n` +
-                    `*Estado:* En línea ✅`;
+    const botInfo = `╔═══════════════════╗
+   *🤖 Información del Bot 🤖*
+╚═══════════════════╝
+
+➺ *Nombre:* ${config.botName}
+➺ *Fundador:* ${config.ownerName}
+➺ *Módulos Activos:* ${commands.size}
+➺ *Framework:* @whiskeysockets/baileys ${baileysVersion}
+➺ *Estatus:* Disponible ✅
+➺ *Alojamiento:* Duluxe Host ⚡ (VIP)`;
 
     await sock.sendMessage(msg.key.remoteJid, { text: botInfo }, { quoted: msg });
   }
