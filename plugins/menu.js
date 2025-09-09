@@ -37,7 +37,7 @@ const menuCommand = {
     const sortedCategories = Object.keys(categories).sort();
 
     // --- Construcción del menú con tu decoración ---
-    let menuText = `╭━━━〔 *${config.botName}* 〕━━╮\n`;
+    let menuText = `╭━━━〔 *${config.botName}* 〕━━━╮\n`;
     menuText += `┃ ✎ Hola: *${msg.pushName}*\n`;
     menuText += `┃ ✎ Versión: *${config.version || '1.0.0'}*\n`;
     menuText += `┃ ✎ Owner: *${config.ownerName}*\n`;
@@ -45,7 +45,7 @@ const menuCommand = {
 
     for (const category of sortedCategories) {
       const emoji = categoryEmojis[category] || categoryEmojis['default'];
-      menuText += `╭━━━〔 ${emoji} ${category.toUpperCase()} 〕\n`;
+      menuText += `╭─〔 ${emoji} ${category.toUpperCase()} 〕\n`;
 
       const commandList = categories[category]
         .filter((cmd, index, self) => self.findIndex(c => c.name === cmd.name) === index) // evitar duplicados
@@ -53,13 +53,13 @@ const menuCommand = {
         .join('\n');
 
       menuText += `${commandList}\n`;
-      menuText += `╰━━━━━━━━━━━━━━━━━━╯\n\n`;
+      menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
     }
 
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        image: { url: 'https://russellxz.click/c02f8044.jpeg' },
+        image: { url: 'https://files.catbox.moe/itgz1x.png' },
         caption: menuText,
         mimetype: 'image/png'
       },
