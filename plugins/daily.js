@@ -36,11 +36,18 @@ const dailyCommand = {
 
     writeUsersDb(usersDb);
 
-    const dailyMessage = `🎉 ¡Has reclamado tu recompensa diaria de *${DAILY_REWARD} coins*!\n` +
-                         `💸 Se dedujo un impuesto del ${config.taxRate * 100}% (*${tax} coins*).\n` +
-                         `💰 Ganancia neta: *${netReward} coins*.\n` +
-                         `🏦 Tu nuevo saldo es *${user.coins} coins*.`;
-    await sock.sendMessage(msg.key.remoteJid, { text: dailyMessage }, { quoted: msg });
+    const dailyMessage = `
+╭━━━〔 *🎉 Recompensa Diaria* 〕━━━╮
+
+➺ ¡Has reclamado tu recompensa diaria de *${DAILY_REWARD} coins*!
+➺ 💸 Se dedujo un impuesto del ${config.taxRate * 100}% (*${tax} coins*)
+➺ 💰 Ganancia neta: *${netReward} coins*
+➺ 🏦 Tu nuevo saldo es *${user.coins} coins*
+
+╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
+`;
+
+ { quoted: msg });
   }
 };
 
