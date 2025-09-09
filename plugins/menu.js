@@ -37,10 +37,10 @@ const menuCommand = {
     const sortedCategories = Object.keys(categories).sort();
 
     // --- Construcción del menú con tu decoración ---
-    let menuText = `╭━━━〔 *${config.botName}* 〕━━━╮\n`;
-    menuText += `┃ ➪ ʜᴏʟᴀ: *${msg.pushName}*\n`;
-    menuText += `┃ ➪ ᴠᴇʀsɪᴏɴ: *${config.version || '1.0.0'}*\n`;
-    menuText += `┃ ➪ ᴏᴡɴᴇʀ: *${config.ownerName}*\n`;
+    let menuText = `╭━━━〔 *${config.botName}* 〕━━╮\n`;
+    menuText += `┃ ➪ ʜᴏʟᴀ ᴜsᴇʀ : *${msg.pushName}*\n`;
+    menuText += `┃ ➪ ᴠᴇʀsɪᴏɴ ᴅᴇʟ ʙᴏᴛ : *${config.version || '1.0.0'}*\n`;
+    menuText += `┃ ➪ ᴏᴡɴᴇʀ x ᴄʀᴇᴀᴅᴏʀ : *${config.ownerName}*\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
     for (const category of sortedCategories) {
@@ -53,13 +53,8 @@ const menuCommand = {
         .join('\n');
 
       menuText += `${commandList}\n`;
-      menuText += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
+      menuText += `╰━━━━━━━━━━━━━━━━━━━╯\n\n`;
     }
-
-    menuText += `╭━━━〔 👑 ɪɴғᴏ-ʙᴏᴛ 〕━━━╮\n`;
-    menuText += `┃ ➺ ʙᴏᴛ ᴄʀᴇᴀᴅᴏ ᴘᴏʀ : *${config.ownerName}*\n`;
-    menuText += `┃ ➺ ᴅɪsғʀᴜᴛᴀ ᴅᴇ  *${config.botName}* 🚀\n`;
-    menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯`;
 
     await sock.sendMessage(
       msg.key.remoteJid,
