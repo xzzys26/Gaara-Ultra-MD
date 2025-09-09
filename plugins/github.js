@@ -20,15 +20,21 @@ const githubCommand = {
         throw new Error("Usuario no encontrado");
       }
 
-      const message = `*💻 Información de GitHub 💻*\n\n` +
-                      `*👤 Nombre:* ${data.name || 'N/A'}\n` +
-                      `*🔖 Usuario:* ${data.login}\n` +
-                      `*📝 Biografía:* ${data.bio || 'N/A'}\n` +
-                      `*👥 Seguidores:* ${data.followers}\n` +
-                      `*👣 Siguiendo:* ${data.following}\n` +
-                      `*📚 Repositorios Públicos:* ${data.public_repos}\n` +
-                      `*📍 Ubicación:* ${data.location || 'N/A'}\n\n` +
-                      `*🔗 URL:* ${data.html_url}`;
+      const message = `
+╭━━━〔 *💻 Información de GitHub 💻* 〕━━━╮
+
+➺ *👤 Nombre:* ${data.name || 'N/A'}
+➺ *🔖 Usuario:* ${data.login}
+➺ *📝 Biografía:* ${data.bio || 'N/A'}
+➺ *👥 Seguidores:* ${data.followers}
+➺ *👣 Siguiendo:* ${data.following}
+➺ *📚 Repositorios Públicos:* ${data.public_repos}
+➺ *📍 Ubicación:* ${data.location || 'N/A'}
+
+➺ *🔗 URL:* ${data.html_url}
+
+╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
+`;
 
       await sock.sendMessage(msg.key.remoteJid, {
         image: { url: data.avatar_url },
