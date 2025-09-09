@@ -13,12 +13,19 @@ const lidCommand = {
     // Este es el ID del chat. Si es un chat privado, es el JID del usuario.
     const remoteJid = msg.key.remoteJid;
 
-    const message = `*-- Tus Identificadores --*\n\n` +
-                    `Para que te reconozca como dueño en un grupo, necesito el siguiente ID:\n\n` +
-                    `*ID de Participante (LID o JID):*\n` +
-                    `\`${participantId}\`\n\n` +
-                    `*ID del Chat:*\n` +
-                    `\`${remoteJid}\``;
+    const message = `
+╭━━━〔 *-- Tus Identificadores --* 〕━━━╮
+
+➺ Para que te reconozca como dueño en un grupo, necesito el siguiente ID:
+
+➺ *ID de Participante (LID o JID):*
+\`${participantId}\`
+
+➺ *ID del Chat:*
+\`${remoteJid}\`
+
+╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
+`;
 
     await sock.sendMessage(from, { text: message }, { quoted: msg });
   }
