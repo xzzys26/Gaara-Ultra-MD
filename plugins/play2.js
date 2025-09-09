@@ -20,13 +20,13 @@ const play2Command = {
   description: "Busca y descarga un video en formato MP4 usando múltiples métodos.",
 
   async execute({ sock, msg, args }) {
-    if (args.length === 0) return sock.sendMessage(msg.key.remoteJid, { text: "Por favor, proporciona el nombre de un video." }, { quoted: msg });
+    if (args.length === 0) return sock.sendMessage(msg.key.remoteJid, { text: "𝘗𝘰𝘳𝘧𝘢𝘷𝘰𝘳 𝘔𝘦𝘯𝘤𝘪𝘰𝘯𝘢 𝘌𝘭 𝘝𝘪𝘥𝘦𝘰 𝘔𝘶𝘴𝘪𝘤𝘢 𝘘𝘶𝘦 𝘘𝘶𝘪𝘦𝘳𝘦𝘴 𝘋𝘦𝘴𝘤𝘢𝘳𝘨𝘢𝘳 🎵" }, { quoted: msg });
 
     const query = args.join(' ');
     let waitingMsg;
 
     try {
-      waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🎶 Buscando "${query}"...` }, { quoted: msg });
+      waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🔎 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗩𝗶𝗱𝗲𝗼 𝗠𝘂𝘀𝗶𝗰𝗮 🎵 "${query}"...` }, { quoted: msg });
 
       const searchResults = await yts(query);
       if (!searchResults.videos.length) throw new Error("No se encontraron resultados.");
@@ -34,7 +34,7 @@ const play2Command = {
       const videoInfo = searchResults.videos[0];
       const { title, url } = videoInfo;
 
-      await sock.sendMessage(msg.key.remoteJid, { text: `✅ Encontrado: *${title}*.\n\n⬇️ Descargando video...` }, { edit: waitingMsg.key });
+      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗘𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼: *${title}*.\n\n🔄 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮𝗻𝗱𝗼 𝗩𝗶𝗱𝗲𝗼 𝗠𝘂𝘀𝗶𝗰𝗮...` }, { edit: waitingMsg.key });
 
       let videoBuffer;
 
@@ -72,7 +72,7 @@ const play2Command = {
 
       if (!videoBuffer) throw new Error("El buffer de video está vacío.");
 
-      await sock.sendMessage(msg.key.remoteJid, { text: `✅ Descarga completada. Enviando video...` }, { edit: waitingMsg.key });
+      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗩𝗶𝗱𝗲𝗼 𝗠𝘂𝘀𝗶𝗰𝗮 🎵...` }, { edit: waitingMsg.key });
 
       await sock.sendMessage(msg.key.remoteJid, { video: videoBuffer, mimetype: 'video/mp4', caption: title }, { quoted: msg });
 
