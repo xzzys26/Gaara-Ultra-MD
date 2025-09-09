@@ -1,4 +1,4 @@
-// Mapa de emojis para las categorías
+3// Mapa de emojis para las categorías
 const categoryEmojis = {
   '𝐠𝐞𝐧𝐞𝐫𝐚𝐥': 'ℹ️',
   '𝐝𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐬': '📥',
@@ -56,15 +56,15 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
     }
 
-    menuText += `╭━━━〔 👑 INFO FINAL 〕━━━╮\n`;
-    menuText += `┃ ➺ Bot creado por: *${config.ownerName}*\n`;
-    menuText += `┃ ➺ Disfruta de *${config.botName}* 🚀\n`;
+    menuText += `╭━━━〔 👑 ɪɴғᴏ-ʙᴏᴛ 〕━━━╮\n`;
+    menuText += `┃ ➺ ʙᴏᴛ ᴄʀᴇᴀᴅᴏ ᴘᴏʀ : *${config.ownerName}*\n`;
+    menuText += `┃ ➺ ᴅɪsғʀᴜᴛᴀ ᴅᴇ  *${config.botName}* 🚀\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯`;
 
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        image: { url: 'https://files.catbox.moe/itgz1x.png' },
+        image: { url: 'https://russellxz.click/c02f8044.jpeg' },
         caption: menuText,
         mimetype: 'image/png'
       },
