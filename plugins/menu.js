@@ -41,7 +41,6 @@ const menuCommand = {
     menuText += `┃ ➪ ʜᴏʟᴀ: *${msg.pushName}*\n`;
     menuText += `┃ ➪ ᴠᴇʀsɪᴏɴ: *${config.version || '1.0.0'}*\n`;
     menuText += `┃ ➪ ᴏᴡɴᴇʀ: *${config.ownerName}*\n`;
-                 ┃ ➪ ᴀᴄᴛɪᴠᴏ: ${uptime}
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
     for (const category of sortedCategories) {
