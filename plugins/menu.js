@@ -37,14 +37,12 @@ const menuCommand = {
     const sortedCategories = Object.keys(categories).sort();
 
     // --- Construcción del menú con tu decoración ---
- menuText += `╭━━━〔 𝑴𝑬𝑵𝑼 𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 🩸 〕━━━╮\n`;
-menuText += `┃ ➪ Usuario: @${userId.split('@')[0]}\n`;
-menuText += `┃ ➪ Modo: Privado \n`;
-menuText += `┃ ➪ Bot: *${botname}*\n`;
-menuText += `┃ ✍︎ Tipo: ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}\n`;
-menuText += `┃ ➪ Activo: ${uptime}\n`;
-menuText += `┃ ➪ Plataforma: Deluxe Host Vip ⚡\n`;
-menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n`;
+
+ let menuText = `╭━━━〔 *${config.botName}* 〕━━━╮\n`;
+menuText += `┃ ➪ 𝗛𝗼𝗹𝗮 𝗨𝘀𝗲𝗿: *${msg.pushName}*\n`;
+menuText += `┃ ➪ 𝗩𝗲𝗿𝘀𝗶𝗼𝗻 𝗗𝗲𝗹 𝗕𝗼𝘁: *${config.version || '1.0.0'}*\n`;
+menuText += `┃ ➪ 𝗢𝘄𝗻𝗲𝗿: *${config.ownerName}*\n`;
+menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
 
     for (const category of sortedCategories) {
