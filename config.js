@@ -8,7 +8,7 @@ const config = {
   botName: "𝙂𝘼𝘼𝙍𝘼 𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🩸",
 
   // El nombre del propietario del bot.
-  ownerName: "𝙭𝙯𝙯𝙮🩸",
+  ownerName: "𝘅𝘇𝘇𝘆𝘀26",
 
   // Tasa de impuestos para la economía (ej. 0.10 para 10%)
   taxRate: 0.10,
