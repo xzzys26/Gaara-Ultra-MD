@@ -37,14 +37,16 @@ const menuCommand = {
     const sortedCategories = Object.keys(categories).sort();
 
     // --- Construcción del menú con tu decoración ---
-    ╭━━━〔 𝑴𝑬𝑵𝑼 𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 🩸 〕━━━╮
-┃ ➪ Usuario: @${userId.split('@')[0]}
-┃ ➪ Modo: ᴘʀɪᴠᴀᴅᴏ
-┃ ➪ Bot: *${botname}*
-┃ ✍︎ Tipo: ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}
-┃ ➪ Activa: ${uptime}
-┃ ➪ Plataforma: ᴅᴇʟᴜxᴇ ʜᴏsᴛ ᴠɪᴘ ⚡
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+ let menu = `
+  ╭━━━〔 𝑴𝑬𝑵𝑼 𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 🩸 〕━━━╮
+  ┃ ➪ Usuario: @${userId.split('@')[0]}
+  ┃ ➪ Modo: ᴘʀɪᴠᴀᴅᴏ
+  ┃ ➪ Bot: *${botname}*
+  ┃ ✍︎ Tipo: ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}
+  ┃ ➪ Activa: ${uptime}
+  ┃ ➪ Plataforma: ᴅᴇʟᴜxᴇ ʜᴏsᴛ ᴠɪᴘ ⚡
+  ╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+`;
 
     for (const category of sortedCategories) {
       const emoji = categoryEmojis[category] || categoryEmojis['default'];
