@@ -1,33 +1,45 @@
 const lidCommand = {
   name: "lid",
   category: "utilidades",
-  description: "Muestra tus identificadores de WhatsApp para diagnóstico.",
+  description: "Muestra tus IDs de WhatsApp (LID o JID) con detalles.",
 
   async execute({ sock, msg }) {
     const from = msg.key.remoteJid;
     const isGroup = from.endsWith('@g.us');
 
-    // Este es el ID que el bot recibe en un grupo. Puede ser un LID o un JID.
-    const participantId = isGroup ? msg.key.participant : "N/A (solo en grupos)";
+    // Enviar mensaje temporal tipo loader
+    const loader = await sock.sendMessage(from, { text: "⏳ Identificando, un momento..." }, { quoted: msg });
 
-    // Este es el ID del chat. Si es un chat privado, es el JID del usuario.
+    // ID de participante (solo en grupos)
+    const participantId = isGroup ? msg.key.participant : "⚠️ Disponible solo en grupos";
+
+    // ID del chat (grupo o privado)
     const remoteJid = msg.key.remoteJid;
 
-    const message = `
-╭━━━〔 *-- Tus Identificadores --* 〕━━━╮
+    // Tipo de ID del chat
+    const chatType = remoteJid.includes(":") ? "🔑 LID" : "🆔 JID";
 
-➺ Para que te reconozca como dueño en un grupo, necesito el siguiente ID:
+    // Tipo de ID del participante
+    const participantType = isGroup
+      ? (participantId.includes(":") ? "🔑 LID" : "🆔 JID")
+      : "⚠️ No aplica";
 
-➺ *ID de Participante (LID o JID):*
-\`${participantId}\`
+    const result = `
+📌 *Resultado de Identificación*
 
-➺ *ID del Chat:*
-\`${remoteJid}\`
+👥 Chat ID: 
+${remoteJid}
+→ Tipo: ${chatType}
 
-╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
-`;
+🙋 Participante ID: 
+${participantId}
+→ Tipo: ${participantType}
 
-    await sock.sendMessage(from, { text: message }, { quoted: msg });
+✅ Listo, ya tienes tus identificadores.
+    `;
+
+    // Edita el mensaje del loader con el resultado final
+    await sock.sendMessage(from, { text: result.trim(), edit: loader.key });
   }
 };
 
