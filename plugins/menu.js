@@ -42,8 +42,7 @@ const menuCommand = {
 menuText += `┃ ➪ Usuario: @${userId.split('@')[0]}\n`;
 menuText += `┃ ➪ Modo: ᴘʀɪᴠᴀᴅᴏ\n`;
 menuText += `┃ ➪ Bot: *${botname}*\n`;
-menuText += `┃ ✍︎ Tipo: ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}\n`;
-menuText += `┃ ➪ Activa: ${uptime}\n`;
+menuText += `┃ ➪ Activo: ${uptime}\n`;
 menuText += `┃ ➪ Plataforma: ᴅᴇʟᴜxᴇ ʜᴏsᴛ ᴠɪᴘ ⚡\n`;
 menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n`;
 
