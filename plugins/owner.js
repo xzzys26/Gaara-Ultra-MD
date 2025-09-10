@@ -13,24 +13,18 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
 
 💻 Habilidades:
 
-- JavaScript
-
-- Node.js
-
-- Python
-
-- WhatsApp API
-
-- Automatización de tareas
-
-- Diseño de sistemas escalables
-
+➪ JavaScript
+➪ Node.js
+➪ Python
+➪ WhatsApp API
+➪ Automatización de tareas
+➪ Diseño de sistemas escalables
 
 🌐 Redes:
 
-• GitHub: https://github.com/imoXzzy
+- *GitHub*: https://github.com/imoXzzy
 
-• Instagram: https://instagram.com/xzzys26
+- *Instagram*: https://instagram.com/xzzys26
 `;
 
 await sock.sendMessage(  
