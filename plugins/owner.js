@@ -6,9 +6,8 @@ const ownerCommand = {
     async execute({ sock, msg, config }) {
         const ownerText = `
 👤 Nombre: ${config.ownerName}
-📱 Número: +1 849 390 7272
-
-📝 Descripción:  
+📱 Número: wa.me/+18493907272
+  
 Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en automatización, creación de sistemas y herramientas personalizadas. Trabajo en optimización de flujos de trabajo, funciones avanzadas para bots, integración de APIs, seguridad, gestión de bases de datos y despliegue en servidores.
 
 💻 Habilidades:  
@@ -27,7 +26,7 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
         await sock.sendMessage(
             msg.key.remoteJid, 
             { 
-                image: { url: "https://files.catbox.moe/ra9qty.jpg" },
+                image: { url: "https://files.catbox.moe/fhvm13.jpg" },
                 caption: ownerText 
             }, 
             { quoted: msg }
