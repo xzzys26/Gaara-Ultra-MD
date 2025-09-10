@@ -39,17 +39,17 @@ const registerCommand = {
     // Loader 1
     const loader = await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Un momento, por favor..." }, { quoted: msg });
 
-    // Loader 2 (después de 2.5s)
+    // Loader 2
     setTimeout(async () => {
       await sock.sendMessage(msg.key.remoteJid, { text: "🗂 Registrándote en mi base de datos...", edit: loader.key });
     }, 2500);
 
-    // Loader 3 (después de 5s)
+    // Loader 3
     setTimeout(async () => {
       await sock.sendMessage(msg.key.remoteJid, { text: "✅️ ¡Ya estás listo!", edit: loader.key });
     }, 5000);
 
-    // Registro y mensaje final con botón (después de 7s)
+    // Registro y mensaje final con botón (mensaje NUEVO)
     setTimeout(async () => {
       usersDb[senderId] = {
         name: name.trim(),
@@ -71,7 +71,7 @@ const registerCommand = {
 🎉 ¡Bienvenido/a al sistema del bot!
       `;
 
-      // Enviar mensaje con botón para volver al menú
+      // MENSAJE NUEVO con botón
       await sock.sendMessage(
         msg.key.remoteJid,
         {
