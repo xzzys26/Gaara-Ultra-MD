@@ -1,4 +1,5 @@
 const ownerCommand = {
+  const ownerCommand = {
     name: "owner",
     category: "general",
     description: "Muestra la información del creador del bot, su número, redes y experiencia.",
@@ -23,6 +24,7 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
 - Instagram: https://instagram.com/xzzys26
 `;
 
+        // Enviar mensaje con imagen
         await sock.sendMessage(
             msg.key.remoteJid, 
             { 
@@ -31,6 +33,11 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
             }, 
             { quoted: msg }
         );
+
+        // Reaccionar al mensaje
+        await sock.sendMessage(msg.key.remoteJid, {
+            react: { text: "👨🏻‍💻", key: msg.key }
+        });
     }
 };
 
