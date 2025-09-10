@@ -19,8 +19,8 @@ const registerCommand = {
     const input = args.join(' ');
     if (!input.includes('.')) {
       return sock.sendMessage(
-        msg.key.remoteJid, 
-        { text: "❌ Formato incorrecto.\nUso: `reg <nombre>.<edad>`\nEjemplo: `reg Jules.25`" }, 
+        msg.key.remoteJid,
+        { text: "❌ Formato incorrecto.\nUso: `reg <nombre>.<edad>`\nEjemplo: `reg Jules.25`" },
         { quoted: msg }
       );
     }
@@ -30,8 +30,8 @@ const registerCommand = {
 
     if (!name || isNaN(age) || age < 10 || age > 90) {
       return sock.sendMessage(
-        msg.key.remoteJid, 
-        { text: "❌ Ingresa un nombre válido y una edad entre 10 y 90 años." }, 
+        msg.key.remoteJid,
+        { text: "❌ Ingresa un nombre válido y una edad entre 10 y 90 años." },
         { quoted: msg }
       );
     }
@@ -49,7 +49,7 @@ const registerCommand = {
       await sock.sendMessage(msg.key.remoteJid, { text: "✅️ ¡Ya estás listo!", edit: loader.key });
     }, 5000);
 
-    // Registro y mensaje final con botón (mensaje NUEVO)
+    // Mensaje final con botón (mensaje NUEVO)
     setTimeout(async () => {
       usersDb[senderId] = {
         name: name.trim(),
@@ -62,28 +62,27 @@ const registerCommand = {
       writeUsersDb(usersDb);
 
       const successMessage = `
-✅ Registro completado con éxito
+🎉 *Registro Completado con Éxito* 🎉
 
 👤 Nombre: ${name.trim()}
 🎂 Edad: ${age}
-💰 Monedas iniciales: ${INITIAL_COINS}
+💰 Monedas Iniciales: ${INITIAL_COINS}
 
-🎉 ¡Bienvenido/a al sistema del bot!
+🔰 ¡Bienvenido/a al sistema del bot!
       `;
 
-      // MENSAJE NUEVO con botón
-      await sock.sendMessage(
-        msg.key.remoteJid,
-        {
-          text: successMessage.trim(),
-          footer: "🔰 Gaara Ultra MD",
-          buttons: [
-            { buttonId: "menu_principal", buttonText: { displayText: "🔙 Volver al Menú" }, type: 1 }
-          ],
-          headerType: 1
-        },
-        { quoted: msg }
-      );
+      // Botón para volver al menú
+      const buttons = [
+        { buttonId: 'menu', buttonText: { displayText: '🔙 Volver al Menú' }, type: 1 }
+      ];
+
+      await sock.sendMessage(msg.key.remoteJid, {
+        text: successMessage.trim(),
+        footer: '🌀 Gaara Ultra MD',
+        buttons: buttons,
+        headerType: 1
+      }, { quoted: msg });
+
     }, 7000);
   }
 };
