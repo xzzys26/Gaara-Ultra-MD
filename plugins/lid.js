@@ -8,14 +8,14 @@ const lidCommand = {
     const isGroup = from.endsWith('@g.us');
 
     // Primer mensaje loader
-    const loader = await sock.sendMessage(from, { text: "⏳ 𝙞𝙣𝙙𝙚𝙣𝙩𝙞𝙛𝙞𝙘𝙖𝙣𝙙𝙤 𝙐𝙣 𝙈𝙤𝙢𝙚𝙣𝙩𝙤..." }, { quoted: msg });
+    const loader = await sock.sendMessage(from, { text: "⏳ 𝙄𝙣𝙙𝙚𝙣𝙩𝙞𝙛𝙞𝙘𝙖𝙣𝙙𝙤 𝙐𝙣 𝙈𝙤𝙢𝙚𝙣𝙩𝙤..." }, { quoted: msg });
 
     // Etapa 2: actualizar loader
     setTimeout(async () => {
       await sock.sendMessage(from, { text: "🔍 𝘽𝙪𝙨𝙘𝙖𝙣𝙙𝙤 𝘿𝙖𝙩𝙤𝙨...", edit: loader.key });
     }, 1500);
 
-    // Etapa 3: mostrar "resultados encontrados" y luego IDs
+    // Etapa 3: mostrar "resultados encontrados"
     setTimeout(async () => {
       // ID de participante (solo en grupos)
       const participantId = isGroup ? msg.key.participant : "⚠️ Disponible solo en grupos";
@@ -23,16 +23,30 @@ const lidCommand = {
       // ID del chat (grupo o privado)
       const remoteJid = msg.key.remoteJid;
 
-      // Tipo de ID del chat
+      // Tipo de ID del chat (basado en si contiene ":")
       const chatType = remoteJid.includes(":") ? "🔑 LID" : "🆔 JID";
 
-      // Tipo de ID del participante
-      const participantType = isGroup
-        ? (participantId.includes(":") ? "🔑 LID" : "🆔 JID")
-        : "⚠️ No aplica";
+      // Tipo de grupo (solo si es grupo)
+      const groupType = isGroup
+        ? (remoteJid.includes(":") ? "👥 Grupo LID" : "👥 Grupo JID")
+        : "💬 No es un grupo";
+
+      // Tipo de ID del participante (basado en su sufijo)
+      let participantType = "⚠️ No aplica";
+      if (isGroup) {
+        if (participantId.endsWith("@lid")) {
+          participantType = "🔑 LID";
+        } else if (participantId.endsWith("@s.whatsapp.net")) {
+          participantType = "🆔 JID";
+        } else {
+          participantType = "❓ Desconocido";
+        }
+      }
 
       const result = `
 📊 *Resultados encontrados*
+
+${groupType}
 
 👥 Chat ID: 
 ${remoteJid}
