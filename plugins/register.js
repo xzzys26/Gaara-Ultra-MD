@@ -13,44 +13,78 @@ const registerCommand = {
     const usersDb = readUsersDb();
 
     if (usersDb[senderId]) {
-      return sock.sendMessage(msg.key.remoteJid, { text: "Ya estás registrado." }, { quoted: msg });
+      return sock.sendMessage(msg.key.remoteJid, { text: "⚠️ Ya estás registrado." }, { quoted: msg });
     }
 
     const input = args.join(' ');
     if (!input.includes('.')) {
-      return sock.sendMessage(msg.key.remoteJid, { text: "Formato incorrecto. Uso: `reg <nombre>.<edad>`\nEjemplo: `reg Jules.25`" }, { quoted: msg });
+      return sock.sendMessage(
+        msg.key.remoteJid, 
+        { text: "❌ Formato incorrecto.\nUso: `reg <nombre>.<edad>`\nEjemplo: `reg Jules.25`" }, 
+        { quoted: msg }
+      );
     }
 
     const [name, ageStr] = input.split('.');
     const age = parseInt(ageStr, 10);
 
     if (!name || isNaN(age) || age < 10 || age > 90) {
-        return sock.sendMessage(msg.key.remoteJid, { text: "Por favor, proporciona un nombre válido y una edad entre 10 y 90 años." }, { quoted: msg });
+      return sock.sendMessage(
+        msg.key.remoteJid, 
+        { text: "❌ Ingresa un nombre válido y una edad entre 10 y 90 años." }, 
+        { quoted: msg }
+      );
     }
 
-    usersDb[senderId] = {
-      name: name.trim(),
-      age: age,
-      registeredAt: new Date().toISOString(),
-      coins: INITIAL_COINS,
-      warnings: 0
-    };
+    // Loader 1
+    const loader = await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Un momento, por favor..." }, { quoted: msg });
 
-    writeUsersDb(usersDb);
+    // Loader 2 (después de 2.5s)
+    setTimeout(async () => {
+      await sock.sendMessage(msg.key.remoteJid, { text: "🗂 Registrándote en mi base de datos...", edit: loader.key });
+    }, 2500);
 
-    const successMessage = `
-╭━━━〔 *✅ Registro Exitoso ✅* 〕━━━╮
+    // Loader 3 (después de 5s)
+    setTimeout(async () => {
+      await sock.sendMessage(msg.key.remoteJid, { text: "✅️ ¡Ya estás listo!", edit: loader.key });
+    }, 5000);
 
-➺ *Nombre:* ${name.trim()}
-➺ *Edad:* ${age}
-➺ *Monedas Iniciales:* ${INITIAL_COINS} coins
+    // Registro y mensaje final con botón (después de 7s)
+    setTimeout(async () => {
+      usersDb[senderId] = {
+        name: name.trim(),
+        age: age,
+        registeredAt: new Date().toISOString(),
+        coins: INITIAL_COINS,
+        warnings: 0
+      };
 
-➺ ¡Bienvenido/a al sistema del bot!
+      writeUsersDb(usersDb);
 
-╰━━━〔 *🔰 Gaara Ultra MD 🔰* 〕━━━╯
-`;
+      const successMessage = `
+✅ Registro completado con éxito
 
-    await sock.sendMessage(msg.key.remoteJid, { text: successMessage }, { quoted: msg });
+👤 Nombre: ${name.trim()}
+🎂 Edad: ${age}
+💰 Monedas iniciales: ${INITIAL_COINS}
+
+🎉 ¡Bienvenido/a al sistema del bot!
+      `;
+
+      // Enviar mensaje con botón para volver al menú
+      await sock.sendMessage(
+        msg.key.remoteJid,
+        {
+          text: successMessage.trim(),
+          footer: "🔰 Gaara Ultra MD",
+          buttons: [
+            { buttonId: "menu_principal", buttonText: { displayText: "🔙 Volver al Menú" }, type: 1 }
+          ],
+          headerType: 1
+        },
+        { quoted: msg }
+      );
+    }, 7000);
   }
 };
 
