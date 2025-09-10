@@ -7,25 +7,32 @@ const lidCommand = {
     const from = msg.key.remoteJid;
     const isGroup = from.endsWith('@g.us');
 
-    // Enviar mensaje temporal tipo loader
-    const loader = await sock.sendMessage(from, { text: "⏳ Identificando, un momento..." }, { quoted: msg });
+    // Primer mensaje loader
+    const loader = await sock.sendMessage(from, { text: "⏳ 𝙞𝙣𝙙𝙚𝙣𝙩𝙞𝙛𝙞𝙘𝙖𝙣𝙙𝙤 𝙐𝙣 𝙈𝙤𝙢𝙚𝙣𝙩𝙤..." }, { quoted: msg });
 
-    // ID de participante (solo en grupos)
-    const participantId = isGroup ? msg.key.participant : "⚠️ Disponible solo en grupos";
+    // Etapa 2: actualizar loader
+    setTimeout(async () => {
+      await sock.sendMessage(from, { text: "🔍 𝘽𝙪𝙨𝙘𝙖𝙣𝙙𝙤 𝘿𝙖𝙩𝙤𝙨...", edit: loader.key });
+    }, 1500);
 
-    // ID del chat (grupo o privado)
-    const remoteJid = msg.key.remoteJid;
+    // Etapa 3: mostrar "resultados encontrados" y luego IDs
+    setTimeout(async () => {
+      // ID de participante (solo en grupos)
+      const participantId = isGroup ? msg.key.participant : "⚠️ Disponible solo en grupos";
 
-    // Tipo de ID del chat
-    const chatType = remoteJid.includes(":") ? "🔑 LID" : "🆔 JID";
+      // ID del chat (grupo o privado)
+      const remoteJid = msg.key.remoteJid;
 
-    // Tipo de ID del participante
-    const participantType = isGroup
-      ? (participantId.includes(":") ? "🔑 LID" : "🆔 JID")
-      : "⚠️ No aplica";
+      // Tipo de ID del chat
+      const chatType = remoteJid.includes(":") ? "🔑 LID" : "🆔 JID";
 
-    const result = `
-📌 *Resultado de Identificación*
+      // Tipo de ID del participante
+      const participantType = isGroup
+        ? (participantId.includes(":") ? "🔑 LID" : "🆔 JID")
+        : "⚠️ No aplica";
+
+      const result = `
+📊 *Resultados encontrados*
 
 👥 Chat ID: 
 ${remoteJid}
@@ -36,10 +43,12 @@ ${participantId}
 → Tipo: ${participantType}
 
 ✅ Listo, ya tienes tus identificadores.
-    `;
 
-    // Edita el mensaje del loader con el resultado final
-    await sock.sendMessage(from, { text: result.trim(), edit: loader.key });
+> ʙᴜsǫᴜᴅᴀ ʙʏ ɢᴀᴀʀᴀ ᴜʟᴛʀᴀ-ᴍᴅ 🌀
+      `;
+
+      await sock.sendMessage(from, { text: result.trim(), edit: loader.key });
+    }, 3000);
   }
 };
 
