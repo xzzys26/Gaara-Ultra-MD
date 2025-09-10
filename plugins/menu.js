@@ -39,11 +39,11 @@ const menuCommand = {
     // --- Construcción del menú con tu decoración ---
  menuText += `╭━━━〔 𝑴𝑬𝑵𝑼 𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 🩸 〕━━━╮\n`;
 menuText += `┃ ➪ Usuario: @${userId.split('@')[0]}\n`;
-menuText += `┃ ➪ Modo: ᴘʀɪᴠᴀᴅᴏ\n`;
+menuText += `┃ ➪ Modo: Privado \n`;
 menuText += `┃ ➪ Bot: *${botname}*\n`;
 menuText += `┃ ✍︎ Tipo: ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}\n`;
-menuText += `┃ ➪ Activa: ${uptime}\n`;
-menuText += `┃ ➪ Plataforma: ᴅᴇʟᴜxᴇ ʜᴏsᴛ ᴠɪᴘ ⚡\n`;
+menuText += `┃ ➪ Activo: ${uptime}\n`;
+menuText += `┃ ➪ Plataforma: Deluxe Host Vip ⚡\n`;
 menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n`;
 
 
