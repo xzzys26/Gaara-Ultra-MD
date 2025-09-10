@@ -30,7 +30,7 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
 await sock.sendMessage(  
       msg.key.remoteJid,   
       {   
-          image: { url: "https://files.catbox.moe/fhvm13.jpg" },  
+          image: { url: "https://files.catbox.moe/z79xxj.jpg" },  
           caption: ownerText   
       },   
       { quoted: msg }  
