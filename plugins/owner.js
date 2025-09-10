@@ -6,12 +6,12 @@ description: "Muestra la información del creador del bot, su número, redes y e
 async execute({ sock, msg, config }) {  
     const ownerText = `
 
-👤 Nombre: ${config.ownerName}
-📱 Número: wa.me/+18493907272
+👤 *Nombre*: ${config.ownerName}
+📱 *Número*: wa.me/+18493907272
 
 Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en automatización, creación de sistemas y herramientas personalizadas. Trabajo en optimización de flujos de trabajo, funciones avanzadas para bots, integración de APIs, seguridad, gestión de bases de datos y despliegue en servidores.
 
-💻 Habilidades:
+💻 *Habilidades*:
 
 ➪ JavaScript
 ➪ Node.js
@@ -20,7 +20,7 @@ Soy desarrollador especializado en Web y Bots de WhatsApp, con experiencia en au
 ➪ Automatización de tareas
 ➪ Diseño de sistemas escalables
 
-🌐 Redes:
+🌐 *Redes*:
 
 - *GitHub*: https://github.com/imoXzzy
 
