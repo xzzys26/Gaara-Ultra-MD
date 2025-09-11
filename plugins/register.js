@@ -27,12 +27,11 @@ const registerCommand = {
       );
     }
 
-    // Extraer nombre, edad y estilo
     const parts = input.split(".");
     const name = parts[0].trim();
     const rest = parts[1].split(" ");
     const age = parseInt(rest[0], 10);
-    const style = rest[1]?.toLowerCase() || "dark"; // por defecto oscuro
+    const style = rest[1]?.toLowerCase() || "dark";
 
     if (!name || isNaN(age) || age < 10 || age > 90) {
       return sock.sendMessage(
@@ -53,24 +52,22 @@ const registerCommand = {
     writeUsersDb(usersDb);
 
     // Crear ID de registro
-    const registroId = `REG-${Math.floor(Math.random() * 1000000)}`;
+    const registroId = `REG-${Math.floor(100000 + Math.random() * 900000)}`;
 
     // Crear canvas
     const canvas = createCanvas(900, 550);
     const ctx = canvas.getContext("2d");
 
     // Fondo según estilo
+    const gradient = ctx.createLinearGradient(0, 0, 900, 550);
     if (style === "light") {
-      const gradient = ctx.createLinearGradient(0, 0, 900, 550);
       gradient.addColorStop(0, "#f8f9fa");
       gradient.addColorStop(1, "#e9ecef");
-      ctx.fillStyle = gradient;
     } else {
-      const gradient = ctx.createLinearGradient(0, 0, 900, 550);
       gradient.addColorStop(0, "#0d0d0d");
       gradient.addColorStop(1, "#1a1a1a");
-      ctx.fillStyle = gradient;
     }
+    ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 900, 550);
 
     // Logo
@@ -87,9 +84,9 @@ const registerCommand = {
     ctx.shadowBlur = 0;
     ctx.font = "26px Sans";
     ctx.fillStyle = style === "light" ? "#444" : "#aaa";
-    ctx.fillText("by Gaara Ultra", 165, 115);
+    ctx.fillText(`by Gaara Ultra | ${registroId}`, 165, 115);
 
-    // Datos (sin cuadros ni emojis)
+    // Datos
     ctx.fillStyle = style === "light" ? "#000" : "#fff";
     ctx.font = "26px Sans";
     ctx.fillText(`Nombre: ${name}`, 100, 220);
@@ -105,7 +102,7 @@ const registerCommand = {
     // Enviar imagen al privado
     await sock.sendMessage(senderId, {
       image: { url: filePath },
-      caption: ` Bienvenido/a al sistema del bot (modo ${style}) ✨`,
+      caption: `✨ Bienvenido/a al sistema del bot (modo ${style})\nID: ${registroId}`,
     });
 
     // Aviso en el chat original
