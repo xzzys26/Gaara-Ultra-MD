@@ -22,11 +22,13 @@ const pingCommand = {
     const cpuModel = os.cpus()[0].model;
 
     const statusMessage = `
-╭━━━〔 *🚀 ESTADO DEL BOT* 〕━━━╮
-┃ ⚡ *Velocidad:* ${latency} ms
-┃ 💾 *RAM usada:* ${usedMem} MB / ${totalMem} GB
-┃ ⏳ *Uptime:* ${hours}h ${minutes}m ${seconds}s
-┃ 🖥️ *CPU:* ${cpuModel}
+╭━━━〔 *📊 ESTADO DEL BOT* 〕━━━╮
+┃
+┃ 🏓 *Velocidad:* ${latency} ms
+┃ 📦 *RAM usada:* ${usedMem} MB / ${totalMem} GB
+┃ ⏱️ *Uptime:* ${hours}h ${minutes}m ${seconds}s
+┃ 🧠 *CPU:* ${cpuModel}
+┃
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯
 `;
 
