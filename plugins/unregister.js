@@ -36,41 +36,46 @@ const unregisterCommand = {
     delete usersDb[senderId];
     writeUsersDb(usersDb);
 
-    // === Crear comprobante visual sin cuadros ===
-    const canvas = createCanvas(900, 500);
+    // === Crear comprobante visual ===
+    const canvas = createCanvas(900, 550);
     const ctx = canvas.getContext("2d");
 
-    // Fondo degradado oscuro elegante
-    const gradient = ctx.createLinearGradient(0, 0, 900, 500);
+    // Fondo degradado oscuro
+    const gradient = ctx.createLinearGradient(0, 0, 900, 550);
     gradient.addColorStop(0, "#0d0d0d");
     gradient.addColorStop(1, "#1a0000");
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 900, 500);
+    ctx.fillRect(0, 0, 900, 550);
 
     // Logo
-    const logo = await loadImage("https://files.catbox.moe/tpl8o1.jpg");
+    const logo = await loadImage("https://files.catbox.moe/mzaho9.jpg");
     ctx.drawImage(logo, 40, 30, 100, 100);
 
-    // Título futurista
+    // Generar ID de eliminación
+    const deleteId = `DEL-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    // Título
     ctx.fillStyle = "#ff2b2b";
     ctx.font = "bold 42px Sans";
     ctx.shadowColor = "#ff2b2b";
-    ctx.shadowBlur = 20;
+    ctx.shadowBlur = 15;
     ctx.fillText("❌ REGISTRO ELIMINADO", 160, 80);
 
     ctx.shadowBlur = 0;
     ctx.fillStyle = "#bbb";
     ctx.font = "26px Sans";
-    ctx.fillText("by Gaara Ultra", 165, 115);
+    ctx.fillText(`by Gaara Ultra | ${deleteId}`, 165, 115);
 
-    // Mensaje principal (sin cuadros)
+    // Texto más largo y sin cuadros
+    ctx.fillStyle = "#fff";
+    ctx.font = "26px Sans";
     ctx.shadowColor = "#ff2b2b";
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "28px Sans";
-    ctx.fillText("🗑️ Tu registro ha sido eliminado.", 100, 250);
-    ctx.fillText("⛔ Ya no podrás usar la mayoría", 100, 300);
-    ctx.fillText("de los comandos del bot.", 100, 350);
+    ctx.shadowBlur = 8;
+    ctx.fillText("Tu registro ha sido eliminado correctamente.", 100, 230);
+    ctx.fillText("A partir de ahora ya no podrás acceder a la mayoría", 100, 280);
+    ctx.fillText("de los comandos ni funciones del bot.", 100, 320);
+    ctx.fillText("Si deseas volver a disfrutar de la experiencia completa,", 100, 370);
+    ctx.fillText("deberás registrarte nuevamente con el comando `reg`.", 100, 410);
 
     ctx.shadowBlur = 0;
 
@@ -81,7 +86,7 @@ const unregisterCommand = {
     // Enviar al privado
     await sock.sendMessage(senderId, {
       image: { url: filePath },
-      caption: "❌ Tu registro ha sido eliminado.",
+      caption: `❌ Tu registro ha sido eliminado.\nID de eliminación: ${deleteId}`,
     });
 
     // Avisar en el chat original
