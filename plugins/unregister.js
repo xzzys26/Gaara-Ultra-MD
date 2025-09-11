@@ -33,30 +33,29 @@ const unregisterCommand = {
       );
     }
 
-    const userData = usersDb[senderId];
     delete usersDb[senderId];
     writeUsersDb(usersDb);
 
-    // === Crear comprobante visual ===
+    // === Crear comprobante visual sin cuadros ===
     const canvas = createCanvas(900, 500);
     const ctx = canvas.getContext("2d");
 
-    // Fondo oscuro degradado
+    // Fondo degradado oscuro elegante
     const gradient = ctx.createLinearGradient(0, 0, 900, 500);
-    gradient.addColorStop(0, "#1a0000");
-    gradient.addColorStop(1, "#330000");
+    gradient.addColorStop(0, "#0d0d0d");
+    gradient.addColorStop(1, "#1a0000");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 900, 500);
 
     // Logo
-    const logo = await loadImage("https://files.catbox.moe/mzaho9.jpg");
+    const logo = await loadImage("https://files.catbox.moe/tpl8o1.jpg");
     ctx.drawImage(logo, 40, 30, 100, 100);
 
-    // Título rojo neón
+    // Título futurista
     ctx.fillStyle = "#ff2b2b";
     ctx.font = "bold 42px Sans";
     ctx.shadowColor = "#ff2b2b";
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur = 20;
     ctx.fillText("❌ REGISTRO ELIMINADO", 160, 80);
 
     ctx.shadowBlur = 0;
@@ -64,26 +63,16 @@ const unregisterCommand = {
     ctx.font = "26px Sans";
     ctx.fillText("by Gaara Ultra", 165, 115);
 
-    // Caja de datos eliminados
-    ctx.fillStyle = "rgba(30,0,0,0.85)";
-    ctx.strokeStyle = "#ff2b2b";
-    ctx.lineWidth = 3;
+    // Mensaje principal (sin cuadros)
     ctx.shadowColor = "#ff2b2b";
-    ctx.shadowBlur = 12;
-    ctx.fillRect(60, 170, 780, 280);
-    ctx.strokeRect(60, 170, 780, 280);
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur = 10;
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "28px Sans";
+    ctx.fillText("🗑️ Tu registro ha sido eliminado.", 100, 250);
+    ctx.fillText("⛔ Ya no podrás usar la mayoría", 100, 300);
+    ctx.fillText("de los comandos del bot.", 100, 350);
 
-    // Datos borrados (tachados en rojo)
-    ctx.fillStyle = "#fff";
-    ctx.font = "26px Sans";
-    ctx.fillText(`👤 Nombre: ${userData.name}`, 100, 220);
-    ctx.fillText(`🎂 Edad: ${userData.age}`, 100, 260);
-    ctx.fillText(`💰 Monedas: ${userData.coins}`, 100, 300);
-    ctx.fillText(`🆔 Serie confirmada: ${serialNumber}`, 100, 340);
-    ctx.fillStyle = "#ff4d4d";
-    ctx.font = "bold 26px Sans";
-    ctx.fillText("🗑️ Datos borrados permanentemente", 100, 400);
+    ctx.shadowBlur = 0;
 
     // Guardar imagen
     const filePath = "./temp/unregistro.png";
@@ -92,7 +81,7 @@ const unregisterCommand = {
     // Enviar al privado
     await sock.sendMessage(senderId, {
       image: { url: filePath },
-      caption: "❌ Tu registro ha sido eliminado correctamente.",
+      caption: "❌ Tu registro ha sido eliminado.",
     });
 
     // Avisar en el chat original
