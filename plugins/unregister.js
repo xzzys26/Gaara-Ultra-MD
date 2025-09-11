@@ -54,29 +54,37 @@ const unregisterCommand = {
     ctx.drawImage(logo, 40, 30, 100, 100);
 
     // Título
-    ctx.fillStyle = "#ff2b2b";
     ctx.font = "bold 42px Sans";
+    ctx.fillStyle = "#ff2b2b";
     ctx.shadowColor = "#ff2b2b";
     ctx.shadowBlur = 15;
-    ctx.fillText("❌ REGISTRO ELIMINADO", 160, 80);
+    ctx.textAlign = "left";
+    ctx.fillText("REGISTRO ELIMINADO", 160, 80);
 
     ctx.shadowBlur = 0;
-    ctx.fillStyle = "#bbb";
     ctx.font = "26px Sans";
+    ctx.fillStyle = "#bbb";
     ctx.fillText(`by Gaara Ultra | ${deleteId}`, 165, 115);
 
-    // Texto
-    ctx.fillStyle = "#fff";
-    ctx.font = "26px Sans";
-    ctx.shadowColor = "#ff2b2b";
-    ctx.shadowBlur = 8;
-    ctx.fillText("Tu registro ha sido eliminado correctamente.", 100, 230);
-    ctx.fillText("A partir de ahora ya no podrás acceder a la mayoría", 100, 280);
-    ctx.fillText("de los comandos ni funciones del bot.", 100, 320);
-    ctx.fillText("Si deseas volver a disfrutar de la experiencia completa,", 100, 370);
-    ctx.fillText("deberás registrarte nuevamente con el comando `reg`.", 100, 410);
+    // Función para texto multilinea
+    const drawMultilineText = (textArray, startX, startY, lineHeight) => {
+      ctx.fillStyle = "#fff";
+      ctx.font = "26px Sans";
+      ctx.shadowColor = "#ff2b2b";
+      ctx.shadowBlur = 8;
+      textArray.forEach((line, i) => {
+        ctx.fillText(line, startX, startY + i * lineHeight);
+      });
+      ctx.shadowBlur = 0;
+    };
 
-    ctx.shadowBlur = 0;
+    drawMultilineText([
+      "Tu registro ha sido eliminado correctamente.",
+      "A partir de ahora ya no podrás acceder a la mayoría",
+      "de los comandos ni funciones del bot.",
+      "Si deseas volver a disfrutar de la experiencia completa,",
+      "deberás registrarte nuevamente con el comando `reg`."
+    ], 100, 230, 50);
 
     // Guardar imagen
     const filePath = "./temp/unregistro.png";
@@ -85,12 +93,12 @@ const unregisterCommand = {
     // Enviar al privado
     await sock.sendMessage(senderId, {
       image: { url: filePath },
-      caption: `❌ Tu registro ha sido eliminado.\nID de eliminación: ${deleteId}`,
+      caption: `Tu registro ha sido eliminado.\nID de eliminación: ${deleteId}`,
     });
 
     // Aviso en el chat original
     await sock.sendMessage(msg.key.remoteJid, {
-      text: "✅ Registro eliminado exitosamente. Revisa tu privado para ver tu comprobante.",
+      text: `✅ Registro eliminado exitosamente.\nID: ${deleteId}`,
     });
   },
 };
