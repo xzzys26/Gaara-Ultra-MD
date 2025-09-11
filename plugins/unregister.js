@@ -50,7 +50,7 @@ const unregisterCommand = {
     ctx.fillRect(0, 0, 900, 550);
 
     // Logo
-    const logo = await loadImage("https://files.catbox.moe/mzaho9.jpg");
+    const logo = await loadImage("https://files.catbox.moe/2a5lrk.jpg");
     ctx.drawImage(logo, 40, 30, 100, 100);
 
     // Título
