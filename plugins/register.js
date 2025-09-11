@@ -105,7 +105,7 @@ const registerCommand = {
     // Enviar imagen al privado
     await sock.sendMessage(senderId, {
       image: { url: filePath },
-      caption: `✨ Bienvenido/a al sistema del bot (modo ${style}) ✨`,
+      caption: ` Bienvenido/a al sistema del bot (modo ${style}) ✨`,
     });
 
     // Aviso en el chat original
