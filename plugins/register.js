@@ -1,4 +1,6 @@
-import { readUsersDb, writeUsersDb } from '../lib/database.js';
+import { createCanvas, loadImage } from "canvas";
+import fs from "fs";
+import { readUsersDb, writeUsersDb } from "../lib/database.js";
 
 const INITIAL_COINS = 1000;
 
@@ -16,8 +18,8 @@ const registerCommand = {
       return sock.sendMessage(msg.key.remoteJid, { text: "⚠️ Ya estás registrado." }, { quoted: msg });
     }
 
-    const input = args.join(' ');
-    if (!input.includes('.')) {
+    const input = args.join(" ");
+    if (!input.includes(".")) {
       return sock.sendMessage(
         msg.key.remoteJid,
         { text: "❌ Formato incorrecto.\nUso: `reg <nombre>.<edad>`\nEjemplo: `reg Jules.25`" },
@@ -25,7 +27,7 @@ const registerCommand = {
       );
     }
 
-    const [name, ageStr] = input.split('.');
+    const [name, ageStr] = input.split(".");
     const age = parseInt(ageStr, 10);
 
     if (!name || isNaN(age) || age < 10 || age > 90) {
@@ -36,55 +38,54 @@ const registerCommand = {
       );
     }
 
-    // Loader 1
-    const loader = await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Un momento, por favor..." }, { quoted: msg });
+    // Guardar usuario
+    usersDb[senderId] = {
+      name: name.trim(),
+      age,
+      registeredAt: new Date().toISOString(),
+      coins: INITIAL_COINS,
+      warnings: 0,
+    };
+    writeUsersDb(usersDb);
 
-    // Loader 2
-    setTimeout(async () => {
-      await sock.sendMessage(msg.key.remoteJid, { text: "🗂 Registrándote en mi base de datos...", edit: loader.key });
-    }, 2500);
+    // Generar imagen personalizada
+    const canvas = createCanvas(800, 500);
+    const ctx = canvas.getContext("2d");
 
-    // Loader 3
-    setTimeout(async () => {
-      await sock.sendMessage(msg.key.remoteJid, { text: "✅️ ¡Ya estás listo!", edit: loader.key });
-    }, 5000);
+    // Fondo
+    ctx.fillStyle = "#f5f5f5";
+    ctx.fillRect(0, 0, 800, 500);
 
-    // Mensaje final con botón (mensaje NUEVO)
-    setTimeout(async () => {
-      usersDb[senderId] = {
-        name: name.trim(),
-        age: age,
-        registeredAt: new Date().toISOString(),
-        coins: INITIAL_COINS,
-        warnings: 0
-      };
+    // Título
+    ctx.fillStyle = "#007bff";
+    ctx.font = "bold 40px Sans";
+    ctx.fillText("🧾 REGISTRO EXITOSO ✅", 180, 80);
 
-      writeUsersDb(usersDb);
+    // Datos del usuario
+    ctx.fillStyle = "#000";
+    ctx.font = "28px Sans";
+    ctx.fillText(`👤 Nombre: ${name.trim()}`, 100, 180);
+    ctx.fillText(`🎂 Edad: ${age}`, 100, 230);
+    ctx.fillText(`💰 Monedas iniciales: ${INITIAL_COINS}`, 100, 280);
+    ctx.fillText(`📅 Fecha: ${new Date().toLocaleString("es-ES")}`, 100, 330);
+    ctx.fillText(`🆔 ID: REG-${Math.floor(Math.random() * 1000000)}`, 100, 380);
 
-      const successMessage = `
-🎉 *Registro Completado con Éxito* 🎉
+    // Guardar la imagen
+    const filePath = "./temp/registro.png";
+    const buffer = canvas.toBuffer("image/png");
+    fs.writeFileSync(filePath, buffer);
 
-👤 Nombre: ${name.trim()}
-🎂 Edad: ${age}
-💰 Monedas Iniciales: ${INITIAL_COINS}
+    // Enviar al privado
+    await sock.sendMessage(senderId, {
+      image: { url: filePath },
+      caption: "🎉 Bienvenido/a al sistema del bot 🎉",
+    });
 
-🔰 ¡Bienvenido/a al sistema del bot!
-      `;
-
-      // Botón para volver al menú
-      const buttons = [
-        { buttonId: 'menu', buttonText: { displayText: '🔙 Volver al Menú' }, type: 1 }
-      ];
-
-      await sock.sendMessage(msg.key.remoteJid, {
-        text: successMessage.trim(),
-        footer: '🌀 Gaara Ultra MD',
-        buttons: buttons,
-        headerType: 1
-      }, { quoted: msg });
-
-    }, 7000);
-  }
+    // Avisar en el chat
+    await sock.sendMessage(msg.key.remoteJid, {
+      text: "✅ Registro completado. Revisa tu privado para ver tu *comprobante de registro*.",
+    });
+  },
 };
 
 export default registerCommand;
