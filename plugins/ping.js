@@ -1,3 +1,5 @@
+const os = require("os");
+
 const pingCommand = {
   name: "ping",
   category: "general",
@@ -6,14 +8,33 @@ const pingCommand = {
 
   async execute({ sock, msg }) {
     const startTime = Date.now();
-    // Enviamos un mensaje inicial para luego editarlo con la latencia.
-    const sentMsg = await sock.sendMessage(msg.key.remoteJid, { text: "Calculando..." }, { quoted: msg });
+    const sentMsg = await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Calculando..." }, { quoted: msg });
     const endTime = Date.now();
     const latency = endTime - startTime;
 
-    // Editamos el mensaje con el resultado.
-    // Nota: La edición de mensajes puede no ser visible en todos los dispositivos de WhatsApp.
-    await sock.sendMessage(msg.key.remoteJid, { text: `Pong! 🏓\nLatencia: ${latency} ms` }, { edit: sentMsg.key });
+    // Info del sistema
+    const uptime = process.uptime();
+    const hours = Math.floor(uptime / 3600);
+    const minutes = Math.floor((uptime % 3600) / 60);
+    const seconds = Math.floor(uptime % 60);
+    const usedMem = (process.memoryUsage().rss / 1024 / 1024).toFixed(2);
+    const totalMem = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2);
+    const cpuModel = os.cpus()[0].model;
+
+    const statusMessage = `
+╭━━━〔 *🚀 ESTADO DEL BOT* 〕━━━╮
+┃ ⚡ *Velocidad:* ${latency} ms
+┃ 💾 *RAM usada:* ${usedMem} MB / ${totalMem} GB
+┃ ⏳ *Uptime:* ${hours}h ${minutes}m ${seconds}s
+┃ 🖥️ *CPU:* ${cpuModel}
+╰━━━━━━━━━━━━━━━━━━━━━━━╯
+`;
+
+    await sock.sendMessage(
+      msg.key.remoteJid,
+      { text: statusMessage },
+      { quoted: msg }
+    );
   }
 };
 
