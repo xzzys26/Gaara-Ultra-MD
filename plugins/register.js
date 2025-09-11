@@ -48,32 +48,52 @@ const registerCommand = {
     };
     writeUsersDb(usersDb);
 
-    // Generar imagen personalizada
-    const canvas = createCanvas(800, 500);
+    // Crear ID
+    const registroId = `REG-${Math.floor(Math.random() * 1000000)}`;
+
+    // Crear imagen estilo futurista
+    const canvas = createCanvas(900, 550);
     const ctx = canvas.getContext("2d");
 
-    // Fondo
-    ctx.fillStyle = "#f5f5f5";
-    ctx.fillRect(0, 0, 800, 500);
+    // Fondo degradado
+    const gradient = ctx.createLinearGradient(0, 0, 900, 550);
+    gradient.addColorStop(0, "#f0f4ff");
+    gradient.addColorStop(1, "#dce7ff");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 900, 550);
+
+    // Cargar logo
+    const logo = await loadImage("https://files.catbox.moe/mzaho9.jpg");
+    ctx.drawImage(logo, 40, 30, 100, 100);
 
     // Título
     ctx.fillStyle = "#007bff";
-    ctx.font = "bold 40px Sans";
-    ctx.fillText("🧾 REGISTRO EXITOSO ✅", 180, 80);
+    ctx.font = "bold 38px Sans";
+    ctx.fillText("✅ REGISTRO EXITOSO", 160, 80);
 
-    // Datos del usuario
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = "#444";
     ctx.font = "28px Sans";
-    ctx.fillText(`👤 Nombre: ${name.trim()}`, 100, 180);
-    ctx.fillText(`🎂 Edad: ${age}`, 100, 230);
-    ctx.fillText(`💰 Monedas iniciales: ${INITIAL_COINS}`, 100, 280);
-    ctx.fillText(`📅 Fecha: ${new Date().toLocaleString("es-ES")}`, 100, 330);
-    ctx.fillText(`🆔 ID: REG-${Math.floor(Math.random() * 1000000)}`, 100, 380);
+    ctx.fillText("by Gaara Ultra", 165, 115);
 
-    // Guardar la imagen
-    const filePath = "./temp/registro.png";
-    const buffer = canvas.toBuffer("image/png");
-    fs.writeFileSync(filePath, buffer);
+    // Caja principal (blanca con sombra)
+    ctx.fillStyle = "white";
+    ctx.shadowColor = "rgba(0,0,0,0.2)";
+    ctx.shadowBlur = 10;
+    ctx.fillRect(60, 170, 780, 330);
+    ctx.shadowBlur = 0;
+
+    // Datos
+    ctx.fillStyle = "#000";
+    ctx.font = "26px Sans";
+    ctx.fillText(`👤 Nombre: ${name.trim()}`, 100, 220);
+    ctx.fillText(`🎂 Edad: ${age}`, 100, 270);
+    ctx.fillText(`💰 Monedas iniciales: ${INITIAL_COINS}`, 100, 320);
+    ctx.fillText(`📅 Fecha: ${new Date().toLocaleString("es-ES")}`, 100, 370);
+    ctx.fillText(`🆔 ID: ${registroId}`, 100, 420);
+
+    // Guardar imagen
+    const filePath = "./temp/registro_exitoso.png";
+    fs.writeFileSync(filePath, canvas.toBuffer("image/png"));
 
     // Enviar al privado
     await sock.sendMessage(senderId, {
@@ -81,9 +101,9 @@ const registerCommand = {
       caption: "🎉 Bienvenido/a al sistema del bot 🎉",
     });
 
-    // Avisar en el chat
+    // Avisar en el chat original
     await sock.sendMessage(msg.key.remoteJid, {
-      text: "✅ Registro completado. Revisa tu privado para ver tu *comprobante de registro*.",
+      text: "✅ Registro completado. Revisa tu privado para ver tu *comprobante futurista de registro*.",
     });
   },
 };
