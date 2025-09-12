@@ -65,7 +65,7 @@ const menuCommand = {
 
     // Encabezado del menú
     let menuText = `╭━━━〔 *${config.botName}* 〕━━━⬣\n`;
-    menuText += `┃ ➪ ⚡️ 𝗛𝗼𝗹𝗮: *${msg.pushName}*\n`;
+    menuText += `┃ ➪ 🥷🏼 𝗛𝗼𝗹𝗮: *${msg.pushName}*\n`;
     menuText += `┃ ➪ 👑 Owner: *${config.ownerName}*\n`;
     menuText += `┃ ➪ 🔰 Versión: *${config.version || '4.0.1'}*\n`;
     menuText += `┃ ➪ ⏰ Uptime: *${uptime}*\n`;
