@@ -26,6 +26,19 @@ function formatUptime(ms) {
   return `${hours}h ${minutes}m ${seconds}s`;
 }
 
+// Función de delay
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Función para saludo según hora
+function getSaludo() {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return '🌄 Buenos días';
+  if (hour >= 12 && hour < 18) return '🌆 Buenas tardes';
+  return '🌃 Buenas noches';
+}
+
 const menuCommand = {
   name: "menu",
   category: "general",
@@ -37,12 +50,12 @@ const menuCommand = {
 
     // --- Reacciones al mensaje ---
     try {
-      // Primera reacción
       await sock.sendMessage(msg.key.remoteJid, {
         react: { text: "🥷🏽", key: msg.key }
       });
 
-      // Segunda reacción
+      await sleep(700); // espera 700ms antes de la segunda reacción
+
       await sock.sendMessage(msg.key.remoteJid, {
         react: { text: "✅️", key: msg.key }
       });
@@ -62,14 +75,16 @@ const menuCommand = {
     // Uptime y fecha
     const uptime = formatUptime(process.uptime() * 1000);
     const fecha = new Date().toLocaleDateString("es-ES", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    const saludo = getSaludo();
 
     // Encabezado del menú
     let menuText = `╭━━━〔 *${config.botName}* 〕━━━⬣\n`;
-    menuText += `┃ ➪ 🥷🏼 𝗛𝗼𝗹𝗮: *${msg.pushName}*\n`;
+    menuText += `┃ ➪ 🥷🏼 Hola: *${msg.pushName}*\n`;
     menuText += `┃ ➪ 👑 Owner: *${config.ownerName}*\n`;
-    menuText += `┃ ➪ 🔰 Versión: *${config.version || '4.0.1'}*\n`;
+    menuText += `┃ ➪ 🔰 Versión: *${config.version || '1.0.0'}*\n`;
     menuText += `┃ ➪ ⏰ Uptime: *${uptime}*\n`;
     menuText += `┃ ➪ 📅 Fecha: *${fecha}*\n`;
+    menuText += `┃ ➪ ${saludo}\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━⬣\n\n`;
 
     // Construcción del menú
@@ -79,20 +94,23 @@ const menuCommand = {
 
       const commandList = categories[category]
         .filter((cmd, index, self) => self.findIndex(c => c.name === cmd.name) === index)
-        .map(cmd => `> ╰┈➤ ✎ \`\`\`.${cmd.name}\`\`\``) // tu decoración
+        .map(cmd => `> ╰┈➤ ✎ \`\`\`.${cmd.name}\`\`\``)
         .join('\n');
 
       menuText += `${commandList}\n`;
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-    // Enviar menú
+    // URL del video (puede ser YouTube o cualquier link compatible)
+    const videoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4'; // reemplaza por tu video
+
+    // Enviar menú con video
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        image: { url: 'https://files.catbox.moe/vm9t7c.jpg' },
+        video: { url: videoUrl },
         caption: menuText,
-        mimetype: 'image/png'
+        mimetype: 'video/mp4'
       },
       { quoted: msg }
     );
