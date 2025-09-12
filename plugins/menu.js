@@ -31,7 +31,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Función de saludo según la hora
+// Función para saludo según hora
 function getSaludo() {
   const hour = new Date().getHours();
   if (hour >= 5 && hour < 12) return '🌄 Buenos días';
@@ -50,9 +50,15 @@ const menuCommand = {
 
     // --- Reacciones al mensaje ---
     try {
-      await sock.sendMessage(msg.key.remoteJid, { react: { text: "🥷🏽", key: msg.key } });
+      await sock.sendMessage(msg.key.remoteJid, {
+        react: { text: "🥷🏽", key: msg.key }
+      });
+
       await sleep(700); // espera 700ms antes de la segunda reacción
-      await sock.sendMessage(msg.key.remoteJid, { react: { text: "✅️", key: msg.key } });
+
+      await sock.sendMessage(msg.key.remoteJid, {
+        react: { text: "✅️", key: msg.key }
+      });
     } catch (err) {
       console.log("No se pudo reaccionar al mensaje:", err);
     }
@@ -81,7 +87,7 @@ const menuCommand = {
     menuText += `┃ ➪ ${saludo}\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━⬣\n\n`;
 
-    // Construcción del menú por categorías
+    // Construcción del menú
     for (const category of sortedCategories) {
       const emoji = categoryEmojis[category] || categoryEmojis['default'];
       menuText += `╭━━━〔 ${emoji} ${category.toUpperCase()} 〕━━━⬣\n`;
@@ -95,20 +101,16 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-    // URL del video que se reproducirá automáticamente
-    const videoUrl = 'https://files.catbox.moe/nmvafq.mp4'; // reemplaza por tu video
+    // URL del GIF (video convertido a GIF)
+    const gifUrl = 'https://files.catbox.moe/nmvafq.mp4'; // tu video/gif
 
-    // Enviar menú con video silencioso que se reproduce automáticamente
+    // Enviar menú con GIF
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        video: {
-          url: videoUrl,
-          caption: menuText,
-          mimetype: 'video/mp4',
-          fileName: 'menu.mp4',
-          gifPlayback: false // se comporta como video normal
-        }
+        video: { url: gifUrl, gifPlayback: true },
+        caption: menuText,
+        mimetype: 'video/mp4'
       },
       { quoted: msg }
     );
