@@ -1,4 +1,4 @@
-const os = require("os");
+import os from "os";
 
 const pingCommand = {
   name: "ping",
@@ -7,10 +7,13 @@ const pingCommand = {
   aliases: ["p"],
 
   async execute({ sock, msg }) {
-    const startTime = Date.now();
-    const sentMsg = await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Calculando..." }, { quoted: msg });
-    const endTime = Date.now();
-    const latency = endTime - startTime;
+    const start = Date.now();
+
+    // Enviamos mensaje provisional
+    await sock.sendMessage(msg.key.remoteJid, { text: "⏳ Calculando ping..." }, { quoted: msg });
+
+    const end = Date.now();
+    const latency = end - start;
 
     // Info del sistema
     const uptime = process.uptime();
@@ -30,11 +33,7 @@ const pingCommand = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯
 `;
 
-    await sock.sendMessage(
-      msg.key.remoteJid,
-      { text: statusMessage },
-      { quoted: msg }
-    );
+    await sock.sendMessage(msg.key.remoteJid, { text: statusMessage }, { quoted: msg });
   }
 };
 
