@@ -102,7 +102,7 @@ const menuCommand = {
     }
 
     // URL del video (puede ser YouTube o cualquier link compatible)
-    const videoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4'; // reemplaza por tu video
+    const videoUrl = 'https://files.catbox.moe/nmvafq.mp4'; // reemplaza por tu video
 
     // Enviar menú con video
     await sock.sendMessage(
