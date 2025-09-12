@@ -50,7 +50,7 @@ menuText += `╰━━━━━━━━━━━━━━━━━━━━━�
 
       const commandList = categories[category]
         .filter((cmd, index, self) => self.findIndex(c => c.name === cmd.name) === index) // evitar duplicados
-        .map(cmd => `┃ >${cmd.name}`)
+        .map(cmd => `┃ ➺ ${cmd.name}`)
         .join('\n');
 
       menuText += `${commandList}\n`;
