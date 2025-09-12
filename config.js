@@ -27,7 +27,7 @@ const config = {
   },
 
   
-  authDir: 'Itsuki Session'
+  authDir: 'Xzzys26 Session'
 };
 
 export default config;
