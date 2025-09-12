@@ -36,27 +36,29 @@ const menuCommand = {
     // Ordenar categorías alfabéticamente
     const sortedCategories = Object.keys(categories).sort();
 
-    // --- Construcción del menú con tu decoración ---
+    // --- Encabezado versión Gaara ---
+    let menuText = `╭━━━〔 *${config.botName}* 〕━━━⬣\n`;
+    menuText += `┃ ➪ 𝗛𝗼𝗹𝗮: *${msg.pushName}*\n`;
+    menuText += `┃ ➪ 𝗩𝗲𝗿𝘀𝗶𝗼𝗻: *${config.version || '1.0.0'}*\n`;
+    menuText += `┃ ➪ 𝗢𝘄𝗻𝗲𝗿: *${config.ownerName}*\n`;
+    menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━⬣\n\n`;
 
- let menuText = `╭━━━〔 *${config.botName}* 〕━━━╮\n`;
-menuText += `┃ ➪ 𝗛𝗼𝗹𝗮 𝗨𝘀𝗲𝗿: *${msg.pushName}*\n`;
-menuText += `┃ ➪ 𝗩𝗲𝗿𝘀𝗶𝗼𝗻 𝗗𝗲𝗹 𝗕𝗼𝘁: *${config.version || '1.0.0'}*\n`;
-menuText += `┃ ➪ 𝗢𝘄𝗻𝗲𝗿: *${config.ownerName}*\n`;
-menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
-
+    // --- Construcción del menú ---
     for (const category of sortedCategories) {
       const emoji = categoryEmojis[category] || categoryEmojis['default'];
-      menuText += `╭━━━〔 ${emoji} ${category.toUpperCase()} 〕\n`;
+
+      menuText += `╭━━━〔 ${emoji} ${category.toUpperCase()} 〕━━━⬣\n`;
 
       const commandList = categories[category]
         .filter((cmd, index, self) => self.findIndex(c => c.name === cmd.name) === index) // evitar duplicados
-        .map(cmd => `┃ ➺ ${cmd.name}`)
+        .map(cmd => `┃ > ${cmd.name}`)
         .join('\n');
 
       menuText += `${commandList}\n`;
-      menuText += `╰━━━━━━━━━━━━━━━━━━╯\n\n`;
+      menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
+    // --- Enviar menú ---
     await sock.sendMessage(
       msg.key.remoteJid,
       {
