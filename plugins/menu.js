@@ -13,7 +13,7 @@ const categoryEmojis = {
   'default': '⚙️'
 };
 
-// Formatear uptime
+// Función para formatear uptime
 function formatUptime(ms) {
   let seconds = Math.floor(ms / 1000);
   let minutes = Math.floor(seconds / 60);
@@ -35,10 +35,16 @@ const menuCommand = {
   async execute({ sock, msg, commands, config }) {
     const categories = {};
 
-    // --- Reacción al mensaje ---
+    // --- Reacciones al mensaje ---
     try {
+      // Primera reacción
       await sock.sendMessage(msg.key.remoteJid, {
-        react: { text: "🌀", key: msg.key }
+        react: { text: "🥷🏽", key: msg.key }
+      });
+
+      // Segunda reacción
+      await sock.sendMessage(msg.key.remoteJid, {
+        react: { text: "✅️", key: msg.key }
       });
     } catch (err) {
       console.log("No se pudo reaccionar al mensaje:", err);
@@ -73,7 +79,7 @@ const menuCommand = {
 
       const commandList = categories[category]
         .filter((cmd, index, self) => self.findIndex(c => c.name === cmd.name) === index)
-        .map(cmd => `> ╰┈➤ ✎ \`\`\`.${cmd.name}\`\`\``)
+        .map(cmd => `> ╰┈➤ ✎ \`\`\`.${cmd.name}\`\`\``) // tu decoración
         .join('\n');
 
       menuText += `${commandList}\n`;
