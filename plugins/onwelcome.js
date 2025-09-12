@@ -1,7 +1,7 @@
 import { readSettingsDb, writeSettingsDb } from '../lib/database.js';
 
 const onWelcomeCommand = {
-  name: "on welcome",
+  name: ".on welcome",
   category: "grupos",
   description: "Activa los mensajes de bienvenida en el grupo.",
 
