@@ -22,7 +22,7 @@ const fetchSticker = async (text, attempt = 1) => {
 
 const bratCommand = {
   name: "brat",
-  category: "sticker",
+  category: "economia",
   description: "Convierte un texto en un sticker estilo *brat*.",
 
   async execute({ sock, msg, args, config }) {
