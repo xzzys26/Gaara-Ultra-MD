@@ -31,7 +31,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Función para saludo según hora
+// Función de saludo según la hora
 function getSaludo() {
   const hour = new Date().getHours();
   if (hour >= 5 && hour < 12) return '🌄 Buenos días';
@@ -50,15 +50,9 @@ const menuCommand = {
 
     // --- Reacciones al mensaje ---
     try {
-      await sock.sendMessage(msg.key.remoteJid, {
-        react: { text: "🥷🏽", key: msg.key }
-      });
-
+      await sock.sendMessage(msg.key.remoteJid, { react: { text: "🥷🏽", key: msg.key } });
       await sleep(700); // espera 700ms antes de la segunda reacción
-
-      await sock.sendMessage(msg.key.remoteJid, {
-        react: { text: "✅️", key: msg.key }
-      });
+      await sock.sendMessage(msg.key.remoteJid, { react: { text: "✅️", key: msg.key } });
     } catch (err) {
       console.log("No se pudo reaccionar al mensaje:", err);
     }
@@ -87,7 +81,7 @@ const menuCommand = {
     menuText += `┃ ➪ ${saludo}\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━⬣\n\n`;
 
-    // Construcción del menú
+    // Construcción del menú por categorías
     for (const category of sortedCategories) {
       const emoji = categoryEmojis[category] || categoryEmojis['default'];
       menuText += `╭━━━〔 ${emoji} ${category.toUpperCase()} 〕━━━⬣\n`;
@@ -101,16 +95,20 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-    // URL del video (puede ser YouTube o cualquier link compatible)
+    // URL del video que se reproducirá automáticamente
     const videoUrl = 'https://files.catbox.moe/nmvafq.mp4'; // reemplaza por tu video
 
-    // Enviar menú con video
+    // Enviar menú con video silencioso que se reproduce automáticamente
     await sock.sendMessage(
       msg.key.remoteJid,
       {
-        video: { url: videoUrl },
-        caption: menuText,
-        mimetype: 'video/mp4'
+        video: {
+          url: videoUrl,
+          caption: menuText,
+          mimetype: 'video/mp4',
+          fileName: 'menu.mp4',
+          gifPlayback: false // se comporta como video normal
+        }
       },
       { quoted: msg }
     );
