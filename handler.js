@@ -44,7 +44,14 @@ export async function handler(m, isSubBot = false) { // Se añade isSubBot para 
       commandName = body.trim().split(/ +/)[0].toLowerCase();
     }
 
-    let command = commands.get(commandName) || commands.get(aliases.get(commandName));
+    // First try to match multi-word commands by checking if the full command is an alias
+    const fullCommand = body.trim().toLowerCase();
+    let command = commands.get(fullCommand) || commands.get(aliases.get(fullCommand));
+    
+    // If not found, try single word command
+    if (!command) {
+      command = commands.get(commandName) || commands.get(aliases.get(commandName));
+    }
 
     if (command) {
       const senderNumber = senderId.split('@')[0];

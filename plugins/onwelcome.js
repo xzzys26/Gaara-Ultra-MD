@@ -1,8 +1,9 @@
 import { readSettingsDb, writeSettingsDb } from '../lib/database.js';
 
 const onWelcomeCommand = {
-  name: ".on welcome",
-  category: "grupos",
+  name: "onwelcome",
+  aliases: ["on welcome"],
+  category: "grupos", 
   description: "Activa los mensajes de bienvenida en el grupo.",
 
   async execute({ sock, msg }) {
@@ -23,8 +24,9 @@ const onWelcomeCommand = {
     const settings = readSettingsDb();
     if (!settings[from]) settings[from] = {};
     settings[from].welcome = true;
+    settings[from].bye = true; // También activar despedidas
     writeSettingsDb(settings);
-    await sock.sendMessage(from, { text: "✅ Mensajes de bienvenida ACTIVADOS para este grupo." }, { quoted: msg });
+    await sock.sendMessage(from, { text: "✅ Mensajes de bienvenida y despedida ACTIVADOS para este grupo." }, { quoted: msg });
   }
 };
 

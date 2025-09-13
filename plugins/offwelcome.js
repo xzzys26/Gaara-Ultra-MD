@@ -1,7 +1,8 @@
 import { readSettingsDb, writeSettingsDb } from '../lib/database.js';
 
 const offWelcomeCommand = {
-  name: "off welcome",
+  name: "offwelcome",
+  aliases: ["off welcome"],
   category: "grupos",
   description: "Desactiva los mensajes de bienvenida en el grupo.",
 
@@ -23,8 +24,9 @@ const offWelcomeCommand = {
     const settings = readSettingsDb();
     if (!settings[from]) settings[from] = {};
     settings[from].welcome = false;
+    settings[from].bye = false; // También desactivar despedidas
     writeSettingsDb(settings);
-    await sock.sendMessage(from, { text: "✅ Mensajes de bienvenida DESACTIVADOS para este grupo." }, { quoted: msg });
+    await sock.sendMessage(from, { text: "✅ Mensajes de bienvenida y despedida DESACTIVADOS para este grupo." }, { quoted: msg });
   }
 };
 

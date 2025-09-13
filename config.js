@@ -18,6 +18,9 @@ const config = {
   // Se añade el LID del propietario para asegurar el reconocimiento.
   ownerNumbers: ["18493907272", "176742836768966"],
 
+  // Prefijo global para los comandos del bot (por defecto es punto)
+  prefix: ".",
+
   // APIs (si las tienes, si no, déjalas como están)
   // No es necesario modificar estas si usas las APIs públicas de Adonix.
   api: {
