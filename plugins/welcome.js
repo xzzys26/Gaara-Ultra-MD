@@ -86,7 +86,7 @@ async function sendWelcomeOrBye(conn, { jid, userName = 'Usuario', type = 'welco
   await conn.sendMessage(jid, { image: { url: file }, caption: `${title} ${handle}`, mentions: mentionId })
 }
 
-const welcome = {
+const welcomeCommand = {
   name: "welcome",
   category: "grupos",
   description: "Activa/desactiva bienvenida automática y permite texto personalizado.",
@@ -134,4 +134,4 @@ const welcome = {
   }
 }
 
-export default welcome
+export default welcomeCommand;
