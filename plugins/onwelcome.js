@@ -1,15 +1,19 @@
 import { readSettingsDb, writeSettingsDb } from '../lib/database.js';
 
 const onWelcomeCommand = {
-  name: ".on welcome",
+  name: ".on",
   category: "grupos",
-  description: "Activa los mensajes de bienvenida en el grupo.",
+  description: "Activa configuraciones (ej: `.on welcome`) en el grupo.",
 
-  async execute({ sock, msg }) {
+  async execute({ sock, msg, args = [] }) {
     const from = msg.key.remoteJid;
     if (!from.endsWith('@g.us')) {
       return sock.sendMessage(from, { text: "Este comando solo se puede usar en grupos." }, { quoted: msg });
     }
+    // Debe indicar qué activar: `.on welcome`
+    const what = (args[0] || '').toLowerCase();
+    if (!what) return sock.sendMessage(from, { text: "Indica qué activar. Ejemplo: `.on welcome`" }, { quoted: msg });
+    if (what !== 'welcome') return sock.sendMessage(from, { text: "Opción no válida. Actualmente soportado: `welcome`" }, { quoted: msg });
     try {
       const metadata = await sock.groupMetadata(from);
       const senderId = msg.key.participant || msg.key.remoteJid;
