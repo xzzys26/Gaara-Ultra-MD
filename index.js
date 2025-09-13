@@ -374,26 +374,27 @@ async function connectToWhatsApp() {
   // --- MANEJO DE BIENVENIDA Y DESPEDIDA ---
   sock.ev.on('group-participants.update', async (event) => {
     const { id, participants, action } = event;
-    // Usamos la función centralizada de la base de datos
     const { readSettingsDb } = await import('./lib/database.js');
+    const { sendWelcomeOrBye } = (await import('./lib/welcome.js')).default;
     const settings = readSettingsDb();
     const groupSettings = settings[id];
-
     if (!groupSettings) return;
-
     for (const p of participants) {
       try {
         const userName = `@${p.split('@')[0]}`;
-        let message = '';
-
-        if (action === 'add' && groupSettings.welcome && groupSettings.welcomeMessage) {
-          message = groupSettings.welcomeMessage.replace(/@user/g, userName);
-        } else if (action === 'remove' && groupSettings.bye && groupSettings.byeMessage) {
-          message = groupSettings.byeMessage.replace(/@user/g, userName);
-        }
-
-        if (message) {
-          await sock.sendMessage(id, { text: message, mentions: [p] });
+        if (action === 'add' && groupSettings.welcome) {
+          // Mensaje personalizado si existe, si no usa imagen
+          if (groupSettings.welcomeMessage) {
+            await sock.sendMessage(id, { text: groupSettings.welcomeMessage.replace(/@user/g, userName), mentions: [p] });
+          } else {
+            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'welcome', groupName: '', participant: p });
+          }
+        } else if (action === 'remove' && groupSettings.bye) {
+          if (groupSettings.byeMessage) {
+            await sock.sendMessage(id, { text: groupSettings.byeMessage.replace(/@user/g, userName), mentions: [p] });
+          } else {
+            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'bye', groupName: '', participant: p });
+          }
         }
       } catch (e) {
         console.error(`Error en group-participants.update para el participante ${p}:`, e);
