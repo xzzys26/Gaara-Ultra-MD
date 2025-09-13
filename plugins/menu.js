@@ -31,12 +31,56 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Función para saludo según hora
-function getSaludo() {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 12) return '🌄 Buenos días';
-  if (hour >= 12 && hour < 18) return '🌆 Buenas tardes';
-  return '🌃 Buenas noches';
+// Relación de prefijos → países y zonas horarias
+const zonasPorPrefijo = {
+  "+52": { pais: "🇲🇽 México", zona: "America/Mexico_City" },
+  "+1": { pais: "🇺🇸 EE.UU / Caribe", zona: "America/New_York" }, // incluye RD y St. Martin
+  "+504": { pais: "🇭🇳 Honduras", zona: "America/Tegucigalpa" },
+  "+57": { pais: "🇨🇴 Colombia", zona: "America/Bogota" },
+  "+58": { pais: "🇻🇪 Venezuela", zona: "America/Caracas" },
+  "+51": { pais: "🇵🇪 Perú", zona: "America/Lima" },
+  "+1809": { pais: "🇩🇴 República Dominicana", zona: "America/Santo_Domingo" },
+  "+1829": { pais: "🇩🇴 República Dominicana", zona: "America/Santo_Domingo" },
+  "+1849": { pais: "🇩🇴 República Dominicana", zona: "America/Santo_Domingo" },
+  "+590": { pais: "🇸🇽 Saint Martin", zona: "America/Marigot" }
+};
+
+// Obtener saludo y hora según prefijo
+function getSaludoYHora(jid) {
+  const numero = jid.split("@")[0];
+  let data = null;
+
+  for (const prefijo of Object.keys(zonasPorPrefijo)) {
+    if (numero.startsWith(prefijo.replace("+", ""))) {
+      data = zonasPorPrefijo[prefijo];
+      break;
+    }
+  }
+
+  if (!data) {
+    // Si no se reconoce, usar Saint Martin como default
+    data = { pais: "🌍 Desconocido", zona: "America/Marigot" };
+  }
+
+  const ahora = new Date();
+  const hora = new Intl.DateTimeFormat("es-ES", {
+    timeZone: data.zona,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  }).format(ahora);
+
+  const hora24 = parseInt(new Intl.DateTimeFormat("es-ES", {
+    timeZone: data.zona,
+    hour: "2-digit",
+    hour12: false
+  }).format(ahora));
+
+  let saludo = "🌃 Buenas noches";
+  if (hora24 >= 5 && hora24 < 12) saludo = "🌄 Buenos días";
+  else if (hora24 >= 12 && hora24 < 19) saludo = "🌆 Buenas tardes";
+
+  return `${saludo} ${data.pais} — *${hora}*`;
 }
 
 const menuCommand = {
@@ -50,15 +94,9 @@ const menuCommand = {
 
     // --- Reacciones al mensaje ---
     try {
-      await sock.sendMessage(msg.key.remoteJid, {
-        react: { text: "🥷🏽", key: msg.key }
-      });
-
-      await sleep(700); // espera 700ms antes de la segunda reacción
-
-      await sock.sendMessage(msg.key.remoteJid, {
-        react: { text: "✅️", key: msg.key }
-      });
+      await sock.sendMessage(msg.key.remoteJid, { react: { text: "🥷🏽", key: msg.key } });
+      await sleep(700);
+      await sock.sendMessage(msg.key.remoteJid, { react: { text: "✅️", key: msg.key } });
     } catch (err) {
       console.log("No se pudo reaccionar al mensaje:", err);
     }
@@ -72,10 +110,16 @@ const menuCommand = {
 
     const sortedCategories = Object.keys(categories).sort();
 
-    // Uptime y fecha
+    // Uptime, fecha y saludo según país del número
     const uptime = formatUptime(process.uptime() * 1000);
-    const fecha = new Date().toLocaleDateString("es-ES", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
-    const saludo = getSaludo();
+    const fecha = new Date().toLocaleDateString("es-ES", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "America/Marigot"
+    });
+    const saludo = getSaludoYHora(msg.key.remoteJid);
 
     // Encabezado del menú
     let menuText = `╭━━━〔 *${config.botName}* 〕━━━⬣\n`;
@@ -101,18 +145,18 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-const gifUrl = 'https://files.catbox.moe/calbdy.mp4';
+    const gifUrl = 'https://files.catbox.moe/calbdy.mp4';
 
-await sock.sendMessage(
-  msg.key.remoteJid,
-  {
-    video: { url: gifUrl },
-    caption: menuText,
-    mimetype: 'video/mp4',
-    gifPlayback: true 
-  },
-  { quoted: msg }
- );
+    await sock.sendMessage(
+      msg.key.remoteJid,
+      {
+        video: { url: gifUrl },
+        caption: menuText,
+        mimetype: 'video/mp4',
+        gifPlayback: true 
+      },
+      { quoted: msg }
+    );
   }
 };
 
