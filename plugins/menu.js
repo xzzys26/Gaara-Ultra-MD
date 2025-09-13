@@ -101,19 +101,18 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-    // URL del GIF (video convertido a GIF)
-    const gifUrl = 'https://files.catbox.moe/nmvafq.mp4'; // tu video/gif
+const gifUrl = 'https://files.catbox.moe/nmvafq.mp4';
 
-    // Enviar menú con GIF
-    await sock.sendMessage(
-      msg.key.remoteJid,
-      {
-        video: { url: gifUrl, gifPlayback: true },
-        caption: menuText,
-        mimetype: 'video/mp4'
-      },
-      { quoted: msg }
-    );
+await sock.sendMessage(
+  msg.key.remoteJid,
+  {
+    video: { url: gifUrl },
+    caption: menuText,
+    mimetype: 'video/mp4',
+    gifPlayback: true 
+  },
+  { quoted: msg }
+ );
   }
 };
 
