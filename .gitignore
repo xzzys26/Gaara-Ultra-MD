@@ -5,3 +5,6 @@ baileys_auth/
 sesion_bot/
 *.log
 database/
+# Temporary files
+temp/
+tmp/
