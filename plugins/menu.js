@@ -101,7 +101,7 @@ const menuCommand = {
       menuText += `╰━━━━━━━━━━━━━━━━━━⬣\n\n`;
     }
 
-const gifUrl = 'https://files.catbox.moe/dbanjb.mp4';
+const gifUrl = 'https://files.catbox.moe/32tule.mp4';
 
 await sock.sendMessage(
   msg.key.remoteJid,
