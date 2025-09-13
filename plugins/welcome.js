@@ -68,9 +68,11 @@ async function makeCard({ title = 'Bienvenida', subtitle = '', avatarUrl = '', b
 async function sendWelcomeOrBye(conn, { jid, userName = 'Usuario', type = 'welcome', groupName = '', participant, customText }) {
   const tmp = path.join(__dirname, '../temp')
   ensureDir(tmp)
-  
+
   const title = type === 'welcome' ? '¡Bienvenido!' : '¡Adiós!'
-  const subtitle = customText || (type === 'welcome' ? [`Hola ${userName}, bienvenido a ${groupName}`] : [`${userName} se fue del grupo`])
+  const subtitle = customText || (type === 'welcome'
+    ? [`Hola ${userName}, bienvenido al grupo ${groupName}`]
+    : [`${userName} se fue del grupo`])
 
   let avatarUrl = ''
   try { if (participant) avatarUrl = await conn.profilePictureUrl(participant, 'image') } catch {}
@@ -89,10 +91,14 @@ async function sendWelcomeOrBye(conn, { jid, userName = 'Usuario', type = 'welco
 const welcomeCommand = {
   name: "welcome",
   category: "grupos",
-  description: "Activa/desactiva bienvenida automática y permite texto personalizado.",
+  description: "Bienvenida automática con tarjeta personalizada.",
 
-  async execute({ sock, msg, args, commands, config, participant, updateType }) {
-    const groupId = msg.key.remoteJid
+  async execute({ sock, update, config }) {
+    if (!update || !update.type) return
+
+    const groupId = update.id
+    const participant = update.participant
+    const updateType = update.type // 'add' o 'remove'
 
     if (!config.groupSettings) config.groupSettings = {}
     if (!config.groupSettings[groupId]) config.groupSettings[groupId] = {
@@ -100,23 +106,6 @@ const welcomeCommand = {
       welcomeText: "Hola {user}, bienvenido al grupo {group}!"
     }
     const settings = config.groupSettings[groupId]
-
-    if (args[0] === "on") {
-      settings.enabled = true
-      return await sock.sendMessage(groupId, { text: "✅ Bienvenida activada." }, { quoted: msg })
-    }
-    if (args[0] === "off") {
-      settings.enabled = false
-      return await sock.sendMessage(groupId, { text: "❌ Bienvenida desactivada." }, { quoted: msg })
-    }
-    if (args[0] === "set") {
-      const newText = args.slice(2).join(" ")
-      if (args[1] === "welcome") {
-        settings.welcomeText = newText
-        return await sock.sendMessage(groupId, { text: "✅ Texto de bienvenida actualizado." }, { quoted: msg })
-      }
-    }
-
     if (!settings.enabled) return
 
     const type = updateType === 'add' ? 'welcome' : updateType === 'remove' ? 'bye' : 'welcome'
@@ -134,4 +123,4 @@ const welcomeCommand = {
   }
 }
 
-export default welcomeCommand;
+export default welcomeCommand
