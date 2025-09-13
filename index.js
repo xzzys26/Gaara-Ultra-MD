@@ -376,28 +376,39 @@ async function connectToWhatsApp() {
     const { id, participants, action } = event;
     const { readSettingsDb } = await import('./lib/database.js');
     const { sendWelcomeOrBye } = (await import('./lib/welcome.js')).default;
-    const settings = readSettingsDb();
-    const groupSettings = settings[id];
-    if (!groupSettings) return;
+  const settings = readSettingsDb();
+  const groupSettings = settings[id] || {};
+  // valores por defecto: si no está configurado, habilitar welcome/bye
+  const welcomeEnabled = (typeof groupSettings.welcome === 'boolean') ? groupSettings.welcome : true;
+  const byeEnabled = (typeof groupSettings.bye === 'boolean') ? groupSettings.bye : true;
     for (const p of participants) {
       try {
-        const userName = `@${p.split('@')[0]}`;
-        if (action === 'add' && groupSettings.welcome) {
-          // Mensaje personalizado si existe, si no usa imagen
+        // participants may be strings (jid) or objects { id: jid }
+        const participantId = (typeof p === 'string') ? p : (p?.id || p?.jid || null);
+        if (!participantId) {
+          console.warn('group-participants.update: participante sin id válido:', p);
+          continue;
+        }
+        const userName = `@${String(participantId).split('@')[0]}`;
+
+        // Log event for easier debugging
+        console.log(`group-participants.update: action=${action} group=${id} participant=${participantId}`);
+
+        if (action === 'add' && welcomeEnabled) {
           if (groupSettings.welcomeMessage) {
-            await sock.sendMessage(id, { text: groupSettings.welcomeMessage.replace(/@user/g, userName), mentions: [p] });
+            await sock.sendMessage(id, { text: groupSettings.welcomeMessage.replace(/@user/g, userName), mentions: [participantId] });
           } else {
-            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'welcome', groupName: '', participant: p });
+            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'welcome', groupName: '', participant: participantId });
           }
-        } else if (action === 'remove' && groupSettings.bye) {
+        } else if (action === 'remove' && byeEnabled) {
           if (groupSettings.byeMessage) {
-            await sock.sendMessage(id, { text: groupSettings.byeMessage.replace(/@user/g, userName), mentions: [p] });
+            await sock.sendMessage(id, { text: groupSettings.byeMessage.replace(/@user/g, userName), mentions: [participantId] });
           } else {
-            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'bye', groupName: '', participant: p });
+            await sendWelcomeOrBye(sock, { jid: id, userName, type: 'bye', groupName: '', participant: participantId });
           }
         }
       } catch (e) {
-        console.error(`Error en group-participants.update para el participante ${p}:`, e);
+        console.error(`Error en group-participants.update para el participante ${JSON.stringify(p)}:`, e);
       }
     }
   });
