@@ -22,7 +22,7 @@ async function loadImageSmart(src) {
   } catch { return null }
 }
 
-async function makeCard({ title = 'Bienvenida', subtitle = '', avatarUrl = '', bgUrl = '', badgeUrl = '' }) {
+async function makeCard({ title = 'Bienvenida', subtitle = '', avatarUrl = '', bgUrl = '' }) {
   const width = 900, height = 380
   const canvas = createCanvas(width, height)
   const ctx = canvas.getContext('2d')
@@ -33,117 +33,70 @@ async function makeCard({ title = 'Bienvenida', subtitle = '', avatarUrl = '', b
   ctx.fillStyle = gradient
   ctx.fillRect(0, 0, width, height)
 
-  ctx.lineWidth = 12
-  ctx.strokeStyle = '#19c3ff'
-  ctx.strokeRect(6, 6, width - 12, height - 12)
-
   if (bgUrl) {
     try {
       const bg = await loadImageSmart(bgUrl)
-      const pad = 18
-      ctx.globalAlpha = 0.9
-      if (bg) ctx.drawImage(bg, pad, pad, width - pad * 2, height - pad * 2)
-      ctx.globalAlpha = 1
-      ctx.fillStyle = 'rgba(0,0,0,0.35)'
-      ctx.fillRect(pad, pad, width - pad * 2, height - pad * 2)
+      if (bg) ctx.drawImage(bg, 0, 0, width, height)
     } catch {}
   }
 
-  let avatarUsedInCenter = false
-  let centerR = 54
-  let centerCX = Math.round(width / 2)
-  let centerCY = 86
-  try {
-    const useCenterAvatar = !badgeUrl && !!avatarUrl
-    centerR = useCenterAvatar ? 80 : 54
-    centerCY = useCenterAvatar ? Math.round(height / 2) : 86
-    const centerSrc = (badgeUrl && badgeUrl.trim()) ? badgeUrl : (avatarUrl || '')
-    if (centerSrc) {
-      const badge = await loadImageSmart(centerSrc)
-      ctx.save()
-      ctx.beginPath(); ctx.arc(centerCX, centerCY, centerR, 0, Math.PI * 2); ctx.closePath(); ctx.clip()
-      if (badge) ctx.drawImage(badge, centerCX - centerR, centerCY - centerR, centerR * 2, centerR * 2)
-      ctx.restore()
-      ctx.lineWidth = 6
-      ctx.strokeStyle = '#19c3ff'
-      ctx.beginPath(); ctx.arc(centerCX, centerCY, centerR + 4, 0, Math.PI * 2); ctx.stroke()
-      avatarUsedInCenter = useCenterAvatar
-    }
-  } catch {}
-
-  ctx.textAlign = 'center'
-  ctx.fillStyle = '#ffffff'
-  ctx.shadowColor = '#000000'
-  ctx.shadowBlur = 8
-  ctx.font = 'bold 48px Sans'
-  const titleY = avatarUsedInCenter ? 70 : 178
-  ctx.fillText(title, width / 2, titleY)
-  ctx.shadowBlur = 0
-
-  ctx.fillStyle = '#d8e1e8'
-  ctx.font = '28px Sans'
-  const lines = Array.isArray(subtitle) ? subtitle : [subtitle]
-  const subBaseY = avatarUsedInCenter ? (centerCY + centerR + 28) : 218
-  lines.forEach((t, i) => ctx.fillText(String(t || ''), width / 2, subBaseY + i * 34))
-
-  if (avatarUrl && !avatarUsedInCenter) {
+  if (avatarUrl) {
     try {
       const av = await loadImageSmart(avatarUrl)
-      const r = 64
-      const x = width - 120, y = height - 120
       ctx.save()
-      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.closePath(); ctx.clip()
-      if (av) ctx.drawImage(av, x - r, y - r, r * 2, r * 2)
+      ctx.beginPath()
+      ctx.arc(width / 2, height / 2 - 20, 80, 0, Math.PI * 2)
+      ctx.closePath()
+      ctx.clip()
+      if (av) ctx.drawImage(av, width / 2 - 80, height / 2 - 100, 160, 160)
       ctx.restore()
-      ctx.lineWidth = 5
-      ctx.strokeStyle = '#19c3ff'
-      ctx.beginPath(); ctx.arc(x, y, r + 3, 0, Math.PI * 2); ctx.stroke()
     } catch {}
   }
+
+  ctx.textAlign = 'center'
+  ctx.fillStyle = '#fff'
+  ctx.font = 'bold 48px Sans'
+  ctx.fillText(title, width / 2, 60)
+
+  ctx.font = '28px Sans'
+  const lines = Array.isArray(subtitle) ? subtitle : [subtitle]
+  lines.forEach((t, i) => ctx.fillText(String(t || ''), width / 2, 220 + i * 34))
 
   return canvas.toBuffer('image/png')
 }
 
-async function sendWelcomeOrBye(conn, { jid, userName = 'Usuario', type = 'welcome', groupName = '', participant }) {
+async function sendWelcomeOrBye(conn, { jid, userName = 'Usuario', type = 'welcome', groupName = '', participant, customText }) {
   const tmp = path.join(__dirname, '../temp')
   ensureDir(tmp)
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)]
-  const WELCOME_TITLES = ['Bienvenido', 'Bienvenida']
-  const WELCOME_SUBS = ['Un loco más al grupo', 'Un loco más al grupo!', 'Un loco más al grupo!!']
-  const BYE_TITLES = ['Despedida']
-  const BYE_SUBS = ['No vuelvas más, nadie te quiso', 'No vuelvas más', 'Nadie te quiso']
+  
+  const title = type === 'welcome' ? '¡Bienvenido!' : '¡Adiós!'
+  const subtitle = customText || (type === 'welcome' ? [`Hola ${userName}, bienvenido a ${groupName}`] : [`${userName} se fue del grupo`])
 
-  const title = type === 'welcome' ? pick(WELCOME_TITLES) : pick(BYE_TITLES)
-  const subtitle = type === 'welcome' ? [pick(WELCOME_SUBS)] : [pick(BYE_SUBS)]
-  const badgeUrl = ''
-  const bgUrl = 'https://files.cloudkuimages.guru/images/hDv9seru.jpg'
   let avatarUrl = ''
-  try {
-    if (participant) avatarUrl = await conn.profilePictureUrl(participant, 'image')
-  } catch {}
+  try { if (participant) avatarUrl = await conn.profilePictureUrl(participant, 'image') } catch {}
   if (!avatarUrl) avatarUrl = 'https://files.catbox.moe/xr2m6u.jpg'
+  const bgUrl = 'https://files.cloudkuimages.guru/images/hDv9seru.jpg'
 
-  const buff = await makeCard({ title, subtitle, avatarUrl, bgUrl, badgeUrl })
+  const buff = await makeCard({ title, subtitle, avatarUrl, bgUrl })
   const file = path.join(tmp, `${type}-${Date.now()}.png`)
   fs.writeFileSync(file, buff)
+
   const mentionId = participant ? [participant] : []
   const handle = participant ? `@${String(participant).split('@')[0]}` : userName
   await conn.sendMessage(jid, { image: { url: file }, caption: `${title} ${handle}`, mentions: mentionId })
-  return file
 }
 
-// Ahora la estructura modular
-const welcomeCommand = {
+const welcome = {
   name: "welcome",
   category: "grupos",
-  description: "Activa o desactiva el sistema de bienvenida y permite texto personalizado en la imagen.",
+  description: "Activa/desactiva bienvenida automática y permite texto personalizado.",
 
-  async execute({ sock, msg, args, commands, config }) {
+  async execute({ sock, msg, args, commands, config, participant, updateType }) {
     const groupId = msg.key.remoteJid
 
     if (!config.groupSettings) config.groupSettings = {}
     if (!config.groupSettings[groupId]) config.groupSettings[groupId] = {
-      enabled: false,
+      enabled: true,
       welcomeText: "Hola {user}, bienvenido al grupo {group}!"
     }
     const settings = config.groupSettings[groupId]
@@ -156,7 +109,6 @@ const welcomeCommand = {
       settings.enabled = false
       return await sock.sendMessage(groupId, { text: "❌ Bienvenida desactivada." }, { quoted: msg })
     }
-
     if (args[0] === "set") {
       const newText = args.slice(2).join(" ")
       if (args[1] === "welcome") {
@@ -167,18 +119,19 @@ const welcomeCommand = {
 
     if (!settings.enabled) return
 
-    const username = args[1] || "Usuario"
+    const type = updateType === 'add' ? 'welcome' : updateType === 'remove' ? 'bye' : 'welcome'
+    const userName = participant ? participant.split('@')[0] : 'Usuario'
     const groupName = "este grupo"
-    const participant = msg.key.participant || msg.sender
 
     await sendWelcomeOrBye(sock, {
       jid: groupId,
-      userName: username,
-      type: "welcome",
+      userName,
+      type,
       groupName,
-      participant
+      participant,
+      customText: settings.welcomeText.replace('{user}', userName).replace('{group}', groupName)
     })
   }
 }
 
-export default welcomeCommand
+export default welcome
