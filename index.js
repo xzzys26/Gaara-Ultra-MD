@@ -374,8 +374,8 @@ async function connectToWhatsApp() {
   // --- MANEJO DE BIENVENIDA Y DESPEDIDA ---
   sock.ev.on('group-participants.update', async (event) => {
     const { id, participants, action } = event;
-    const { readSettingsDb } = await import('./lib/database.js');
-    const { sendWelcomeOrBye } = (await import('./lib/welcome.js')).default;
+  const { readSettingsDb } = await import('./lib/database.js');
+  const { sendWelcomeOrBye } = await import('./lib/welcome.js');
   const settings = readSettingsDb();
   const groupSettings = settings[id] || {};
   // valores por defecto: si no está configurado, habilitar welcome/bye
