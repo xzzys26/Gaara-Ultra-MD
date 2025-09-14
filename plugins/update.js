@@ -1,39 +1,50 @@
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 
 const updateCommand = {
   name: "update",
+  aliases: ["actualizar", "up"],
   category: "propietario",
   description: "Actualiza el bot a la última versión desde el repositorio de GitHub.",
 
-  async execute({ sock, msg, config, isOwner }) {
+  async execute({ sock, msg, args = [], isOwner }) {
     if (!isOwner) {
       await sock.sendMessage(msg.key.remoteJid, { text: "Este comando solo puede ser utilizado por el propietario del bot." }, { quoted: msg });
       return;
     }
 
-    await sock.sendMessage(msg.key.remoteJid, { text: "Iniciando actualización... Descargando los últimos cambios desde GitHub." }, { quoted: msg });
-
-    exec('git pull', async (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error en git pull: ${error.message}`);
-        await sock.sendMessage(msg.key.remoteJid, { text: `Ocurrió un error durante la actualización:\n\n${error.message}` }, { quoted: msg });
-        return;
-      }
-      if (stderr) {
-         // git pull a menudo usa stderr para mensajes de estado, así que lo tratamos como info
-        console.log(`Git stderr: ${stderr}`);
-      }
-
-      if (stdout.includes("Already up to date.") || stdout.includes("Ya está actualizado.")) {
-        await sock.sendMessage(msg.key.remoteJid, { text: "El bot ya está en la última versión. No hay actualizaciones pendientes." }, { quoted: msg });
-      } else {
-        await sock.sendMessage(msg.key.remoteJid, { text: `*Actualización completada.*\n\n\`\`\`${stdout}\`\`\`\n\nReiniciando el bot para aplicar los cambios...` }, { quoted: msg });
-        // Usamos un pequeño timeout para dar tiempo a que el mensaje se envíe antes de cerrar el proceso
-        setTimeout(() => {
-          process.exit(0);
-        }, 3000); // 3 segundos
-      }
-    });
+    try {
+      const cmd = 'git pull' + (args.length ? ' ' + args.join(' ') : '');
+      const output = execSync(cmd).toString();
+      const upToDate = /Already up to date\.?|Ya está actualizado\.?/i.test(output);
+      const response = upToDate
+        ? `🌟 *¡Bot Actualizado!* 🌟\n\n✅ Ya estás al día con la última versión.\n\n🚀 ¡Todo listo para seguir funcionando!`
+        : `🔄 *Actualización Aplicada!* 🔄\n\n📦 Se han aplicado los siguientes cambios:\n\n${output}\n\n✨ ¡El bot está ahora más potente que nunca!`;
+      await sock.sendMessage(msg.key.remoteJid, { text: response }, { quoted: msg });
+    } catch (error) {
+      // Intentar detectar conflictos o cambios locales
+      try {
+        const status = execSync('git status --porcelain').toString().trim();
+        if (status) {
+          const conflictedFiles = status.split('\n').filter(line =>
+            !line.includes('auth_info_baileys/') &&
+            !line.includes('subbots/') &&
+            !line.includes('.cache/') &&
+            !line.includes('tmp/')
+          );
+          if (conflictedFiles.length > 0) {
+            const conflictMsg = `⚠️ Conflictos detectados en los siguientes archivos:\n\n` +
+              conflictedFiles.map(f => '• ' + f.slice(3)).join('\n') +
+              `\n\n🔹 Para solucionarlo, resuelve los conflictos o actualiza manualmente.`;
+            return await sock.sendMessage(msg.key.remoteJid, { text: conflictMsg }, { quoted: msg });
+          }
+        }
+      } catch {}
+      await sock.sendMessage(
+        msg.key.remoteJid,
+        { text: `❌ Error al actualizar: ${error?.message || 'Error desconocido.'}` },
+        { quoted: msg }
+      );
+    }
   }
 };
 
