@@ -1,95 +1,73 @@
-import { downloadContentFromMessage } from '@whiskeysockets/baileys';
-import axios from 'axios';
-import FormData from 'form-data';
-import fs from 'fs';
-import path from 'path';
-
-// Helper function to upload a file
-async function uploadToCdnmega(filePath) {
-  try {
-    const formData = new FormData();
-    formData.append("file", fs.createReadStream(filePath));
-
-    const response = await axios.post("https://cdnmega.vercel.app/upload", formData, {
-      headers: {
-        ...formData.getHeaders()
-      }
-    });
-
-    const result = response.data;
-    return result.success ? result.files : null;
-  } catch (error) {
-    console.error("Error al subir archivo a cdnmega:", error);
-    return null;
-  }
-}
+import fetch from "node-fetch";
+import crypto from "crypto";
+import { FormData, Blob } from "formdata-node";
+import { fileTypeFromBuffer } from "file-type";
 
 const tourlCommand = {
   name: "tourl",
-  category: "utilidades",
-  description: "Sube un archivo (imagen, video, etc.) y genera un enlace público.",
-  aliases: ["up"],
+  category: "grupos",
+  description: "Sube archivos (imágenes, videos, etc.) a Catbox y devuelve el enlace.",
 
-  async execute({ sock, msg }) {
-    const from = msg.key.remoteJid;
-    const quoted = msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-
-    if (!quoted) {
-      return sock.sendMessage(from, { text: "Por favor, responde a una imagen, video o documento para subirlo." }, { quoted: msg });
+  async execute({ sock, msg, args, commands, config }) {
+    const q = msg.quoted ? msg.quoted : msg;
+    const mime = (q.message || q).mimetype || '';
+    if (!mime) {
+      return sock.sendMessage(
+        msg.key.remoteJid,
+        { text: "⚠️ Responde a un archivo válido (imagen, video, etc.)." },
+        { quoted: msg }
+      );
     }
-
-    const messageType = Object.keys(quoted)[0];
-    const mediaMessage = quoted[messageType];
-    const mediaType = messageType.replace('Message', ''); // 'image', 'video', etc.
-
-    if (!mediaMessage) {
-        return sock.sendMessage(from, { text: "El mensaje citado no contiene un archivo válido." }, { quoted: msg });
-    }
-
-    const waitingMsg = await sock.sendMessage(from, { text: "📥 Subiendo archivo..." }, { quoted: msg });
-    let tempFilePath = '';
 
     try {
-      const stream = await downloadContentFromMessage(mediaMessage, mediaType);
-      let buffer = Buffer.from([]);
-      for await (const chunk of stream) {
-        buffer = Buffer.concat([buffer, chunk]);
-      }
+      const media = await q.download();
+      const isTele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime);
+      const link = await catbox(media);
 
-      // Guardar en un archivo temporal
-      const tempDir = './temp';
-      if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
-      const extension = mediaMessage.mimetype.split('/')[1] || 'bin';
-      tempFilePath = path.join(tempDir, `${Date.now()}.${extension}`);
-      fs.writeFileSync(tempFilePath, buffer);
+      let txt = `*乂 C A T B O X - U P L O A D E R 乂*\n\n`;
+      txt += `*» Enlace* : ${link}\n`;
+      txt += `*» Tamaño* : ${formatBytes(media.length)}\n`;
+      txt += `*» Expiración* : ${isTele ? 'No expira' : 'Desconocido'}\n\n`;
+      txt += `> 𓆩𝐃𝐞𝐯𓆪`;
 
-      // Subir el archivo
-      const uploadedFiles = await uploadToCdnmega(tempFilePath);
-
-      if (!uploadedFiles || uploadedFiles.length === 0) {
-        throw new Error("La API de subida no devolvió ningún archivo.");
-      }
-
-      const file = uploadedFiles[0];
-      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-
-      const caption = `✅ *Archivo Subido Exitosamente*\n\n` +
-                      `≡ *URL:* ${file.url}\n` +
-                      `≡ *Nombre:* ${file.name}\n` +
-                      `≡ *Tamaño:* ${sizeMB} MB`;
-
-      await sock.sendMessage(from, { text: caption }, { quoted: msg, edit: waitingMsg.key });
-
+      await sock.sendMessage(
+        msg.key.remoteJid,
+        { image: media, caption: txt },
+        { quoted: msg }
+      );
     } catch (e) {
-      console.error("Error en el comando tourl:", e);
-      await sock.sendMessage(from, { text: "Ocurrió un error al subir el archivo." }, { quoted: msg, edit: waitingMsg.key });
-    } finally {
-      // Limpiar el archivo temporal
-      if (tempFilePath && fs.existsSync(tempFilePath)) {
-        fs.unlinkSync(tempFilePath);
-      }
+      console.error(e);
+      await sock.sendMessage(
+        msg.key.remoteJid,
+        { text: "❌ Error al subir el archivo." },
+        { quoted: msg }
+      );
     }
   }
 };
 
 export default tourlCommand;
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 B';
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return `${(bytes / 1024 ** i).toFixed(2)} ${sizes[i]}`;
+}
+
+async function catbox(content) {
+  const { ext, mime } = (await fileTypeFromBuffer(content)) || {};
+  const blob = new Blob([content], { type: mime });
+  const formData = new FormData();
+  const randomBytes = crypto.randomBytes(5).toString("hex");
+  formData.append("reqtype", "fileupload");
+  formData.append("fileToUpload", blob, randomBytes + "." + ext);
+
+  const response = await fetch("https://catbox.moe/user/api.php", {
+    method: "POST",
+    body: formData,
+    headers: { "User-Agent": "Mozilla/5.0" },
+  });
+
+  return await response.text();
+}
