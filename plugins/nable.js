@@ -2,24 +2,31 @@ import { readSettingsDb, writeSettingsDb } from '../lib/database.js'
 
 const nableCommand = {
   name: 'nable',
-  aliases: ['enable', 'disable', 'on', 'off'],
+  aliases: [
+    'enable','disable','on','off',
+    // expose only these as direct commands to avoid conflicts
+    'welcome','bye'
+  ],
   category: 'grupos',
   description: 'Activa/Desactiva funciones por chat o globales',
 
-  async execute({ sock, msg, args, isOwner }) {
+  async execute({ sock, msg, args, isOwner, commandName }) {
     const from = msg.key.remoteJid
     const isGroup = from.endsWith('@g.us')
-    const sub = (args[0] || '').toLowerCase()
-    const onOff = (args[1] || '').toLowerCase()
+    // If invoked via direct feature command (e.g., 'welcome'), infer sub from commandName
+    const invoked = (commandName || '').toLowerCase()
+    const isDirectFeature = ['welcome','bye'].includes(invoked)
+    const sub = isDirectFeature ? invoked : (args[0] || '').toLowerCase()
+    const onOff = isDirectFeature ? (args[0] || '').toLowerCase() : (args[1] || '').toLowerCase()
 
     if (!sub) {
-      return sock.sendMessage(from, { text: 'Usa: nable <opción> <on|off>\nEj: nable welcome on' }, { quoted: msg })
+  return sock.sendMessage(from, { text: 'Usa: welcome on | welcome off | bye on | bye off' }, { quoted: msg })
     }
 
     const enable = /^(on|true|1|enable|activar)$/i.test(onOff)
     const disable = /^(off|false|0|disable|desactivar)$/i.test(onOff)
     if (!enable && !disable) {
-      return sock.sendMessage(from, { text: 'Indica on/off. Ej: nable welcome on' }, { quoted: msg })
+      return sock.sendMessage(from, { text: 'Indica on/off. Ej: welcome on' }, { quoted: msg })
     }
 
     const settings = readSettingsDb()
