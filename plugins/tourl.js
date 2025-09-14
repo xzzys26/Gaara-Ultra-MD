@@ -10,7 +10,7 @@ async function uploadToCdnmega(filePath) {
     const formData = new FormData();
     formData.append("file", fs.createReadStream(filePath));
 
-    const response = await axios.post("https://cdnmega.vercel.app/upload", formData, {
+    const response = await axios.post("https://catbox.moe/user/api.php", formData, {
       headers: {
         ...formData.getHeaders()
       }
