@@ -53,11 +53,18 @@ async function uploadService(svc, buffer, filename, mimetype) {
         contentType: mimetype || 'application/octet-stream'
       })
       const res = await axios.post(svc.url, formData, {
-        headers: formData.getHeaders(),
+        headers: {
+          ...formData.getHeaders(),
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+          'Accept': '*/*',
+          'Referer': 'https://catbox.moe/'
+        },
         maxContentLength: Infinity,
         maxBodyLength: Infinity
       })
-      return (typeof res.data === 'string') ? res.data.trim() : String(res.data)
+      const body = (typeof res.data === 'string') ? res.data.trim() : String(res.data)
+      if (/no request type given/i.test(body)) throw new Error('Catbox rechazó la solicitud (reqtype)')
+      return body
     }
 
     // Genérico (Litterbox / TmpFiles / CloudGuru APIs)
