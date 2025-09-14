@@ -43,7 +43,7 @@ const serbotCommand = {
   category: 'subbots',
   description: 'Genera un QR o código de emparejamiento para crear un Sub-Bot',
 
-  async execute({ sock, msg, args, isOwner }) {
+  async execute({ sock, msg, args, isOwner, commandName }) {
     // Verificar si la función está habilitada globalmente
     try {
       const { readSettingsDb } = await import('../lib/database.js')
@@ -60,7 +60,8 @@ const serbotCommand = {
       return sock.sendMessage(msg.key.remoteJid, { text: 'No hay espacios disponibles para Sub-Bots en este momento.' }, { quoted: msg })
     }
 
-  const wantCode = /^(code)$/i.test(args[0] || '')
+    const invoked = (commandName || '').toLowerCase()
+    const wantCode = invoked === 'code' || /^(code)$/i.test(args[0] || '')
     const who = (msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]) || msg.key.participant || msg.key.remoteJid
     const id = String(who).split('@')[0]
     const baseDir = path.resolve('./subbots')
