@@ -15,7 +15,7 @@ import FormData from 'form-data'
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
-import cheerio from 'cheerio'
+import { load as cheerioLoad } from 'cheerio'
 
 function formatBytes(bytes) {
   if (!bytes) return '0 B'
@@ -35,8 +35,8 @@ async function uploadService(svc, buffer, filename, mimetype) {
       data.append('upload_session', Math.random())
       data.append('file', buffer, filename || `${Date.now()}.jpg`)
       const res = await axios.post(svc.url, data, { headers: data.getHeaders() })
-      const html = await axios.get(res.data.url)
-      const $ = cheerio.load(html.data)
+  const html = await axios.get(res.data.url)
+  const $ = cheerioLoad(html.data)
       const image = $('#code_direct').attr('value')
       if (!image) throw new Error('No se pudo obtener la URL directa (PostImages)')
       return image
