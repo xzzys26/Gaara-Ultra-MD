@@ -47,22 +47,21 @@ export async function handler(m, isSubBot = false) { // Se añade isSubBot para 
     let command = commands.get(commandName) || commands.get(aliases.get(commandName));
 
     if (command) {
-      const rawNumber = (senderId.split('@')[0]) || '';
-      const senderNumber = String(rawNumber).replace(/[^0-9]/g, '');
-      const ownerSet = new Set((config.ownerNumbers || []).map(n => String(n).replace(/[^0-9]/g, '')));
-      const isOwner = ownerSet.has(senderNumber);
+  const rawNumber = (senderId.split('@')[0]) || '';
+  const senderNumber = String(rawNumber).replace(/[^0-9]/g, '');
+  const ownerNums = (config.ownerNumbers || []).map(n => String(n).replace(/[^0-9]/g, '')).filter(Boolean);
+  const isOwner = ownerNums.some(o => o === senderNumber || o.endsWith(senderNumber) || senderNumber.endsWith(o));
 
       // Lógica de Permisos Corregida
       if (command.category === 'propietario' && !isOwner) {
         return sock.sendMessage(from, { text: "Este comando es solo para el propietario del bot." });
       }
-      if (command.category === 'subbots' && !isOwner) {
-        // En un futuro, aquí se podría comprobar una lista de usuarios autorizados
-        return sock.sendMessage(from, { text: "No tienes permiso para gestionar sub-bots." });
-      }
-      // Los sub-bots no pueden usar comandos de propietario/sub-bots
-      if (isSubBot && (command.category === 'propietario' || command.category === 'subbots')) {
-        return sock.sendMessage(from, { text: "Un sub-bot no puede usar este comando." });
+      if (command.category === 'subbots') {
+        // Permitir a todos si está habilitado globalmente; bloquear si en mantenimiento
+        const maintenanceList = readMaintenanceDb()
+        if (maintenanceList.includes(commandName)) {
+          return sock.sendMessage(from, { text: "🛠️ Este comando está en mantenimiento." });
+        }
       }
 
       // Cooldown
