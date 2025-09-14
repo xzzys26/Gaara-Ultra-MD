@@ -111,12 +111,14 @@ const serbotCommand = {
       }
     }
 
+    let qrSent = false
     sub.ev.on('connection.update', async ({ connection, qr }) => {
-      if (qr && !wantCode) {
+      if (qr && !wantCode && !qrSent) {
         try {
           const buf = await qrcode.toBuffer(qr, { scale: 8 })
           const caption = buildQrCaption()
           const qrMsg = await sock.sendMessage(msg.key.remoteJid, { image: buf, caption }, { quoted: msg })
+          qrSent = true
           setTimeout(() => { try { if (qrMsg?.key) sock.sendMessage(msg.key.remoteJid, { delete: qrMsg.key }) } catch {} }, 45000)
         } catch {
           await sock.sendMessage(msg.key.remoteJid, { text: 'No se pudo generar el QR.' }, { quoted: msg })
