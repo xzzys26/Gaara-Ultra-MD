@@ -5,11 +5,8 @@ const updateCommand = {
   category: "propietario",
   description: "Actualiza el bot a la última versión desde el repositorio de GitHub.",
 
-  async execute({ sock, msg, config }) {
-    const senderJid = msg.key.participant || msg.key.remoteJid;
-    const senderNumber = senderJid.split('@')[0];
-
-    if (!config.ownerNumbers.includes(senderNumber)) {
+  async execute({ sock, msg, config, isOwner }) {
+    if (!isOwner) {
       await sock.sendMessage(msg.key.remoteJid, { text: "Este comando solo puede ser utilizado por el propietario del bot." }, { quoted: msg });
       return;
     }
