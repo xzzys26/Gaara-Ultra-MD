@@ -14,7 +14,7 @@ if (!Array.isArray(global.conns)) global.conns = []
 
 const MAX_SUBBOTS = 20
 const GLOBAL_KEY = '__bot__'
-const IMAGE_URL = ''
+const IMAGE_URL = 'https://files.cloudkuimages.guru/images/FiRCPo0v.jpg'
 
 function buildQrCaption() {
   let r =  'S U B - B O T   Q R \n\n'
