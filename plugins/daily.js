@@ -46,8 +46,7 @@ const dailyCommand = {
 
 ╰━━━〔 *🛠 Gaara Ultra MD 🛠* 〕━━━╯
 `;
-
- { quoted: msg });
+    await sock.sendMessage(msg.key.remoteJid, { text: dailyMessage }, { quoted: msg });
   }
 };
 
