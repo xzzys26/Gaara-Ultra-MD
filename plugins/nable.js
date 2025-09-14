@@ -5,7 +5,7 @@ const nableCommand = {
   aliases: [
     'enable','disable','on','off',
     // expose only these as direct commands to avoid conflicts
-    'welcome','bye'
+    'welcome','bye','subbots'
   ],
   category: 'grupos',
   description: 'Activa/Desactiva funciones por chat o globales',
@@ -15,16 +15,21 @@ const nableCommand = {
     const isGroup = from.endsWith('@g.us')
     // If invoked via direct feature command (e.g., 'welcome'), infer sub from commandName
     const invoked = (commandName || '').toLowerCase()
-    const isDirectFeature = ['welcome','bye'].includes(invoked)
+    const isDirectFeature = ['welcome','bye','subbots'].includes(invoked)
     const sub = isDirectFeature ? invoked : (args[0] || '').toLowerCase()
     const onOff = isDirectFeature ? (args[0] || '').toLowerCase() : (args[1] || '').toLowerCase()
 
     if (!sub) {
-  return sock.sendMessage(from, { text: 'Usa: welcome on | welcome off | bye on | bye off' }, { quoted: msg })
+      return sock.sendMessage(from, { text: 'Usa: welcome on | welcome off | bye on | bye off | subbots on | subbots off' }, { quoted: msg })
     }
 
-    const enable = /^(on|true|1|enable|activar)$/i.test(onOff)
-    const disable = /^(off|false|0|disable|desactivar)$/i.test(onOff)
+    // derive enable/disable from token or alias commandName (on/off)
+    let enable = /^(on|true|1|enable|activar)$/i.test(onOff)
+    let disable = /^(off|false|0|disable|desactivar)$/i.test(onOff)
+    if (!enable && !disable && (invoked === 'on' || invoked === 'off')) {
+      enable = invoked === 'on'
+      disable = invoked === 'off'
+    }
     if (!enable && !disable) {
       return sock.sendMessage(from, { text: 'Indica on/off. Ej: welcome on' }, { quoted: msg })
     }
@@ -86,6 +91,7 @@ const nableCommand = {
       autoread: 'autoread',
       public: 'public',
       jadibotmd: 'jadibotmd',
+      subbots: 'jadibotmd',
     }
 
     if (globalMap[sub]) {
