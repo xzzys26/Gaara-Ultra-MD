@@ -47,8 +47,10 @@ export async function handler(m, isSubBot = false) { // Se añade isSubBot para 
     let command = commands.get(commandName) || commands.get(aliases.get(commandName));
 
     if (command) {
-      const senderNumber = senderId.split('@')[0];
-      const isOwner = config.ownerNumbers.includes(senderNumber);
+      const rawNumber = (senderId.split('@')[0]) || '';
+      const senderNumber = String(rawNumber).replace(/[^0-9]/g, '');
+      const ownerSet = new Set((config.ownerNumbers || []).map(n => String(n).replace(/[^0-9]/g, '')));
+      const isOwner = ownerSet.has(senderNumber);
 
       // Lógica de Permisos Corregida
       if (command.category === 'propietario' && !isOwner) {
