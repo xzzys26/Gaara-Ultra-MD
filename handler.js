@@ -80,7 +80,7 @@ export async function handler(m, isSubBot = false) { // Se añade isSubBot para 
       // Ejecución
       try {
         await new Promise(resolve => setTimeout(resolve, RESPONSE_DELAY_MS));
-        await command.execute({ sock, msg, args, commands, config, testCache, isOwner });
+  await command.execute({ sock, msg, args, commands, config, testCache, isOwner, commandName });
         cooldowns.set(senderId, Date.now());
       } catch (error) {
         console.error(`Error en comando ${commandName}:`, error);
