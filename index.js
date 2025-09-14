@@ -16,6 +16,28 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import config from './config.js';
 import axios from 'axios';
+import os from 'os';
+import cfonts from 'cfonts';
+
+try {
+  const { say } = cfonts;
+  const botDisplayName = (config && (config.botName || config.name || global.namebot)) || 'Bot';
+  console.log(chalk.magentaBright(`\n💫 Iniciando ${botDisplayName}...`));
+  say('Gaara Ai', { font: 'simple', align: 'left', gradient: ['green','white'] });
+  say('Gaara Team', { font: 'console', align: 'center', colors: ['cyan','magenta','yellow'] });
+  try { (global.protoType && typeof global.protoType === 'function') && global.protoType(); } catch {}
+  try { (global.serialize && typeof global.serialize === 'function') && global.serialize(); } catch {}
+  const __pkgPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'package.json');
+  let packageJsonObj = {};
+  try { const rawPkg = fs.readFileSync(__pkgPath, 'utf8'); packageJsonObj = JSON.parse(rawPkg); } catch {}
+  const ramInGB = os.totalmem() / (1024 * 1024 * 1024);
+  const freeRamInGB = os.freemem() / (1024 * 1024 * 1024);
+  const currentTime = new Date().toLocaleString();
+  const info = `\n╭─────────────────────────────◉\n│ ${chalk.red.bgBlueBright.bold('        🖥 INFORMACIÓN DEL SISTEMA        ')}\n│「 💻 」${chalk.yellow(`SO: ${os.type()}, ${os.release()} - ${os.arch()}`)}\n│「 💾 」${chalk.yellow(`RAM Total: ${ramInGB.toFixed(2)} GB`)}\n│「 💽 」${chalk.yellow(`RAM Libre: ${freeRamInGB.toFixed(2)} GB`)}\n╰─────────────────────────────◉\n\n╭─────────────────────────────◉\n│ ${chalk.red.bgGreenBright.bold('        🟢 INFORMACIÓN DEL BOT        ')}\n│「 🎈 」${chalk.cyan(`Nombre: ${packageJsonObj.name || 'desconocido'}`)}\n│「 🍒 」${chalk.cyan(`Versión: ${packageJsonObj.version || '0.0.0'}`)}\n│「 🍉 」${chalk.cyan(`Descripción: ${packageJsonObj.description || ''}`)}\n│「 ☂️ 」${chalk.cyan(`Autor: ${(packageJsonObj.author && packageJsonObj.author.name) ? packageJsonObj.author.name : (packageJsonObj.author || 'N/A')} (@Gaara)`)}\n│「 🐢 」${chalk.cyan('Colaborador: David')}\n╰─────────────────────────────◉\n\n╭─────────────────────────────◉\n│ ${chalk.red.bgMagenta.bold('        ⏰ HORA ACTUAL        ')}\n│「 🕒 」${chalk.magenta(`${currentTime}`)}\n╰─────────────────────────────◉\n`;
+  console.log(info);
+} catch (e) {
+  console.log('[Banner] Error al mostrar banners:', e?.message || e);
+}
 
 // --- CONFIGURACIÓN GLOBAL ---
 const __filename = fileURLToPath(import.meta.url);
