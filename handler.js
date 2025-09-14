@@ -7,6 +7,32 @@ import print from './lib/print.js';
 const COOLDOWN_SECONDS = 5;
 const RESPONSE_DELAY_MS = 2000;
 
+// Normalizar y robustecer ownerNumbers para que .includes funcione con LIDs/E.164
+try {
+  const normalizeDigits = (s) => String(s || '').replace(/[^0-9]/g, '');
+  const orig = Array.isArray(config.ownerNumbers) ? config.ownerNumbers : [];
+  const ownerSet = new Set(orig.map(normalizeDigits).filter(Boolean));
+  const backing = Array.from(ownerSet);
+  const flexIncludes = (val) => {
+    const s = normalizeDigits(val);
+    if (!s) return false;
+    for (const o of ownerSet) {
+      if (o === s || o.endsWith(s) || s.endsWith(o)) return true;
+    }
+    return false;
+  };
+  config.ownerNumbers = new Proxy(backing, {
+    get(target, prop, receiver) {
+      if (prop === 'includes') return (v) => flexIncludes(v);
+      if (prop === 'push') return (...vals) => {
+        for (const v of vals) ownerSet.add(normalizeDigits(v));
+        return target.push(...vals);
+      };
+      return Reflect.get(target, prop, receiver);
+    }
+  });
+} catch {}
+
 export async function handler(m, isSubBot = false) { // Se añade isSubBot para diferenciar
   const sock = this;
 
