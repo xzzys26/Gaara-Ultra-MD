@@ -136,14 +136,37 @@ const tourlCommand = {
     const svc = services[key]
     const waitingMsg = await sock.sendMessage(from, { text: `📥 Subiendo a ${svc.name}...` }, { quoted: msg })
     try {
-      const link = await uploadService(svc, buffer, filename, mimetype)
-      let txt = `乂 *${svc.name.toUpperCase()}*\n\n`
+      let link = await uploadService(svc, buffer, filename, mimetype)
+      let used = svc
+      // Fallbacks si falla el host elegido
+      if (!link) throw new Error('Respuesta vacía')
+      let txt = `乂 *${used.name.toUpperCase()}*\n\n`
       txt += `• Enlace: ${link}\n`
       txt += `• Tamaño: ${humanSize}\n`
-      txt += `• Expiración: ${svc.expires}`
+      txt += `• Expiración: ${used.expires}`
       await sock.sendMessage(from, { text: txt.trim() }, { quoted: msg, edit: waitingMsg.key })
-    } catch (e) {
-      await sock.sendMessage(from, { text: '❗ ' + (e?.message || 'Error subiendo archivo') }, { quoted: msg, edit: waitingMsg.key })
+    } catch (e1) {
+      // Intentar fallbacks en orden: postimages -> cloudguru -> litterbox
+      const chain = ['postimages','cloudguru','litterbox'].filter(k => k !== key)
+      let finalLink = null
+      let finalSvc = null
+      for (const k2 of chain) {
+        try {
+          const s2 = services[k2]
+          finalLink = await uploadService(s2, buffer, filename, mimetype)
+          if (finalLink) { finalSvc = s2; break }
+        } catch {}
+      }
+      if (finalLink) {
+        let txt = `乂 *${finalSvc.name.toUpperCase()}*\n\n`
+        txt += `• Enlace: ${finalLink}\n`
+        txt += `• Tamaño: ${humanSize}\n`
+        txt += `• Expiración: ${finalSvc.expires}\n\n`
+        txt += `Nota: ${svc.name} falló, se usó ${finalSvc.name}.`
+        await sock.sendMessage(from, { text: txt.trim() }, { quoted: msg, edit: waitingMsg.key })
+      } else {
+        await sock.sendMessage(from, { text: '❗ No fue posible subir el archivo en los hosts disponibles.' }, { quoted: msg, edit: waitingMsg.key })
+      }
     }
   }
 }
