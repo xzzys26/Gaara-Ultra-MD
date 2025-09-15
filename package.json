@@ -18,16 +18,16 @@
 "eslint": "eslint .",
 "eslintfix": "eslint --fix ."
 },
-"homepage": "https://github.com/BrayanOFC/VEGETA-BOT-MB",
+"homepage": "https://github.com/xzzys26/Gaara-Ultra-MD",
 "author": {
-"name": "BrayanOFC"
+"name": "xzzys26"
 },
 "repository": {
 "type": "git",
-"url": "git+https://github.com/BrayanOFC/VEGETA-BOT-MB.git"
+"url": "git+https://github.com/xzzys26/Gaara-Ultra-MD.git"
 },
 "bugs": {
-"url": "https://github.com/BrayanOFC/VEGETA-BOT-MB/issues"
+"url": "https://github.com/xzzys26/Gaara-Ultra-MD/issues"
 },
 "license": "MIT-License",
 "dependencies": {
