@@ -263,7 +263,7 @@ return [re.exec(m.text), re]
 }) :
 typeof _prefix === 'string' ?
 [[new RegExp(str2Regex(_prefix)).exec(m.text), new RegExp(str2Regex(_prefix))]] :
-[[[], new RegExp]]
+[[[], new RegExp('')]] // AyeitsRyze ESTUVO AQUÍ
 ).find(p => p[1])
 if (typeof plugin.before === 'function') {
 if (await plugin.before.call(this, m, {
