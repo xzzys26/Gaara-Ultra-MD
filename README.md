@@ -11,9 +11,9 @@
 </p>
 
 <p align="center">
-  <a href="https://wa.me/1234567890"><img src="https://img.shields.io/badge/Soporte-WhatsApp-green?style=for-the-badge&logo=whatsapp"/></a>
-  <a href="https://wa.me/9876543210"><img src="https://img.shields.io/badge/Creador-Contacto-blue?style=for-the-badge&logo=whatsapp"/></a>
-  <a href="https://whatsapp.com/channel/0029VaEj2nX9YabcdEFG"><img src="https://img.shields.io/badge/Canal-WhatsApp-purple?style=for-the-badge&logo=whatsapp"/></a>
+  <a href="https://wa.me/15614809253"><img src="https://img.shields.io/badge/Soporte-WhatsApp-green?style=for-the-badge&logo=whatsapp"/></a>
+  <a href="https://wa.me/18493907272"><img src="https://img.shields.io/badge/Creador-Contacto-blue?style=for-the-badge&logo=whatsapp"/></a>
+  <a href="https://whatsapp.com/channel/0029Vb5yFNP72WU14BQqel1V"><img src="https://img.shields.io/badge/Canal-WhatsApp-purple?style=for-the-badge&logo=whatsapp"/></a>
 </p>
 
 ---
