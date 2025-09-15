@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import os from 'os';
 
 const botCommand = {
   name: "bot",
@@ -7,27 +8,45 @@ const botCommand = {
   aliases: ["infobot"],
 
   async execute({ sock, msg, config, commands }) {
-    // Leer la versión de Baileys desde package.json
+    // Leer versión de Baileys
     let baileysVersion = 'N/A';
     try {
-        const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
-        baileysVersion = packageJson.dependencies['@whiskeysockets/baileys'] || 'N/A';
+      const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
+      baileysVersion = packageJson.dependencies['@whiskeysockets/baileys'] || 'N/A';
     } catch (e) {
-        console.error("No se pudo leer la versión de Baileys desde package.json");
+      console.error("No se pudo leer la versión de Baileys desde package.json");
     }
 
-    const botInfo = `╔═══════════════════╗
-   *🤖 Información del Bot 🤖*
-╚═══════════════════╝
+    // Tiempo activo
+    const uptime = (os.uptime() / 60).toFixed(0); // en minutos
 
-➺ *Nombre:* ${config.botName}
-➺ *Fundador:* ${config.ownerName}
-➺ *Módulos Activos:* ${commands.size}
-➺ *Framework:* @whiskeysockets/baileys ${baileysVersion}
-➺ *Estatus:* Disponible ✅
-➺ *Alojamiento:* Duluxe Host ⚡ (VIP)`;
+    // Texto con decoración
+    const botInfo = `
+╭━━━〔 🤖 *INFORMACIÓN DEL BOT* 🤖 〕━━━⬣
+┃
+┃ 📛 *Nombre:* ${config.botName}
+┃ 👑 *Fundador:* ${config.ownerName}
+┃ 📦 *Módulos Activos:* ${commands.size}
+┃ ⚙️ *Framework:* Baileys ${baileysVersion}
+┃ ⏳ *Activo desde:* ${uptime} min
+┃ 🔑 *Prefijo:* ${config.prefix || '.'}
+┃ 📡 *Estado:* Operativo ✅
+┃ ☁️ *Alojamiento:* Duluxe Host ⚡ (VIP)
+┃
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`;
 
-    await sock.sendMessage(msg.key.remoteJid, { text: botInfo }, { quoted: msg });
+    // Reacción previa 🤖
+    await sock.sendMessage(msg.key.remoteJid, {
+      react: { text: "🤖", key: msg.key }
+    });
+
+    // Envío del mensaje
+    await sock.sendMessage(
+      msg.key.remoteJid,
+      { text: botInfo },
+      { quoted: msg }
+    );
   }
 };
 
