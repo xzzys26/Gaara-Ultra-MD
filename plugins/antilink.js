@@ -1,4 +1,4 @@
-// antilink Actualizado by xzzys26 
+// antilink Actualizado compatible solo Con Gaara-Ultra-MD by xzzys26 
 
 const antiLinkRegex = /(https?:\/\/[^\s]+)/i; // Detecta cualquier link
 
