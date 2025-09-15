@@ -1,73 +1,87 @@
 import yts from 'yt-search';
-import fs from 'fs';
-import axios from 'axios';
-import { downloadWithYtdlp, downloadWithDdownr } from '../lib/downloaders.js';
+import fetch from 'node-fetch';
+import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
-const playCommand = {
-  name: "play",
-  category: "descargas",
-  description: "Busca y descarga una canción en formato de audio (MP3) usando múltiples métodos.",
+const handler = async (m, { conn, args, usedPrefix }) => {
+    if (!args[0]) return conn.reply(m.chat, `👑 Ingresa un texto para buscar en YouTube.\n> *Ejemplo:* ${usedPrefix + command} Shakira`, m);
 
-  async execute({ sock, msg, args }) {
-    if (args.length === 0) {
-      return sock.sendMessage(msg.key.remoteJid, { text: "𝘗𝘰𝘳𝘧𝘢𝘷𝘰𝘳 𝘘𝘶𝘦 𝘈𝘶𝘥𝘪𝘰 𝘋𝘦 𝘔𝘶𝘴𝘪𝘤𝘢 𝘘𝘶𝘪𝘦𝘳𝘦𝘴 𝘋𝘦𝘴𝘤𝘢𝘳𝘨𝘢𝘳 🎵" }, { quoted: msg });
-    }
-
-    const query = args.join(' ');
-    let waitingMsg;
-
+    await m.react('🕓');
     try {
-      waitingMsg = await sock.sendMessage(msg.key.remoteJid, { text: `🔎 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗮𝘂𝗱𝗶𝗼 𝗠𝘂𝘀𝗶𝗰𝗮 "${query}"...` }, { quoted: msg });
+        let searchResults = await searchVideos(args.join(" "));
 
-      const searchResults = await yts(query);
-      if (!searchResults.videos.length) throw new Error("𝙽𝙾 𝚂𝙴 𝙴𝙽𝙲𝙾𝙽𝚃𝚁𝙰𝚁𝙾𝙽 𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾 𝙳𝙴𝙻 𝙰𝚄𝙳𝙸𝙾");
+        if (!searchResults.length) throw new Error('No se encontraron resultados.');
 
-      const videoInfo = searchResults.videos[0];
-      const { title, url } = videoInfo;
+        let video = searchResults[0];
+        let thumbnail = await (await fetch(video.miniatura)).buffer();
 
-      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗘𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼: *${title}*.\n\n🔄 𝗱𝗲𝘀𝗰𝗮𝗿𝗴𝗮𝗻𝗱𝗼 𝘁𝘂 𝗮𝘂𝗱𝗶𝗼 𝗠𝘂𝘀𝗶𝗰𝗮...` }, { edit: waitingMsg.key });
+        let messageText = `*Youtube - Download*\n\n`;
+        messageText += `${video.titulo}\n\n`;
+        messageText += `*⌛ Duración:* ${video.duracion || 'No disponible'}\n`;
+        messageText += `*👤 Autor:* ${video.canal || 'Desconocido'}\n`;
+        messageText += `*📆 Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
+        messageText += `*🖇️ Url:* ${video.url}\n`;
 
-      let audioBuffer;
+        await conn.sendMessage(m.chat, {
+            image: thumbnail,
+            caption: messageText,
+            footer: `𝖯𑄜𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 xzzys☁️`,
+            contextInfo: {
+                mentionedJid: [m.sender],
+                forwardingScore: 999,
+                isForwarded: true
+            },
+            buttons: [
+                {
+                    buttonId: `${usedPrefix}ytmp3 ${video.url}`,
+                    buttonText: { displayText: 'Audio' },
+                    type: 1,
+                },
+                {
+                    buttonId: `${usedPrefix}ytmp4 ${video.url}`,
+                    buttonText: { displayText: 'Video' },
+                    type: 1,
+                }
+            ],
+            headerType: 1,
+            viewOnce: true
+        }, { quoted: m });
 
-      // --- Sistema de Fallbacks Silencioso ---
-      try {
-        const tempFilePath = await downloadWithYtdlp(url, false); // false para audio
-        audioBuffer = fs.readFileSync(tempFilePath);
-        fs.unlinkSync(tempFilePath);
-      } catch (e1) {
-        console.error("play: yt-dlp failed:", e1.message);
-        try {
-            const downloadUrl = await downloadWithDdownr(url, false); // false para audio
-            const response = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
-            audioBuffer = response.data;
-        } catch (e2) {
-            console.error("play: ddownr failed:", e2.message);
-            throw new Error("Todos los métodos de descarga han fallado.");
-        }
-      }
-
-      if (!audioBuffer) {
-        throw new Error("El buffer de audio está vacío después de todos los intentos.");
-      }
-
-      await sock.sendMessage(msg.key.remoteJid, { text: `✅ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗔𝗿𝗰𝗵𝗶𝘃𝗼 𝗨𝗻 𝗠𝗼𝗺𝗲𝗻𝘁𝗼...` }, { edit: waitingMsg.key });
-
-      // Enviar como audio reproducible
-      await sock.sendMessage(msg.key.remoteJid, { audio: audioBuffer, mimetype: 'audio/mpeg' }, { quoted: msg });
-
-      // Enviar como documento
-      await sock.sendMessage(msg.key.remoteJid, { document: audioBuffer, mimetype: 'audio/mpeg', fileName: `${title}.mp3` }, { quoted: msg });
-
-    } catch (error) {
-      console.error("Error final en el comando play:", error);
-      const errorMsg = { text: `❌ ${error.message}` };
-       if (waitingMsg) {
-        await sock.sendMessage(msg.key.remoteJid, { ...errorMsg, edit: waitingMsg.key });
-      } else {
-        await sock.sendMessage(msg.key.remoteJid, errorMsg, { quoted: msg });
-      }
+        await m.react('✅');
+    } catch (e) {
+        console.error(e);
+        await m.react('✖️');
+        conn.reply(m.chat, '*`Error al buscar el video.`*', m);
     }
-  }
 };
 
-export default playCommand;
+handler.help = ['play','play2'];
+handler.tags = ['descargas'];
+handler.command = ['play','play2'];
+export default handler;
+
+async function searchVideos(query) {
+    try {
+        const res = await yts(query);
+        return res.videos.slice(0, 10).map(video => ({
+            titulo: video.title,
+            url: video.url,
+            miniatura: video.thumbnail,
+            canal: video.author.name,
+            publicado: video.timestamp || 'No disponible',
+            vistas: video.views || 'No disponible',
+            duracion: video.duration.timestamp || 'No disponible'
+        }));
+    } catch (error) {
+        console.error('Error en yt-search:', error.message);
+        return [];
+    }
+}
+
+function convertTimeToSpanish(timeText) {
+    return timeText
+        .replace(/year/, 'año').replace(/years/, 'años')
+        .replace(/month/, 'mes').replace(/months/, 'meses')
+        .replace(/day/, 'día').replace(/days/, 'días')
+        .replace(/hour/, 'hora').replace(/hours/, 'horas')
+        .replace(/minute/, 'minuto').replace(/minutes/, 'minutos');
+}
