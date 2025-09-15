@@ -536,7 +536,7 @@ await purgeSessionSB()}, 1000 * 60 * 10)
 setInterval(async () => {
 if (stopped === 'close' || !conn || !conn.user) return
 await purgeOldFiles()
-console.log(chalk.bold.cyanBright(`\n⌦ Archivos no necesario han sido eliminados del servidor SAIYAJIN.`))}, 1000 * 60 * 10)
+console.log(chalk.bold.cyanBright(`\n⌦ Archivos no necesario han sido eliminados del servidor.`))}, 1000 * 60 * 10)
 _quickTest().catch(console.error)
 async function isValidPhoneNumber(number) {
 try {
