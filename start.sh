@@ -1,4 +1,4 @@
-/*#!/bin/bash
+#!/bin/bash
 
 # --- Script de Inicio y Auto-Actualización Robusto ---
 # Este script se asegura de que el bot siempre esté ejecutando la última versión del código desde GitHub,
@@ -23,4 +23,3 @@ npm install --silent
 
 echo ">>> [Paso 3/3] Iniciando el bot..."
 node index.js
-*/
