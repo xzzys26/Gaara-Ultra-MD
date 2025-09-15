@@ -318,7 +318,7 @@ let user = global.db.data.users[m.sender]
 if (!['grupo-unbanchat.js'].includes(name) && chat && chat.isBanned && !isROwner) return
 if (name != 'grupo-unbanchat.js' && name != 'owner-exec.js' && name != 'owner-exec2.js' && name != 'grupo-delete.js' && chat?.isBanned && !isROwner) return
 if (m.text && user.banned && !isROwner) {
-m.reply(`《🐉》Estas baneado/a, no puedes usar comandos en este bot!\n\n${user.bannedReason ? `☁️ *Motivo:* ${user.bannedReason}` : '🔮 *Motivo:* Sin Especificar'}\n\n> 👑 Si este Bot es cuenta oficial y tiene evidencia que respalde que este mensaje es un error, puedes exponer tu caso con un moderador.`)
+m.reply(`《♤》Estas baneado/a, no puedes usar comandos en este bot!\n\n${user.bannedReason ? `♧ *Motivo:* ${user.bannedReason}` : '♧ *Motivo:* Sin Especificar'}\n\n>  ♧Si este Bot es cuenta oficial y tiene evidencia que respalde que este mensaje es un error, puedes exponer tu caso con un moderador.`)
 return
 }
 
@@ -378,11 +378,11 @@ m.isCommand = true
 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 10
 m.exp += xp
 if (!isPrems && plugin.monedas && global.db.data.users[m.sender].monedas < plugin.monedas * 1) {
-conn.reply(m.chat, `❮🔮❯ Se agotaron tus ${monedas}`, m)
+conn.reply(m.chat, `❮◇❯ Se agotaron tus ${monedas}`, m)
 continue
 }
 if (plugin.level > _user.level) {
-conn.reply(m.chat, `❮🐉❯ Se requiere el nivel: *${plugin.level}*\n\n• Tu nivel actual es: *${_user.level}*\n\n• Usa este comando para subir de nivel:\n*${usedPrefix}levelup*`, m)
+conn.reply(m.chat, `❮♤❯ Se requiere el nivel: *${plugin.level}*\n\n• Tu nivel actual es: *${_user.level}*\n\n• Usa este comando para subir de nivel:\n*${usedPrefix}levelup*`, m)
 continue
 }
 let extra = {
@@ -429,7 +429,7 @@ await plugin.after.call(this, m, extra)
 console.error(e)
 }}
 if (m.monedas)
-conn.reply(m.chat, `❮🐉❯ Utilizaste ${+m.monedas} ${monedas}`, m)
+conn.reply(m.chat, `❮□❯ Utilizaste ${+m.monedas} ${monedas}`, m)
 }
 break
 }}
@@ -495,16 +495,16 @@ let user2 = m.pushName || 'Anónimo'
 let verifyaleatorio = ['registrar', 'reg', 'verificar', 'verify', 'register'].getRandom()*/
 
 const msg = {
-rowner: '🐉El comando solo puede ser usado por los creadores del bot SAIYAJIN☁️.',
-owner: '🐉El comando solo puede ser usado por los desarrolladores del bot SAIYAJIN☁️.',
-mods: '🐉El comando solo puede ser usado por los moderadores del bot SAIYAJIN☁️.',
-premium: '🐉El comando solo puede ser usado por los usuarios premium SAIYAJIN☁️.',
-group: '🐉El comando solo puede ser usado en grupos SAIYAJIN☁️.',
-private: '🐉El comando solo puede ser usado al chat privado del bot SAIYAJIN☁️.',
-admin: '🐉El comando solo puede ser usado por los administradores del grupo SAIYAJIN☁️.',
-botAdmin: '🐉Para ejecutar el comando debo ser administrador del grupo SAIYAJIN☁️.',
-//unreg: '🐉pene de BrayanOFC☁️',
-restrict: '🐉Esta caracteristica está desactivada SAIYAJIN☁️.'
+rowner: '🚫El comando solo puede ser usado por los creadores del bot SAIYAJIN❌️.',
+owner: '🚫El comando solo puede ser usado por los desarrolladores del bot SAIYAJIN⚡️.',
+mods: '💥El comando solo puede ser usado por los moderadores del bot SAIYAJIN⚡️.',
+premium: '🚀El comando solo puede ser usado por los usuarios premium SAIYAJIN⚡️.',
+group: '⚡️El comando solo puede ser usado en grupos SAIYAJIN⚡️.',
+private: '🚫El comando solo puede ser usado al chat privado del bot SAIYAJIN⚡️.',
+admin: '❌️El comando solo puede ser usado por los administradores del grupo SAIYAJIN⚡️.',
+botAdmin: '⚡️Para ejecutar el comando debo ser administrador del grupo SAIYAJIN⚡️.',
+//unreg: '💥pene de BrayanOFC⚡️',
+restrict: '❌️Esta caracteristica está desactivada SAIYAJIN🪄.'
 }[type];
 if (msg) return m.reply(msg).then(_ => m.react('✖️'))}
 
