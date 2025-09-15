@@ -5,6 +5,11 @@
   🌪️ GAARA ULTRA MD 🌪️
 </h1>
 
+<!-- GIF Neon -->
+<p align="center">
+  <img src="https://github.com/BrayanOFC/Lines-Neon-MB/raw/main/assets/logo-neon.gif" width="400"/>
+</p>
+
 <p align="center">
   Bot de WhatsApp multipropósito basado en <a href="https://github.com/whiskeysockets/baileys">Baileys MD</a>.<br>
   Fácil de expandir, con sistema modular de plugins, rápido y con estilo único inspirado en Gaara ⚡.
