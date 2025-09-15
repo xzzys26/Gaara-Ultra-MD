@@ -89,11 +89,22 @@ npm start
 ```
 
 ### **`CREADOR DEL BOT`**
-<a
-href="https://github.com/xzzys26"><img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26"/></a>
+<div style="display: flex; align-items: center; gap: 40px;">
 
-### **`CO-CREADOR DEL BOT`**
-<div style="display: flex; gap: 10px;">
-  <a href="https://github.com/Elder504" style="text-decoration: none;">
-    <img src="https://github.com/Andresv27728.png" width="130" height="130" alt="Elder504" style="border-radius: 50%;" />
-  </a>
+  <!-- Creador -->
+  <div style="text-align: center;">
+    <a href="https://github.com/xzzys26">
+      <img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26" style="border-radius: 50%;" />
+    </a>
+    <h3>CREADOR DEL BOT</h3>
+  </div>
+
+  <!-- Co-Creador -->
+  <div style="text-align: center;">
+    <a href="https://github.com/Elder504">
+      <img src="https://github.com/Andresv27728.png" width="130" height="130" alt="Elder504" style="border-radius: 50%;" />
+    </a>
+    <h3>CO-CREADOR DEL BOT</h3>
+  </div>
+
+</div>
