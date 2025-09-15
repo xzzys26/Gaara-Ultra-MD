@@ -1,53 +1,55 @@
-// antilink avanzado Gaara-Ultra-MD by xzzys26
+// antilink ultra completo compatible con Gaara-Ultra-MD by xzzys26
 
-// Regex para la mayoría de enlaces comunes
-const antiLinkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|t\.me\/[^\s]+|chat\.whatsapp\.com\/[^\s]+)/i;
+const antiLinkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|t\.me\/[^\s]+|chat\.whatsapp\.com\/[^\s]+|instagram\.com\/[^\s]+|facebook\.com\/[^\s]+|twitter\.com\/[^\s]+|youtube\.com\/[^\s]+|tiktok\.com\/[^\s]+|pinterest\.com\/[^\s]+)/i;
 
 const antilinkCommand = {
   name: "antilink",
   category: "grupo",
-  description: "Detecta y elimina enlaces automáticamente y expulsa al usuario del grupo.",
+  description: "Detecta cualquier enlace de redes, canales o grupos y expulsa al usuario.",
 
   async execute({ sock, msg }) {
     try {
       const from = msg.key.remoteJid;
       const sender = msg.key.participant || msg.key.remoteJid;
 
-      // Solo grupos
-      if (!from.endsWith("@g.us")) return;
+      if (!from.endsWith("@g.us")) return; // solo grupos
 
-      // Función para obtener texto de cualquier tipo de mensaje
-      const getMessageText = (msg) => {
-        return (
-          msg.message?.conversation ||
-          msg.message?.extendedTextMessage?.text ||
-          msg.message?.imageMessage?.caption ||
-          msg.message?.videoMessage?.caption ||
-          msg.message?.documentMessage?.caption ||
-          msg.message?.templateButtonReplyMessage?.selectedId ||
-          msg.message?.buttonsResponseMessage?.selectedButtonId ||
-          ''
-        );
-      };
+      // Obtener texto de cualquier tipo de mensaje
+      let text = '';
+      if (msg.message?.conversation) text = msg.message.conversation;
+      else if (msg.message?.extendedTextMessage?.text) text = msg.message.extendedTextMessage.text;
+      else if (msg.message?.imageMessage?.caption) text = msg.message.imageMessage.caption;
+      else if (msg.message?.videoMessage?.caption) text = msg.message.videoMessage.caption;
+      else if (msg.message?.documentMessage?.caption) text = msg.message.documentMessage.caption;
+      else if (msg.message?.buttonsResponseMessage?.selectedButtonId) text = msg.message.buttonsResponseMessage.selectedButtonId;
+      else if (msg.message?.templateButtonReplyMessage?.selectedId) text = msg.message.templateButtonReplyMessage.selectedId;
 
-      const text = getMessageText(msg);
       if (!text) return;
 
-      // Detecta enlaces
+      // Detectar enlaces
       if (antiLinkRegex.test(text)) {
-        // Borra el mensaje
-        await sock.sendMessage(from, { delete: msg.key });
+        // Borrar el mensaje
+        try {
+          await sock.sendMessage(from, { delete: msg.key });
+        } catch (err) {
+          console.error("No se pudo borrar el mensaje:", err);
+        }
 
-        // Expulsa al usuario inmediatamente
-        await sock.groupParticipantsUpdate(from, [sender], "remove");
+        // Expulsar al usuario (solo si bot es admin)
+        try {
+          await sock.groupParticipantsUpdate(from, [sender], "remove");
+        } catch (err) {
+          console.error("No se pudo expulsar al usuario. Asegúrate que el bot sea admin.", err);
+        }
 
-        // Mensaje de aviso al grupo
+        // Aviso al grupo
         await sock.sendMessage(
           from,
           { text: `🚫 @${sender.split("@")[0]} ha sido expulsado por enviar enlaces no permitidos.` },
           { mentions: [sender] }
         );
       }
+
     } catch (err) {
       console.error("Error en antilink:", err);
     }
