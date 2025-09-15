@@ -38,8 +38,8 @@ function buildCodeCaption() {
 }
 
 const serbotCommand = {
-  name: 'qr',
-  aliases: ['code'],
+  name: 'qr','code'
+  aliases: ['code','qr'],
   category: 'subbots',
   description: 'Genera un QR o código de emparejamiento para crear un Sub-Bot',
 
