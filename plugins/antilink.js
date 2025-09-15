@@ -1,11 +1,12 @@
-// antilink Actualizado compatible solo Con Gaara-Ultra-MD by xzzys26 
+// antilink avanzado Gaara-Ultra-MD by xzzys26
 
-const antiLinkRegex = /(https?:\/\/[^\s]+)/i; // Detecta cualquier link
+// Regex para la mayoría de enlaces comunes
+const antiLinkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|t\.me\/[^\s]+|chat\.whatsapp\.com\/[^\s]+)/i;
 
 const antilinkCommand = {
   name: "antilink",
   category: "grupo",
-  description: "Detecta enlaces de cualquier tipo y evita que se compartan en el grupo.",
+  description: "Detecta y elimina enlaces automáticamente y expulsa al usuario del grupo.",
 
   async execute({ sock, msg }) {
     try {
@@ -15,33 +16,40 @@ const antilinkCommand = {
       // Solo grupos
       if (!from.endsWith("@g.us")) return;
 
-      // Obtener texto del mensaje
-      const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text;
+      // Función para obtener texto de cualquier tipo de mensaje
+      const getMessageText = (msg) => {
+        return (
+          msg.message?.conversation ||
+          msg.message?.extendedTextMessage?.text ||
+          msg.message?.imageMessage?.caption ||
+          msg.message?.videoMessage?.caption ||
+          msg.message?.documentMessage?.caption ||
+          msg.message?.templateButtonReplyMessage?.selectedId ||
+          msg.message?.buttonsResponseMessage?.selectedButtonId ||
+          ''
+        );
+      };
+
+      const text = getMessageText(msg);
       if (!text) return;
 
-      // Revisar si hay algún link
+      // Detecta enlaces
       if (antiLinkRegex.test(text)) {
-        // Aviso al usuario primero
+        // Borra el mensaje
+        await sock.sendMessage(from, { delete: msg.key });
+
+        // Expulsa al usuario inmediatamente
+        await sock.groupParticipantsUpdate(from, [sender], "remove");
+
+        // Mensaje de aviso al grupo
         await sock.sendMessage(
           from,
-          { text: `⚠️ @${sender.split("@")[0]}, no se permiten enlaces aquí! Por favor, elimina el mensaje.` },
-          { quoted: msg, mentions: [sender] }
+          { text: `🚫 @${sender.split("@")[0]} ha sido expulsado por enviar enlaces no permitidos.` },
+          { mentions: [sender] }
         );
-
-        // Opcional: Esperar unos segundos antes de expulsar (para dar chance de borrar)
-        setTimeout(async () => {
-          try {
-            // Revisar si el mensaje sigue ahí antes de expulsar
-            // Aquí podrías agregar lógica más avanzada para revisar mensajes recientes si quieres
-            await sock.groupParticipantsUpdate(from, [sender], "remove");
-            await sock.sendMessage(from, { text: `🚫 @${sender.split("@")[0]} ha sido expulsado por enviar enlaces.` }, { mentions: [sender] });
-          } catch (err) {
-            console.error("Error expulsando usuario en antilink:", err);
-          }
-        }, 5000); // Espera 5 segundos
       }
     } catch (err) {
-      console.error("Error en plugin antilink:", err);
+      console.error("Error en antilink:", err);
     }
   }
 };
