@@ -1,7 +1,7 @@
 {
   "name": "GaaraUltra-MD",
-  "version": "1.0.0",
-  "description": "Bot de WhatsApp con sistema de plugins usando Baileys Desde Cero By Xzzys26",
+  "version": "4.1.0",
+  "description": "Bot MD Desde Cero By David x Xzzys26",
   "main": "index.js",
   "type": "module",
   "scripts": {
