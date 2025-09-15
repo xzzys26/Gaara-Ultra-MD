@@ -44,9 +44,11 @@
 
 ## 📦 Requisitos
 
-- Node.js 18 o superior  
-- Git (para clonar repositorios)  
-- Conexión a internet estable  
+- Termux o cualquier servidor Linux/VPS
+- Node.js 18 o superior
+- Conexión a internet estable
+- Espacio suficiente en almacenamiento
+- Permisos para ejecutar scripts en la terminal
 
 ---
 
