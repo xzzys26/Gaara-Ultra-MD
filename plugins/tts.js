@@ -10,7 +10,7 @@ const ttsCommand = {
     const text = args.slice(1).join(' ');
 
     if (!lang || !text) {
-      return sock.sendMessage(msg.key.remoteJid, { text: "Uso: `tts <código_idioma> <texto>`\nEjemplo: `tts es Hola mundo`" }, { quoted: msg });
+      return sock.sendMessage(msg.key.remoteJid, { text: "Uso: tts <código_idioma> <texto> \nEjemplo: tts es Hola mundo" }, { quoted: msg });
     }
 
     if (text.length > 200) {
