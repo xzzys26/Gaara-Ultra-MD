@@ -90,7 +90,7 @@ npm start
 
 ### **`CREADOR DEL BOT`**
 <a
-href="https://github.com/xzzys26"><img src="https://files.catbox.moe/f6357e.png" width="130" height="130" alt="xzzys26"/></a>
+href="https://github.com/xzzys26"><img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26"/></a>
 
 ### **`CO-CREADOR DEL BOT`**
 <div style="display: flex; gap: 10px;">
