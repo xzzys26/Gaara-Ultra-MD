@@ -73,7 +73,11 @@ pkg install git nodejs ffmpeg imagemagick -y
 ```
 
 ```bash
-git clone https://github.com/erenxzy/Hatsune-UltraBot && cd Hatsune-UltraBot 
+git clone https://github.com/xzzys26/Gaara-Ultra-Xz
+```
+
+```bash
+cd Gaara-Ultra-MD
 ```
 
 ```bash
