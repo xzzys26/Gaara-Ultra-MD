@@ -90,7 +90,7 @@ npm start
 
 ### **`CREADOR DEL BOT`**
 <a
-href="https://github.com/erenxzy"><img src="https://github.com/erenxzy.png" width="130" height="130" alt="
+href="https://github.com/xzzys26"><img src="https://github.com/erenxzy.png" width="130" height="130" alt="
 𝙀𝙧𝙚𝙣𝙭𝙯𝙮𝙈𝘿𝙁"/></a>
 
 ### **`CO-CREADOR DEL BOT`**
