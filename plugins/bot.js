@@ -29,7 +29,7 @@ const botCommand = {
 ┃ 📦 *Módulos Activos:* ${commands.size}
 ┃ ⚙️ *Framework:* Baileys ${baileysVersion}
 ┃ ⏳ *Activo desde:* ${uptime} min
-┃ 🔑 *Prefijo:* ${config.prefix || '.'}
+┃ 🔑 *Prefijo:* ${config.prefix || 'sin prefijo'}
 ┃ 📡 *Estado:* Operativo ✅
 ┃ ☁️ *Alojamiento:* Duluxe Host ⚡ (VIP)
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
