@@ -32,7 +32,6 @@ const botCommand = {
 ┃ 🔑 *Prefijo:* ${config.prefix || '.'}
 ┃ 📡 *Estado:* Operativo ✅
 ┃ ☁️ *Alojamiento:* Duluxe Host ⚡ (VIP)
-┃
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `;
 
