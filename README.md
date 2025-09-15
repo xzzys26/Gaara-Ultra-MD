@@ -88,18 +88,11 @@ npm install
 npm start
 ```
 
-### **`𝑷𝑹𝑶𝑷𝑰𝑬𝑻𝑨𝑹𝑰𝑶`**
-<a
-href="https://github.com/erenxzy"><img src="https://github.com/erenxzy.png" width="130" height="130" alt="
-𝙀𝙧𝙚𝙣𝙭𝙯𝙮𝙈𝘿𝙁"/></a>
 
-### **`⚒︎ 𝘾𝙊𝙇𝙊𝘽𝙊𝙍𝘼𝘿𝙊𝙍𝙀𝙎 `**
+### **`CREADOR DEL BOT X CO-CREADOR 🥷🏼⚡️`**
 <div style="display: flex; gap: 10px;">
   <a href="https://github.com/Elder504" style="text-decoration: none;">
     <img src="https://github.com/Elder504.png" width="130" height="130" alt="Elder504" style="border-radius: 50%;" />
-  </a>
-  <a href="https://github.com/El-brayan502" style="text-decoration: none;">
-    <img src="https://github.com/El-brayan502.png" width="130" height="130" alt="El-brayan502" style="border-radius: 50%;" />
   </a>
   <a href="https://github.com/kleiner1-1" style="text-decoration: none;">
     <img src="https://github.com/kleiner1-1.png" width="130" height="130" alt="kleiner1-1" style="border-radius: 50%;" />
