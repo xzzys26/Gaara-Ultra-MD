@@ -5,7 +5,7 @@
   🌪️ GAARA ULTRA MD 🌪️
 </h1>
 
-<!-- GIF Neon -->
+<!-- GIF Neon Principal -->
 <p align="center">
   <img src="https://github.com/BrayanOFC/Lines-Neon-MB/raw/main/assets/logo-neon.gif" width="400"/>
 </p>
@@ -51,6 +51,10 @@
 ---
 
 ## 🚀 Instalación
+
+<p align="center">
+  <img src="https://github.com/BrayanOFC/Lines-Neon-MB/raw/main/assets/logo-neon.gif" width="300"/>
+</p>
 
 1. **Clonar este repositorio**
    ```bash
