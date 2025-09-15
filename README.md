@@ -58,7 +58,28 @@
   <img src="https://github.com/BrayanOFC/Lines-Neon-MB/raw/main/assets/logo-neon.gif" width="300"/>
 </p>
 
-1. **Clonar este repositorio**
-   ```bash
-   git clone https://github.com/tuusuario/Gaara-Ultra-MD
-   cd Gaara-Ultra-MD
+> Nota: Copie y pegue los comandos en termux uno por uno.
+
+```bash
+termux-setup-storage
+```
+
+```bash
+pkg update && pkg upgrade
+```
+
+```bash
+pkg install git nodejs ffmpeg imagemagick -y
+```
+
+```bash
+git clone https://github.com/erenxzy/Hatsune-UltraBot && cd Hatsune-UltraBot 
+```
+
+```bash
+npm install
+```
+
+```bash
+npm start
+```
