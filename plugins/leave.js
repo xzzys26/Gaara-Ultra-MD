@@ -17,7 +17,7 @@ const leaveCommand = {
     }
 
     try {
-      await sock.sendMessage(from, { text: "𝐇𝐚 𝐒𝐢𝐝𝐨 𝐔𝐧 𝐆𝐮𝐬𝐭𝐨 𝐄𝐧 𝐂𝐨𝐧𝐨𝐜𝐞𝐫𝐥𝐨𝐬 𝐌𝐞 𝐒𝐚𝐥𝐝𝐫𝐞 𝐃𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 𝐇𝐚𝐬𝐭𝐚 𝐋𝐮𝐞𝐠𝐨 🕊️" });
+      await sock.sendMessage(from, { text: "*Vivir… no tiene sentido si no hay nada por lo que luchar..*" });
       await sock.groupLeave(from);
     } catch (e) {
       console.error("Error en el comando leave:", e);
