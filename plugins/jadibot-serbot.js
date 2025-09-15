@@ -1,6 +1,3 @@
-// 🚫 prohibido editar 🚫
-//Código creado x The Carlos 👑 
-//No olviden dejar créditos.
 //editado por BrayanOFC para VEGETA-BOT-MB 
 import { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion, Browsers } from "@whiskeysockets/baileys"
 import qrcode from "qrcode"
