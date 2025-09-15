@@ -52,7 +52,7 @@
 
 ---
 
-## 🚀 Instalación
+## 🚀 Instalación Por Termux Actualizado ✅️ 
 
 <p align="center">
   <img src="https://github.com/BrayanOFC/Lines-Neon-MB/raw/main/assets/logo-neon.gif" width="300"/>
