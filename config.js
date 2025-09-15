@@ -15,12 +15,12 @@ global.botNumber = '' //Ejemplo: 573218138672
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.creador = [
-  ['18493907272', 'Xzzys26, true],
+  ['18493907272', 'Xzzys26', true],
 ]
 
 global.owner = [
 // <-- Número @s.whatsapp.net -->
-  ['18493907272', 'Xzzys26 Creador, true],
+  ['18493907272', 'Xzzys26 Creador', true],
   ['5216641784469'],
   ['90263687053350@lid'],
 
@@ -74,8 +74,8 @@ global.correo = 'erenxz01@gmail.com'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-*/global.catalogo = fs.readFileSync('./src/catalogo.jpg');*/
-global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: packname, orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}}
+// global.catalogo = fs.readFileSync('./src/catalogo.jpg')
+global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: global.packname, orderTitle: 'Bang', thumbnail: global.catalogo, sellerJid: '0@s.whatsapp.net'}}}
 global.ch = {
 ch1: '120363394965381607@newsletter',
 ch2: "120363394965381607@newsletter",
