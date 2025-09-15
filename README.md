@@ -97,7 +97,4 @@ npm start
   <a href="https://github.com/kleiner1-1" style="text-decoration: none;">
     <img src="https://github.com/kleiner1-1.png" width="130" height="130" alt="kleiner1-1" style="border-radius: 50%;" />
   </a>
-  <a href="https://github.com/Deylin-Eliac" style="text-decoration: none;">
-    <img src="https://github.com/Deylin-Eliac.png" width="130" height="130" alt="Deylin-Eliac" style="border-radius: 50%;" />
-  </a>
 </div>
