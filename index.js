@@ -40,7 +40,7 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 console.log(chalk.bold.redBright(`
 ╔═══════════════════════════════════════╗
 ║   ⚡ Gaara-Ultra-MD ACTIVADO ⚡         ║
-║  ʕ•ᴥ•ʔ ¡Prepárate para la batalla!    ║
+║   ¡Prepárate para para usar MD Ultra   ║
 ╚═══════════════════════════════════════╝
 `))
 
@@ -111,9 +111,9 @@ opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${vegetasessions}/creds.json`)) {
 do {
-opcion = await question(colors("Seleccione una opción:\n") + qrOption("1. ☆Con código QR\n") + textOption("2. ☆Con código de texto de 8 dígitos\n--> "))
+opcion = await question(colors("Seleccione una opción:\n") + qrOption("1. ➪Con código QR\n") + textOption("2. ➪ Con código de texto de 8 dígitos\n--> "))
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`☆No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales SAIYAJIN.`))
+console.log(chalk.bold.redBright(`⚠︎ No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${vegetasessions}/creds.json`))
 } 
 
@@ -184,7 +184,7 @@ console.log(chalk.bold.white(chalk.bgMagenta(`[♡]  Código:`)), chalk.bold.whi
 }}}}
 conn.isInit = false
 conn.well = false
-conn.logger.info(`[ ◇ ]  H E C H O\n`)
+conn.logger.info(`[ ⚡ ]  H E C H O\n`)
 if (!opts['test']) {
 if (global.db) setInterval(async () => {
 if (global.db.data) await global.db.write()
@@ -236,7 +236,7 @@ try {
 const realJid = await resolveLidToRealJid(lid, groupJid);
 processedText = processedText.replace(new RegExp(lid, 'g'), realJid)
 } catch (e) {
-console.error(`■Error procesando LID♧ ${lid}:`, e)
+console.error(`■Error procesando LID⚡ ${lid}:`, e)
 }}
 return processedText
 }
@@ -291,7 +291,7 @@ global.timestamp.connect = new Date
 if (global.db.data == null) loadDatabase()
 if (update.qr != 0 && update.qr != undefined || methodCodeQR) {
 if (opcion == '1' || methodCodeQR) {
-console.log(chalk.green.bold(` ♡Escanea este código QR♧`))}
+console.log(chalk.green.bold(` ⚡ Escanea este código QR♧`))}
 }
 if (connection === "open") {
 const userJid = jidNormalizedUser(conn.user.id)
@@ -302,26 +302,26 @@ console.log(chalk.green.bold(` ●Conectado a: ${userName}●`))
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
 if (reason === DisconnectReason.badSession) {
-console.log(chalk.bold.cyanBright(`\n •Sin conexión, borra la session principal del Bot, y conectate nuevamente SAIYAJIN•.`))
+console.log(chalk.bold.cyanBright(`\n •Sin conexión, borra la session principal del Bot, y conectate nuevamente.`))
 } else if (reason === DisconnectReason.connectionClosed) {
-console.log(chalk.bold.magentaBright(`\n《 Reconectando la conexión del Bot SAIYAJIN...》`))
+console.log(chalk.bold.magentaBright(`\n《 Reconectando la conexión del Bot...》`))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.connectionLost) {
-console.log(chalk.bold.blueBright(`\n Conexión perdida con el servidor y VEGETA, reconectando el Bot SAIYAJIN...`))
+console.log(chalk.bold.blueBright(`\n Conexión perdida con el servidor y VEGETA, reconectando el Bot ...`))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.connectionReplaced) {
 console.log(chalk.bold.yellowBright(`\n La conexión del Bot ha sido reemplazada SAIYAJIN.`))
 } else if (reason === DisconnectReason.loggedOut) {
-console.log(chalk.bold.redBright(`\n Sin conexión, borra la session principal del Bot, y conectate nuevamente SAIYAJIN.`))
+console.log(chalk.bold.redBright(`\n Sin conexión, borra la session principal del Bot, y conectate nuevamente.`))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.restartRequired) {
-console.log(chalk.bold.cyanBright(`\n Conectando el Bot con el servidor y VEGETA SAIYAJIN...`))
+console.log(chalk.bold.cyanBright(`\n Conectando el Bot con el servidor y Gaara Ultra-MD...`))
 await global.reloadHandler(true).catch(console.error)
 } else if (reason === DisconnectReason.timedOut) {
-console.log(chalk.bold.yellowBright(`\n Conexión agotada, reconectando el Bot SAIYAJIN...`))
+console.log(chalk.bold.yellowBright(`\n Conexión agotada, reconectando el Bot...`))
 await global.reloadHandler(true).catch(console.error)
 } else {
-console.log(chalk.bold.redBright(`\n Conexión cerrada, conectese nuevamente SAIYAJIN.`))
+console.log(chalk.bold.redBright(`\n Conexión cerrada, conectese nuevamente Gaara Ultra-MD.`))
 }}}
 process.on('uncaughtException', console.error)
 let isInit = true
@@ -364,7 +364,7 @@ isInit = false
 return true
 }
 setInterval(() => {
-console.log('[ ♤ ]  Reiniciando...');
+console.log('[ 🔄 ]  Reiniciando...');
 process.exit(0)
 }, 10800000)
 let rtU = join(__dirname, `./${jadi}`)
@@ -376,9 +376,9 @@ global.rutaJadiBot = join(__dirname, `./${jadi}`)
 if (global.Jadibts) {
 if (!existsSync(global.rutaJadiBot)) {
 mkdirSync(global.rutaJadiBot, { recursive: true }) 
-console.log(chalk.bold.cyan(`♧ La carpeta: ${jadi} se creó correctamente SAIYAJIN.`))
+console.log(chalk.bold.cyan(`🔎 La carpeta: ${jadi} se creó correctamente SAIYAJIN.`))
 } else {
-console.log(chalk.bold.cyan(` ■La carpeta: ${jadi} ya está creada SAIYAJIN■.`)) 
+console.log(chalk.bold.cyan(` La carpeta: ${jadi} ya está creada SAIYAJIN■.`)) 
 }
 const readRutaJadiBot = readdirSync(rutaJadiBot)
 if (readRutaJadiBot.length > 0) {
@@ -491,11 +491,11 @@ unlinkSync(`./${jadi}/${directorio}/${fileInDir}`)
 }})
 }})
 if (SBprekey.length === 0) {
-console.log(chalk.bold.green(`\nꕥ No hay archivos en ${jadi} para eliminar SAIYAJIN🐉.`))
+console.log(chalk.bold.green(`\n⚡ No hay archivos en ${jadi} para eliminar Gaara Ultra.`))
 } else {
-console.log(chalk.bold.cyanBright(`\n⌦ Archivos de la carpeta ${jadi} han sido eliminados correctamente SAIYAJIN.`))
+console.log(chalk.bold.cyanBright(`\n⌦ Archivos de la carpeta ${jadi} han sido eliminados correctamente.`))
 }} catch (err) {
-console.log(chalk.bold.red(`\n⚠︎ Error para eliminar archivos de la carpeta SAIYAJIN ${jadi}.\n` + err))
+console.log(chalk.bold.red(`\n⚠︎ Error para eliminar archivos de la carpeta ${jadi}.\n` + err))
 }}
 
 function purgeOldFiles() {
@@ -510,7 +510,7 @@ unlinkSync(filePath, err => {
 if (err) {
 console.log(chalk.bold.red(`\n⚠︎ El archivo ${file} no se logró borrar.\n` + err))
 } else {
-console.log(chalk.bold.green(`\n⌦ El archivo ${file} se ha borrado correctamente SAIYAJIN.`))
+console.log(chalk.bold.green(`\n⌦ El archivo ${file} se ha borrado correctamente.`))
 } }) }
 }) }) }) }
 function redefineConsoleMethod(methodName, filterStrings) {
