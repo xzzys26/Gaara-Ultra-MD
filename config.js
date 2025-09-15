@@ -1,6 +1,6 @@
 const config = {
-  botName: "𝙂𝘼𝘼𝙍𝘼 𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🩸",
-  ownerName: "𝘅𝘇𝘇𝘺𝘴26",
+  botName: "𝗚𝗔𝗔𝗥𝗔 𝗨𝗟𝗧𝗥𝗔-𝗠𝗗",
+  ownerName: "xzzys26",
   taxRate: 0.10,
 
   ownerNumbers: [
@@ -19,7 +19,7 @@ const config = {
     gemini: "AIzaSyDEww4IKqba9tgfb8ndMDBOoLkl-nSy4tw"
   },
 
-  authDir: "Xzzys26 Session"
+  authDir: "Gaara-Ultra Session"
 };
 
 export default config;
