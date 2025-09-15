@@ -67,10 +67,10 @@ global.catalogo = 'https://files.catbox.moe/j0z1kz.jpg'
 
 global.gp1 = 'https://chat.whatsapp.com/HaKf6ezcwdbGzmH782eBal?mode=r_c'
 global.comunidad1 = 'https://chat.whatsapp.com/I0dMp2fEle7L6RaWBmwlAa'
-global.channel = 'https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n'
-global.channel2 = 'https://whatsapp.com/channel/0029VbAfPu9BqbrEMFWXKE0d'
-global.md = 'https://githun.com/BrayanOFC/VEGETA-BOT-MB.git'
-global.correo = 'brayanofc70@gmail.com'
+global.channel = 'https://whatsapp.com/channel/0029Vb5yFNP72WU14BQqel1V'
+global.channel2 = 'https://whatsapp.com/channel/0029Vb5yFNP72WU14BQqel1V'
+global.md = 'https://github.com/xzzys26/Gaara-Ultra-MD.git'
+global.correo = 'erenxz01@gmail.com'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
