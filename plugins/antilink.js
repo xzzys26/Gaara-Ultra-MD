@@ -1,46 +1,48 @@
-import { readSettingsDb, writeSettingsDb } from '../lib/database.js';
+// antilink Actualizado by xzzys26 
+
+const antiLinkRegex = /(https?:\/\/[^\s]+)/i; // Detecta cualquier link
 
 const antilinkCommand = {
   name: "antilink",
-  category: "grupos",
-  description: "Activa o desactiva la eliminación de enlaces de invitación.",
+  category: "grupo",
+  description: "Detecta enlaces de cualquier tipo y evita que se compartan en el grupo.",
 
-  async execute({ sock, msg, args }) {
-    const from = msg.key.remoteJid;
-    const option = args[0]?.toLowerCase();
-
-    if (!from.endsWith('@g.us')) {
-      return sock.sendMessage(from, { text: "Este comando solo se puede usar en grupos." }, { quoted: msg });
-    }
-
+  async execute({ sock, msg }) {
     try {
-      const metadata = await sock.groupMetadata(from);
-      const senderIsAdmin = metadata.participants.find(p => p.id === (msg.key.participant || msg.key.remoteJid))?.admin;
-      if (!senderIsAdmin) {
-        return sock.sendMessage(from, { text: "No tienes permisos de administrador." }, { quoted: msg });
+      const from = msg.key.remoteJid;
+      const sender = msg.key.participant || msg.key.remoteJid;
+
+      // Solo grupos
+      if (!from.endsWith("@g.us")) return;
+
+      // Obtener texto del mensaje
+      const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text;
+      if (!text) return;
+
+      // Revisar si hay algún link
+      if (antiLinkRegex.test(text)) {
+        // Aviso al usuario primero
+        await sock.sendMessage(
+          from,
+          { text: `⚠️ @${sender.split("@")[0]}, no se permiten enlaces aquí! Por favor, elimina el mensaje.` },
+          { quoted: msg, mentions: [sender] }
+        );
+
+        // Opcional: Esperar unos segundos antes de expulsar (para dar chance de borrar)
+        setTimeout(async () => {
+          try {
+            // Revisar si el mensaje sigue ahí antes de expulsar
+            // Aquí podrías agregar lógica más avanzada para revisar mensajes recientes si quieres
+            await sock.groupParticipantsUpdate(from, [sender], "remove");
+            await sock.sendMessage(from, { text: `🚫 @${sender.split("@")[0]} ha sido expulsado por enviar enlaces.` }, { mentions: [sender] });
+          } catch (err) {
+            console.error("Error expulsando usuario en antilink:", err);
+          }
+        }, 5000); // Espera 5 segundos
       }
-    } catch (e) {
-      return sock.sendMessage(from, { text: "Ocurrió un error al verificar tus permisos." }, { quoted: msg });
+    } catch (err) {
+      console.error("Error en plugin antilink:", err);
     }
-
-    if (option !== 'on' && option !== 'off') {
-      return sock.sendMessage(from, { text: "Usa `antilink on` o `antilink off`." }, { quoted: msg });
-    }
-
-    const settings = readSettingsDb();
-    if (!settings[from]) {
-      settings[from] = {}; // Crear objeto de ajustes para el grupo si no existe
-    }
-
-    if (option === 'on') {
-      settings[from].antilink = true;
-      await sock.sendMessage(from, { text: "✅ El Anti-Link ha sido activado." }, { quoted: msg });
-    } else { // option === 'off'
-      settings[from].antilink = false;
-      await sock.sendMessage(from, { text: "❌ El Anti-Link ha sido desactivado." }, { quoted: msg });
-    }
-
-    writeSettingsDb(settings);
   }
 };
 
