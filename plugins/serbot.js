@@ -17,23 +17,23 @@ const GLOBAL_KEY = '__bot__'
 const IMAGE_URL = 'https://files.cloudkuimages.guru/images/FiRCPo0v.jpg'
 
 function buildQrCaption() {
-  let r =  'S U B - B O T   Q R \n\n'
-  r += '✩ *1.* Abre WhatsApp en otro dispositivo\n'
-  r += '✩ *2.* Toca ⋮ > *WhatsApp Web*\n'
-  r += '✩ *3.* Escanea este código QR\n\n'
-  r += '✩ *Expira en 45 segundos*\n'
-  r += ' *Nota:* Uso responsable del bot'
+  let r =  '✐ 𝐆𝐀𝐀𝐑𝐀-𝐕𝐈𝐍𝐂𝐔𝐋𝐀𝐂𝐈𝐎𝐍 𝐐𝐑 \n\n'
+  r += '✐ *1.* Abre WhatsApp en otro dispositivo\n'
+  r += '✐ *2.* Toca ⋮ > *WhatsApp Web*\n'
+  r += '✐ *3.* Escanea este código QR\n\n'
+  r += '✐ *Expira en 45 segundos*\n'
+  r += '✐ *Nota:* Uso responsable del bot'
   return r
 }
 
 function buildCodeCaption() {
-  let r =  'V I N C U L A R   C Ó D I G O \n\n'
-  r += '✩ *1.* Ve a ⋮ > *Dispositivos*\n'
-  r += '✩ *2.* Selecciona *Vincular*\n'
-  r += '✩ *3.* Ingresa este código:\n\n'
-  r += '✩ *Código:* 8 dígitos\n'
-  r += '✩ *Válido por 60 segundos*\n'
-  r += ' *Consejo:* Copia y pega rápido'
+  let r =  '✐ 𝐆𝐀𝐀𝐑𝐀-𝐕𝐈𝐍𝐂𝐔𝐋𝐀𝐂𝐈𝐎𝐍 𝐂𝐎𝐃𝐄 \n\n'
+  r += '✐ *1.* Ve a ⋮ > *Dispositivos*\n'
+  r += '✐ *2.* Selecciona *Vincular*\n'
+  r += '✐ *3.* Ingresa este código:\n\n'
+  r += '✐ *Código:* 8 dígitos\n'
+  r += '✐ *Válido por 60 segundos*\n'
+  r += '✐ *Consejo:* Copia y pega rápido'
   return r
 }
 
