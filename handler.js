@@ -248,7 +248,7 @@ if (!opts['restrict'])
 if (plugin.tags && plugin.tags.includes('admin')) {
 continue
 }
-const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+const str2Regex = str => str.replace('^(#|!|\\.|/)', 'i')
 //  LÓGICA DE PREFIJOS PERSONALIZADOS AÑADIDA NO TOCAR PORFA SOLO DEYLIN.
 let _prefix = (plugin.customPrefix ? [plugin.customPrefix] : []).concat(global.db.data.settings[this.user.jid]?.prefix || global.prefix);
 let match = (_prefix instanceof RegExp ? 
