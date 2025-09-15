@@ -40,7 +40,7 @@ const ownerCommand = {
     await sock.sendMessage(  
       msg.key.remoteJid,   
       {   
-        image: { url: "https://files.catbox.moe/z79xxj.jpg" },  
+        image: { url: "https://files.catbox.moe/f6357e.png" },  
         caption: ownerText   
       },   
       { quoted: msg }  
