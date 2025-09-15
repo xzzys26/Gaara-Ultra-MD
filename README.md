@@ -88,23 +88,22 @@ npm install
 npm start
 ```
 
-### **`CREADOR DEL BOT`**
-<div style="display: flex; align-items: center; gap: 40px;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 50px;">
 
   <!-- Creador -->
-  <div style="text-align: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;">
     <a href="https://github.com/xzzys26">
       <img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26" style="border-radius: 50%;" />
     </a>
-    <h3>CREADOR DEL BOT</h3>
+    <span style="margin-top: 10px; font-weight: bold;">CREADOR DEL BOT</span>
   </div>
 
   <!-- Co-Creador -->
-  <div style="text-align: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;">
     <a href="https://github.com/Elder504">
       <img src="https://github.com/Andresv27728.png" width="130" height="130" alt="Elder504" style="border-radius: 50%;" />
     </a>
-    <h3>CO-CREADOR DEL BOT</h3>
+    <span style="margin-top: 10px; font-weight: bold;">CO-CREADOR DEL BOT</span>
   </div>
 
 </div>
