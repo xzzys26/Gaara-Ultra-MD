@@ -88,22 +88,24 @@ npm install
 npm start
 ```
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 50px;">
+<table>
+  <tr>
+    <!-- Creador -->
+    <td align="center">
+      <a href="https://github.com/xzzys26">
+        <img src="https://github.com/xzzys26.png" width="130" height="130" style="border-radius:50%;" />
+      </a>
+      <br>
+      <b>CREADOR DEL BOT</b>
+    </td>
 
-  <!-- Creador -->
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <a href="https://github.com/xzzys26">
-      <img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26" style="border-radius: 50%;" />
-    </a>
-    <span style="margin-top: 10px; font-weight: bold;">CREADOR DEL BOT</span>
-  </div>
-
-  <!-- Co-Creador -->
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <a href="https://github.com/Elder504">
-      <img src="https://github.com/Andresv27728.png" width="130" height="130" alt="Elder504" style="border-radius: 50%;" />
-    </a>
-    <span style="margin-top: 10px; font-weight: bold;">CO-CREADOR DEL BOT</span>
-  </div>
-
-</div>
+    <!-- Co-Creador -->
+    <td align="center">
+      <a href="https://github.com/Elder504">
+        <img src="https://github.com/Andresv27728.png" width="130" height="130" style="border-radius:50%;" />
+      </a>
+      <br>
+      <b>CO-CREADOR DEL BOT</b>
+    </td>
+  </tr>
+</table>
