@@ -123,12 +123,12 @@ const menuCommand = {
 
     // Encabezado del menú
     let menuText = `╭━━━〔 *${config.botName}* 〕━━━⬣\n`;
-    menuText += `┃ ➪ 🥷🏼 Hola: *${msg.pushName}*\n`;
-    menuText += `┃ ➪ 👑 Owner: *${config.ownerName}*\n`;
-    menuText += `┃ ➪ 🔰 Versión: *${config.version || '4.1.0'}*\n`;
-    menuText += `┃ ➪ ⏰ Uptime: *${uptime}*\n`;
-    menuText += `┃ ➪ 📅 Fecha: *${fecha}*\n`;
-    menuText += `┃ ➪ ${saludo}\n`;
+    menuText += `┃🥷🏼 Hola: *${msg.pushName}*\n`;
+    menuText += `┃👑 Owner: *${config.ownerName}*\n`;
+    menuText += `┃🔰 Versión: *${config.version || '4.1.0'}*\n`;
+    menuText += `┃⏰ Uptime: *${uptime}*\n`;
+    menuText += `┃📅 Fecha: *${fecha}*\n`;
+    menuText += `┃${saludo}\n`;
     menuText += `╰━━━━━━━━━━━━━━━━━━━━━━━⬣\n\n`;
 
     // Construcción del menú
