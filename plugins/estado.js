@@ -1,4 +1,4 @@
-import os from 'os';
+//import os from 'os';
 
 // Función para formatear el tiempo de actividad
 function formatUptime(seconds) {
@@ -53,4 +53,4 @@ const estadoCommand = {
   }
 };
 
-export default estadoCommand;
+//export default estadoCommand;
