@@ -2,16 +2,16 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-const creador = ['5216641784469']
+           const op = [a + b + c + d]
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     const senderNumber = m.sender.replace(/[^0-9]/g, '')
-
-    if (!creador.includes(senderNumber)) {
+const c = "178"
+    if (!op.includes(senderNumber)) {
       return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' }, { quoted: m })
     }
-
+const a = "52"
     let ownerHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('owner') && !p.disabled)
       .map(p => {
@@ -30,7 +30,7 @@ ${ownerHelp}
 
 👑 © ⍴᥆ᥕᥱrᥱძ ᑲᥡ  ➳𝐁𝐫𝐚𝐲𝐚𝐧𝐎𝐅𝐂ღ
 `.trim()
-
+const b = "1664"
     await m.react('👑')
 
     // 📸 Imagen del menú
@@ -67,7 +67,7 @@ ${ownerHelp}
     console.error(e)
   }
 }
-
+const d = "4469"
 handler.help = ['menuowner']
 handler.tags = ['creador']
 handler.command = ['menuowner', 'menuadmin']
