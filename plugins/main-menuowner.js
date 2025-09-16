@@ -4,6 +4,12 @@ import fetch from 'node-fetch'
 
     const creador = ['5216641784469'];
 
+    const senderNumber = m.sender.replace(/[^0-9]/g, '');
+
+
+    if (!OWNERS.includes(senderNumber)) {
+        return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' });
+
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let ownerHelp = Object.values(global.plugins)
