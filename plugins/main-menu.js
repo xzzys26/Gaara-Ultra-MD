@@ -1,4 +1,4 @@
-//créditos y creador de codigo BrayanOFC 
+//créditos y creador de código BrayanOFC Y Modificado Por xzzys26
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 
 const botname = global.botname || '🌪️ 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🌪️'
 const creador = 'xzzys26'
+const versionBot = '1.0.0' // cámbiala si tienes otra
 
 // Categorías
 let tags = {
@@ -46,14 +47,10 @@ let tags = {
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let userId = m.mentionedJid?.[0] || m.sender
-    let user = global.db.data.users[userId]
+    let user = global.db.data.users[userId] || { exp: 0, level: 1 }
 
-    if (!user) {
-      global.db.data.users[userId] = { exp: 0, level: 1 }
-      user = global.db.data.users[userId]
-    }
-
-    let { exp, level } = user
+    let { level } = user
+    let totalUsers = Object.keys(global.db.data.users).length
     let { min, xp, max } = xpRange(level, global.multiplier || 1)
 
     // Plugins activos
@@ -64,23 +61,34 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       premium: plugin.premium,
     }))
 
+    // Saludo + hora exacta
     let saludo = getSaludo()
 
-    // Construcción del menú limpio
+    // Uptime real
+    let uptime = clockString(process.uptime() * 1000)
+
+    // Modo (Privado / Público)
+    let modo = global.opts?.self ? "🔒 Privado" : "🌐 Público"
+
+    // Bloque inicial
     let menuText = `
 ╭━━━〔  *GAARA-ULTRA-MENU*  〕━━━⬣
 ┃ 🤖 Nombre: *${botname}*
 ┃ 👤 Creador: *${creador}*
-┃ 🔐 Estado: *Privado*
+┃ 🔐 Estado: *${modo}*
 ┃ 💬 Saludo: *${saludo}*
+┃ 📡 Uptime: *${uptime}*
+┃ 👥 Usuarios: *${totalUsers}*
+┃ 🎚️ Nivel: *${level}*
 ┃ 💻 Hosting: *Deluxe Host VIP*
+┃ 📦 Versión: *${versionBot}*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `
 
-    // Recorremos categorías sin dejar huecos
+    // Recorremos categorías (sin huecos)
     for (let tag in tags) {
       let comandos = help.filter(menu => menu.tags.includes(tag))
-      if (!comandos.length) continue // ← se salta vacías
+      if (!comandos.length) continue
 
       menuText += `
 ╭━━━〔 ${tags[tag]} 〕━━━⬣
@@ -146,10 +154,16 @@ function clockString(ms) {
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
 
-// Saludo dinámico
+// Saludo dinámico con hora real de Saint Martin (UTC-4)
 function getSaludo() {
-  let hora = new Date().getHours()
-  if (hora >= 5 && hora < 12) return "🌅 Buenos días"
-  if (hora >= 12 && hora < 18) return "☀️ Buenas tardes"
-  return "🌙 Buenas noches"
+  let options = { timeZone: "America/Marigot", hour: "numeric", minute: "numeric", second: "numeric", hour12: false }
+  let horaStr = new Date().toLocaleString("es-DO", options)
+  let [hora] = horaStr.split(":").map(n => parseInt(n))
+
+  let saludo
+  if (hora >= 5 && hora < 12) saludo = "🌅 Buenos días"
+  else if (hora >= 12 && hora < 18) saludo = "☀️ Buenas tardes"
+  else saludo = "🌙 Buenas noches"
+
+  return `${saludo} | 🕒 ${horaStr}`
 }
