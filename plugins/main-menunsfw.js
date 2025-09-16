@@ -56,7 +56,7 @@ ${nsfwHelp}
 }
 
 handler.help = ['menunsfw']
-handler.tags = ['main']
+handler.tags = ['creador']
 handler.command = ['menunsfw', 'menuerotico']
 handler.register = true
 
