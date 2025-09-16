@@ -1,4 +1,8 @@
-    const creador = ['5216631288816']
+// creado y editado por BrayanOFC
+import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
+import fetch from 'node-fetch'
+
+const creador = ['5216631288816']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
