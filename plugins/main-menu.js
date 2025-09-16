@@ -9,6 +9,36 @@ let tags = {
   'serbot': '🤖 𝗦𝗨𝗕-𝗕𝗢𝗧𝗦',
   'info': '🌀 𝗜𝗡𝗙𝗢𝗦',
   'main': '⚡ 𝗠𝗘𝗡𝗨'
+  'nable': 'Modo Avanzado',
+  'cmd': 'Comandos',
+  'advanced': 'Funciones Avanzadas',
+  'game': 'Juegos',
+  'rpg': 'RPG',
+  'group': 'Grupos',
+  'downloader': 'Descargas',
+  'sticker': 'Stickers',
+  'audio': 'Audio',
+  'search': 'Búsqueda',
+  'tools': 'Herramientas',
+  'fun': 'Diversión',
+  'anime': 'Anime',
+  'nsfw': 'NSFW',
+  'premium': 'Premium',
+  'weather': 'Clima',
+  'news': 'Noticias',
+  'finance': 'Finanzas',
+  'education': 'Educación',
+  'health': 'Salud',
+  'entertainment': 'Entretenimiento',
+  'sports': 'Deportes',
+  'travel': 'Viajes',
+  'food': 'Comida',
+  'shopping': 'Compras',
+  'productivity': 'Productividad',
+  'social': 'Redes Sociales',
+  'security': 'Seguridad',
+  'custom': 'Personalizado'
+}
 }
 const creador = 'xzzys26'
 
