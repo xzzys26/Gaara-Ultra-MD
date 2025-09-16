@@ -10,7 +10,7 @@ let tags = {
   'info': '📊 INFO',
   'main': '📜 MENÚS'
 }
-const creador = 'BrayanOFC 👻'
+const creador = 'Xzzys26'
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
