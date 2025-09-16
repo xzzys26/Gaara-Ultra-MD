@@ -56,7 +56,7 @@ ${gruposHelp}
 }
 
 handler.help = ['menugrupos']
-handler.tags = ['main']
+handler.tags = ['creador']
 handler.command = ['menugrupos', 'menugp']
 handler.register = true
 
