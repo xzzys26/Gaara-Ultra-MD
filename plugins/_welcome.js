@@ -1,6 +1,6 @@
 //codigo creado por BrayanOFC 
-import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
-
+// plugins/welcome.js
+// Nota: usa conn.sendMessage que es más simple y fiable
 const links = {
   welcome: 'https://qu.ax/SfjSV.png',
   bye: 'https://qu.ax/Rddry.png'
@@ -8,54 +8,43 @@ const links = {
 
 export async function welcomeHandler(conn, update) {
   try {
+    console.log('[welcomeHandler] recibí update ->', update)
+
     const { id, participants, action } = update
-    for (let user of participants) {
+    if (!id || !participants || !action) {
+      console.log('[welcomeHandler] update incompleto, saliendo')
+      return
+    }
+
+    for (const participant of participants) {
+      const username = participant.split('@')[0] // ejemplo: 521234567890@s.whatsapp.net -> 521234567890
+
       if (action === 'add') {
-        
-        let msg = await prepareWAMessageMedia(
-          { image: { url: links.welcome } },
-          { upload: conn.waUploadToServer }
-        )
-
-        const m = generateWAMessageFromContent(
+        const caption = `👋 Bienvenido @${username}\nLee las reglas y preséntate 😉`
+        await conn.sendMessage(
           id,
-          {
-            viewOnceMessage: {
-              message: {
-                ...msg,
-                caption: `👋 Bienvenido Bro @${user.split('@')[0]}`
-              }
-            }
-          },
-          { userJid: conn.user.id }
+          { image: { url: links.welcome }, caption },
+          { mentions: [participant] }
         )
-
-        await conn.relayMessage(id, m.message, { messageId: m.key.id })
+        console.log(`[welcomeHandler] enviado bienvenida a ${participant} en ${id}`)
 
       } else if (action === 'remove') {
-        
-        let msg = await prepareWAMessageMedia(
-          { image: { url: links.bye } },
-          { upload: conn.waUploadToServer }
-        )
-
-        const m = generateWAMessageFromContent(
+        const caption = `💀 Nadie te quiso @${username}`
+        await conn.sendMessage(
           id,
-          {
-            viewOnceMessage: {
-              message: {
-                ...msg,
-                caption: `👋 Nadie te quiso 💀 @${user.split('@')[0]}`
-              }
-            }
-          },
-          { userJid: conn.user.id }
+          { image: { url: links.bye }, caption },
+          { mentions: [participant] }
         )
+        console.log(`[welcomeHandler] enviado despedida a ${participant} en ${id}`)
 
-        await conn.relayMessage(id, m.message, { messageId: m.key.id })
+      } else if (action === 'promote' || action === 'demote') {
+        // opcional: manejas promociones/demotes si quieres
+        console.log(`[welcomeHandler] acción ${action} para ${participant}`)
+      } else {
+        console.log('[welcomeHandler] acción desconocida:', action)
       }
     }
   } catch (e) {
-    console.log('❌ Error en welcomeHandler:', e)
+    console.error('[welcomeHandler] error ->', e)
   }
 }
