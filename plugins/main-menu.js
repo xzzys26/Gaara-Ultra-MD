@@ -59,7 +59,7 @@ ${Object.keys(tags).map(tag => {
   let section = `
 ┃ ➪ ${tags[tag]} ${getRandomEmoji()}
 ${commandsForTag.map(menu => menu.help.map(help =>
-  `╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
+  `┃╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}`
   return section
 }).filter(text => text !== '').join('\n')}
