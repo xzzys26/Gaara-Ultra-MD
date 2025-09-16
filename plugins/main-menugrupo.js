@@ -2,7 +2,19 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-    const creador = ['5216641784469'];
+    const creador = ['5216631288816']
+
+let handler = async (m, { conn, usedPrefix: _p }) => {
+  try {
+    const senderNumber = m.sender.replace(/[^0-9]/g, '')
+
+    if (!creador.includes(senderNumber)) {
+      return conn.sendMessage(
+        m.chat,
+        { text: '❌ Solo el creador del comando puede usar este comando.' },
+        { quoted: m }
+      )
+    }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
