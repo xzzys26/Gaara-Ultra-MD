@@ -1,7 +1,3 @@
-// creado y editado por BrayanOFC
-import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
-import fetch from 'node-fetch'
-
     const creador = ['5216631288816']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -16,8 +12,6 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       )
     }
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
-  try {
     let nsfwHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('nsfw') && !p.disabled)
       .map(p => {
@@ -73,6 +67,7 @@ handler.help = ['menunsfw']
 handler.tags = ['creador']
 handler.command = ['menunsfw', 'menuerotico']
 handler.register = true
+handler.estrellas = 9
 
 export default handler
 
