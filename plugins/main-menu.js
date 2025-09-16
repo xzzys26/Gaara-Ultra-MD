@@ -59,7 +59,7 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 👑 © Powered by xzzys26 🥷🏽
 `.trim()
 
-    await m.react('⚡')
+    await m.react('🚀', '🥷', '⚡', '🔥', '👑', '💥')
 
     let imgBuffer = await (await fetch('https://files.catbox.moe/3peljt.jpg')).buffer()
     let media = await prepareWAMessageMedia(
