@@ -66,31 +66,34 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 
     let saludo = getSaludo()
 
-    // Construcción del menú sin espacios vacíos
+    // Construcción del menú limpio
     let menuText = `
 ╭━━━〔 ⚡ *GAARA-ULTRA-MD* ⚡ 〕━━━⬣
 ┃ ➪ 🤖 Nombre: *${botname}*
 ┃ ➪ 👤 Creador: *${creador}*
-┃ ➪ 🔐 Estado: *Privdo*
+┃ ➪ 🔐 Estado: *Privado*
 ┃ ➪ 💬 Saludo: *${saludo}*
 ┃ ➪ 💻 Hosting: *Deluxe Host VIP*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`
 
-╭━━━〔 📜 *MENÚS DISPONIBLES* 〕━━━⬣
-${Object.keys(tags).map(tag => {
-  const commandsForTag = help.filter(menu => menu.tags.includes(tag))
-  if (!commandsForTag.length) return '' // ← esto quita los espacios vacíos
-  let section = `
-> ${tags[tag]}
-${commandsForTag.map(menu => menu.help.map(help =>
-  `> ╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
-).join('\n')).join('\n')}`
-  return section
-}).filter(text => text).join('\n')}
+    // Recorremos categorías sin dejar huecos
+    for (let tag in tags) {
+      let comandos = help.filter(menu => menu.tags.includes(tag))
+      if (!comandos.length) continue // ← se salta vacías
+
+      menuText += `
+╭━━━〔 ${tags[tag]} 〕━━━⬣
+${comandos.map(menu => menu.help.map(help =>
+  `┃ ✦ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
+).join('\n')).join('\n')}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`
+    }
 
+    menuText += `
 👑 Powered by ${creador} 🥷🏽
-`.trim()
+`
 
     await m.react('🥷')
     await m.react('⚡')
