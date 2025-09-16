@@ -118,10 +118,6 @@ function clockString(ms) {
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
 
-function getRandomEmoji() {
-  const emojis = ['🥷🏽', '⚡️', '⚡', '🥷🏽', '🚀', '✅️']
-  return emojis[Math.floor(Math.random() * emojis.length)]
-}
 
 // 🌍 Hora y saludo según país
 function getPaisHora(jid) {
