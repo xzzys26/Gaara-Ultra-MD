@@ -6,9 +6,9 @@ import fetch from 'node-fetch'
 
 const botname = global.botname || '🌪️ 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🌪️'
 let tags = {
-  'serbot': '🤖 SUB BOTS',
-  'info': '📊 INFO',
-  'main': '📜 MENÚS'
+  'serbot': '🤖 𝗦𝗨𝗕-𝗕𝗢𝗧𝗦',
+  'info': '🌀 𝗜𝗡𝗙𝗢𝗦',
+  'main': '⚡ 𝗠𝗘𝗡𝗨'
 }
 const creador = 'xzzys26'
 
@@ -38,7 +38,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ╭━━━〔 ⚡ *GAARA-ULTRA-MD* ⚡ 〕━━━⬣
 ┃ ➪ 🤖 Nombre: *${botname}*
 ┃ ➪ 👤 Creador: *${creador}*
-┃ ➪ 🔐 Estado: *${mode}*
+┃ ➪ 🔐 Estado: *Privdo*
 ┃ ➪ 💬 Saludo: *${saludo}*
 ┃ ➪ 💻 Hosting: *Deluxe Host VIP*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
@@ -50,13 +50,13 @@ ${Object.keys(tags).map(tag => {
   let section = `
 ┃ ➪ ${tags[tag]}
 ${commandsForTag.map(menu => menu.help.map(help =>
-  `┃╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
+  `┃> ╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}`
   return section
 }).filter(text => text !== '').join('\n')}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-👑 © Powered by xzzys26 🥷🏽
+👑 Powered by xzzys26 🥷🏽
 `.trim()
 
     await m.react('🥷', '⚡')
