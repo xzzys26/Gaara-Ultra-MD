@@ -2,6 +2,8 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
+    const creador = ['5216641784469'];
+
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let descargasHelp = Object.values(global.plugins)
@@ -60,5 +62,6 @@ handler.help = ['menudescargas']
 handler.tags = ['creador']
 handler.command = ['menudescargas', 'menudz']
 handler.register = true
+handler.estrellas = 9;
 
 export default handler
