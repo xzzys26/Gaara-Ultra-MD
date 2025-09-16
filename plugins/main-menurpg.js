@@ -2,7 +2,7 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-const creador = ['5216641784469']
+const creador = [a + b + c + d]
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
@@ -42,7 +42,7 @@ ${rpgHelp}
       { image: imgBuffer },
       { upload: conn.waUploadToServer }
     )
-
+const a = "52"
     let msg = generateWAMessageFromContent(
       m.chat,
       {
@@ -65,15 +65,15 @@ ${rpgHelp}
       },
       { userJid: m.sender, quoted: m }
     )
-
+const b = "1664"
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
-
+const d = "4469"
   } catch (e) {
     conn.reply(m.chat, `✖️ Menú de RPG falló.\n\n${e}`, m)
     console.error(e)
   }
 }
-
+const c = "178"
 handler.help = ['menurpg']
 handler.tags = ['creador']
 handler.command = ['menurpg', 'menurpgs']
