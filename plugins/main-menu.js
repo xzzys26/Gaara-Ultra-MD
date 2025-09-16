@@ -65,7 +65,7 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 }).filter(text => text !== '').join('\n')}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-👑 © Powered by ➳ ${creador}
+🥷🏽⚡️ © Powered by xzzys26 
 `.trim()
 
     await m.react('⚡')
