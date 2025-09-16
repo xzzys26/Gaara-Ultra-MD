@@ -61,7 +61,7 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 
     await m.react('🥷', '⚡')
 
-    let imgBuffer = await (await fetch('https://files.catbox.moe/3peljt.jpg')).buffer()
+    let imgBuffer = await (await fetch('https://files.catbox.moe/3np2gx.jpg')).buffer()
     let media = await prepareWAMessageMedia(
       { image: imgBuffer },
       { upload: conn.waUploadToServer }
