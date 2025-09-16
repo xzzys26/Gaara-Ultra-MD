@@ -81,9 +81,9 @@ ${Object.keys(tags).map(tag => {
   const commandsForTag = help.filter(menu => menu.tags.includes(tag))
   if (!commandsForTag.length) return '' // ← esto quita los espacios vacíos
   let section = `
-> ┃ ➪ ${tags[tag]}
+> ${tags[tag]}
 ${commandsForTag.map(menu => menu.help.map(help =>
-  `> ╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
+  `> ┃╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}`
   return section
 }).filter(text => text).join('\n')}
