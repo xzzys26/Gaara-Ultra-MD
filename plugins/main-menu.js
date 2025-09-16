@@ -1,4 +1,4 @@
-//creado y editado por BrayanOFC
+// creado por xzzys26 
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
@@ -10,17 +10,12 @@ let tags = {
   'info': '📊 INFO',
   'main': '📜 MENÚS'
 }
-const creador = 'Xzzys26'
+const creador = 'xzzys26'
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let userId = m.mentionedJid?.[0] || m.sender
     let user = global.db.data.users[userId]
-    let name = await conn.getName(userId)
-    let mode = global.opts?.self ? "🔒 Privado" : "🌐 Público"
-    let totalCommands = Object.keys(global.plugins).length
-    let totalreg = Object.keys(global.db.data.users).length
-    let uptime = clockString(process.uptime() * 1000)
 
     if (!user) {
       global.db.data.users[userId] = { exp: 0, level: 1 }
@@ -36,20 +31,16 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       premium: plugin.premium,
     }))
 
-    let rango = conn?.user?.jid === userId ? '👑 Gaara-Ultra-MD 🅥' : '⚡ SUB-BOT ULTRA'
-    let { pais, hora, saludo } = getPaisHora(userId)
+    let mode = global.opts?.self ? "🔒 Privado" : "🌐 Público"
+    let saludo = getSaludo() // solo dia, tarde, noche
 
     let menuText = `
 ╭━━━〔 ⚡ *GAARA-ULTRA-MD* ⚡ 〕━━━⬣
 ┃ ➪ 🤖 Nombre: *${botname}*
 ┃ ➪ 👤 Creador: *${creador}*
 ┃ ➪ 🔐 Estado: *${mode}*
-┃ ➪ 🗄️ Usuarios: *${totalreg}*
-┃ ➪ ⏱️ Uptime: *${uptime}*
-┃ ➪ 💻 Hosting: *Termux/VPS*
-┃ ➪ 🌎 País: *${pais}*
-┃ ➪ 🕒 Hora: *${hora}*
 ┃ ➪ 💬 Saludo: *${saludo}*
+┃ ➪ 💻 Hosting: *Deluxe Host VIP*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
 ╭━━━〔 📜 *MENÚS DISPONIBLES* 〕━━━⬣
@@ -57,7 +48,7 @@ ${Object.keys(tags).map(tag => {
   const commandsForTag = help.filter(menu => menu.tags.includes(tag))
   if (commandsForTag.length === 0) return ''
   let section = `
-┃ ➪ ${tags[tag]} ${getRandomEmoji()}
+┃ ➪ ${tags[tag]}
 ${commandsForTag.map(menu => menu.help.map(help =>
   `┃╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}`
@@ -65,7 +56,7 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 }).filter(text => text !== '').join('\n')}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-🥷🏽⚡️ © Powered by xzzys26 
+👑 © Powered by xzzys26 🥷🏽
 `.trim()
 
     await m.react('⚡')
@@ -110,18 +101,6 @@ handler.register = true
 
 export default handler
 
-function clockString(ms) {
-  let h = Math.floor(ms / 3600000)
-  let m = Math.floor(ms / 60000) % 60
-  let s = Math.floor(ms / 1000) % 60
-  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
-}
-
-function getRandomEmoji() {
-  const emojis = ['🐉', '🎆', '⚡', '🔥', '🌌', '💥']
-  return emojis[Math.floor(Math.random() * emojis.length)]
-}
-
 // ⏱️ Funciones extra
 function clockString(ms) {
   let h = Math.floor(ms / 3600000)
@@ -130,30 +109,9 @@ function clockString(ms) {
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
 
-
-// 🌍 Hora y saludo según país
-function getPaisHora(jid) {
-  let codigo = jid.startsWith('+') ? jid.split('@')[0].slice(0, 3) : ''
-  let zonas = {
-    '+51': { pais: '🇵🇪 Perú', zona: 'America/Lima' },
-    '+52': { pais: '🇲🇽 México', zona: 'America/Mexico_City' },
-    '+58': { pais: '🇻🇪 Venezuela', zona: 'America/Caracas' },
-    '+57': { pais: '🇨🇴 Colombia', zona: 'America/Bogota' },
-    '+54': { pais: '🇦🇷 Argentina', zona: 'America/Argentina/Buenos_Aires' },
-    '+56': { pais: '🇨🇱 Chile', zona: 'America/Santiago' },
-    '+55': { pais: '🇧🇷 Brasil', zona: 'America/Sao_Paulo' },
-    '+53': { pais: '🇨🇺 Cuba', zona: 'America/Havana' },
-    '+507': { pais: '🇵🇦 Panamá', zona: 'America/Panama' }
-  }
-
-  let datos = zonas[codigo] || { pais: '🌎 Desconocido', zona: 'America/Lima' }
-  let fecha = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: datos.zona })
-  let saludo = getSaludo(new Date().toLocaleTimeString('es-ES', { hour: '2-digit', hour12: false, timeZone: datos.zona }))
-  return { pais: datos.pais, hora: fecha, saludo }
-}
-
-function getSaludo(horaStr) {
-  let hora = parseInt(horaStr.split(':')[0])
+// 🌙 Saludo según hora del día
+function getSaludo() {
+  let hora = new Date().getHours()
   if (hora >= 5 && hora < 12) return "🌅 Buenos días"
   if (hora >= 12 && hora < 18) return "☀️ Buenas tardes"
   return "🌙 Buenas noches"
