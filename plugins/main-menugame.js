@@ -2,7 +2,7 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-    const creador = ['5216631288816']
+        const creador = ['5216631288816']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
@@ -16,8 +16,6 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       )
     }
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
-  try {
     let gameHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('game') && !p.disabled)
       .map(p => {
@@ -73,5 +71,6 @@ handler.help = ['menugame']
 handler.tags = ['creador']
 handler.command = ['menugame', 'menugames']
 handler.register = true
+handler.estrellas = 9
 
 export default handler
