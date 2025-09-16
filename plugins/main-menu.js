@@ -9,35 +9,35 @@ let tags = {
   'serbot': '🤖 𝗦𝗨𝗕-𝗕𝗢𝗧𝗦',
   'info': '🌀 𝗜𝗡𝗙𝗢𝗦',
   'main': '⚡ 𝗠𝗘𝗡𝗨',
-  'nable': 'Modo Avanzado',
-  'cmd': 'Comandos',
-  'advanced': 'Funciones Avanzadas',
-  'game': 'Juegos',
-  'rpg': 'RPG',
-  'group': 'Grupos',
-  'downloader': 'Descargas',
-  'sticker': 'Stickers',
-  'audio': 'Audio',
-  'search': 'Búsqueda',
-  'tools': 'Herramientas',
-  'fun': 'Diversión',
-  'anime': 'Anime',
-  'nsfw': 'NSFW',
-  'premium': 'Premium',
-  'weather': 'Clima',
-  'news': 'Noticias',
-  'finance': 'Finanzas',
-  'education': 'Educación',
-  'health': 'Salud',
-  'entertainment': 'Entretenimiento',
-  'sports': 'Deportes',
-  'travel': 'Viajes',
-  'food': 'Comida',
-  'shopping': 'Compras',
-  'productivity': 'Productividad',
-  'social': 'Redes Sociales',
-  'security': 'Seguridad',
-  'custom': 'Personalizado'
+  'nable': '⚡𝗠𝗢𝗗𝗢 𝗔𝗩𝗔𝗡𝗭𝗔𝗗𝗢',
+  'cmd': '📝 𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦',
+  'advanced': '🌟 𝗙𝗢𝗡𝗖𝗜𝗢𝗡𝗘𝗦 𝗔𝗩𝗔𝗡𝗭𝗔𝗗𝗔',
+  'game': '🎮 𝗝𝗨𝗘𝗚𝗢𝗦',
+  'rpg': '⚔️ 𝗥𝗣𝗚',
+  'group': '📚 𝗚𝗥𝗨𝗣𝗢𝗦',
+  'downloader': '📥 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦',
+  'sticker': '🖼️ 𝗦𝗧𝗜𝗖𝗞𝗘𝗥',
+  'audio': '🔊 𝗔𝗨𝗗𝗜𝗢',
+  'search': '🔎 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔',
+  'tools': '🧰 𝗛𝗘𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦',
+  'fun': '🎉 𝗗𝗜𝗩𝗘𝗥𝗦𝗜𝗢𝗡',
+  'anime': '🧧 𝗔𝗡𝗜𝗠𝗘',
+  'nsfw': '🔞 𝗡𝗦𝗙𝗪',
+  'premium': '💎 𝗣𝗥𝗘𝗡𝗨𝗜𝗠',
+  'weather': '🛰️ 𝗖𝗟𝗜𝗠𝗔',
+  'news': '📄 𝗡𝗢𝗧𝗜𝗖𝗜𝗔𝗦',
+  'finance': '🏛️ 𝗙𝗜𝗡𝗔𝗡𝗭𝗔',
+  'education': '🔰 𝗘𝗗𝗨𝗖𝗔𝗖𝗜𝗢𝗡',
+  'health': '❤️ 𝗦𝗔𝗟𝗨𝗗',
+  'entertainment': '📲 𝗘𝗡𝗧𝗥𝗘𝗡𝗔𝗠𝗜𝗘𝗡𝗧𝗢',
+  'sports': '⚽ 𝗗𝗘𝗣𝗢𝗥𝗧𝗘𝗦',
+  'travel': '✈️ 𝗩𝗜𝗔𝗝𝗘𝗦',
+  'food': '🥡 𝗖𝗢𝗠𝗜𝗗𝗔',
+  'shopping': '🛍️ 𝗖𝗢𝗠𝗣𝗥𝗔',
+  'productivity': '🔖 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗜𝗩𝗜𝗗𝗔𝗗',
+  'social': '📸 𝗥𝗘𝗗𝗘𝗦 𝗦𝗢𝗖𝗜𝗔𝗟𝗘𝗦',
+  'security': '🔱 𝗦𝗘𝗚𝗨𝗥𝗜𝗗𝗔𝗗𝗘𝗦',
+  'custom': '⚡ 𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟𝗜𝗭𝗔𝗗𝗢'
 }
 const creador = 'xzzys26'
 
@@ -77,7 +77,7 @@ ${Object.keys(tags).map(tag => {
   const commandsForTag = help.filter(menu => menu.tags.includes(tag))
   if (commandsForTag.length === 0) return ''
   let section = `
-┃ ➪ ${tags[tag]}
+> ┃ ➪ ${tags[tag]}
 ${commandsForTag.map(menu => menu.help.map(help =>
   `> ┃ ╰┈➤ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}`
