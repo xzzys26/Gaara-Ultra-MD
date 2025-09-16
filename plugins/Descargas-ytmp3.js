@@ -1,5 +1,6 @@
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
+import { PassThrough } from 'stream';
 
 const handler = async (m, { conn, text, command }) => {
   try {
@@ -19,12 +20,15 @@ const handler = async (m, { conn, text, command }) => {
 
     const fileName = `${title.replace(/[^a-zA-Z0-9 ]/g, '').trim().replace(/ +/g, '_').slice(0,50)}.mp3`;
 
+    // Descargar audio y convertir a buffer
     const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
+    const bufferStream = new PassThrough();
+    stream.pipe(bufferStream);
 
     await conn.sendMessage(m.chat, {
-      audio: stream,
+      audio: bufferStream,
       mimetype: 'audio/mpeg',
-      fileName: fileName
+      fileName
     }, { quoted: m });
 
     await conn.sendMessage(m.chat, { react: { text: "✅", key: m.key } });
