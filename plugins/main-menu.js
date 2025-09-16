@@ -1,4 +1,4 @@
-// creado por xzzys26 
+//créditos y creador de codigo BrayanOFC 
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
