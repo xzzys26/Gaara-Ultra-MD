@@ -16,8 +16,6 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       )
     }
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
-  try {
     let gachaHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('gacha') && !p.disabled)
       .map(p => {
@@ -73,5 +71,6 @@ handler.help = ['menugacha']
 handler.tags = ['creador']
 handler.command = ['menugacha', 'menugch']
 handler.register = true
+handler.estrellas = 9
 
 export default handler
