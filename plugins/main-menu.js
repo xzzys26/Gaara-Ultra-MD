@@ -68,12 +68,12 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 
     // Construcción del menú limpio
     let menuText = `
-╭━━━〔 ⚡ *GAARA-ULTRA-MD* ⚡ 〕━━━⬣
-┃ ➪ 🤖 Nombre: *${botname}*
-┃ ➪ 👤 Creador: *${creador}*
-┃ ➪ 🔐 Estado: *Privado*
-┃ ➪ 💬 Saludo: *${saludo}*
-┃ ➪ 💻 Hosting: *Deluxe Host VIP*
+╭━━━〔  *GAARA-ULTRA-MENU*  〕━━━⬣
+┃ 🤖 Nombre: *${botname}*
+┃ 👤 Creador: *${creador}*
+┃ 🔐 Estado: *Privado*
+┃ 💬 Saludo: *${saludo}*
+┃ 💻 Hosting: *Deluxe Host VIP*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `
 
