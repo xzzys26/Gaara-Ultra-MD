@@ -87,9 +87,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ┃ 🔐 Estado: *${modo}*
 ┃ 💬 Saludo: *${saludo}*
 ┃ ⏳️ Uptime: *${uptime}*
-┃ 👥 Usuarios: *${totalUsers}*
 ┃ 💎 Premium: *${totalPremium}*
-┃ ✨️ Nivel: *${level}*
+┃ 🎯 Nivel: *${level}*
 ┃ 💻 Hosting: *Deluxe Host VIP*
 ┃ 🔰 Versión: *${versionBot}*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
