@@ -2,7 +2,7 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-    const creador = ['5216631288816']
+const creador = ['5216631288816']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
@@ -11,20 +11,18 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     if (!creador.includes(senderNumber)) {
       return conn.sendMessage(
         m.chat,
-        { text: '❌ Solo el creador del comando puede usar este comando.' },
+        { text: '❌ Solo el creador puede usar este comando.' },
         { quoted: m }
       )
     }
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
-  try {
     let descargasHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('descargas') && !p.disabled)
       .map(p => {
-        let helpText = Array.isArray(p.help) ? p.help[0] : p.help;
-        return `☁️ ${_p}${helpText}`;
+        let helpText = Array.isArray(p.help) ? p.help[0] : p.help
+        return `☁️ ${_p}${helpText}`
       })
-      .join('\n');
+      .join('\n')
 
     let menuText = `
 ╭━━━『📥 DESCARGAS Z』━━━╮
@@ -74,6 +72,6 @@ handler.help = ['menudescargas']
 handler.tags = ['creador']
 handler.command = ['menudescargas', 'menudz']
 handler.register = true
-handler.estrellas = 9;
+handler.estrellas = 9
 
 export default handler
