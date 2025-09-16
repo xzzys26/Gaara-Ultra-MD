@@ -8,7 +8,7 @@ const botname = global.botname || '🌪️ 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍
 let tags = {
   'serbot': '🤖 𝗦𝗨𝗕-𝗕𝗢𝗧𝗦',
   'info': '🌀 𝗜𝗡𝗙𝗢𝗦',
-  'main': '⚡ 𝗠𝗘𝗡𝗨'
+  'main': '⚡ 𝗠𝗘𝗡𝗨',
   'nable': 'Modo Avanzado',
   'cmd': 'Comandos',
   'advanced': 'Funciones Avanzadas',
