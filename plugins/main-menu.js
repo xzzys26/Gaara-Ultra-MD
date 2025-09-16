@@ -110,6 +110,8 @@ handler.register = true
 
 export default handler
 
+const emojis['⚡️'];
+
 // ⏱️ Funciones extra
 function clockString(ms) {
   let h = Math.floor(ms / 3600000)
