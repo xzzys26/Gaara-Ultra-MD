@@ -56,7 +56,7 @@ ${gachaHelp}
 }
 
 handler.help = ['menugacha']
-handler.tags = ['main']
+handler.tags = ['creador']
 handler.command = ['menugacha', 'menugch']
 handler.register = true
 
