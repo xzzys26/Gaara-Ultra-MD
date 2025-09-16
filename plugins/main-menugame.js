@@ -56,7 +56,7 @@ ${gameHelp}
 }
 
 handler.help = ['menugame']
-handler.tags = ['main']
+handler.tags = ['creador']
 handler.command = ['menugame', 'menugames']
 handler.register = true
 
