@@ -1,39 +1,43 @@
-// creado y editado por BrayanOFC
-let handler = async (m, { conn }) => {}
+//codigo creado por BrayanOFC 
+import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 
-handler.before = async function (m, { conn }) {
-   if (!m.messageStubType) return !1
-   let who = m.messageStubParameters[0]
-   let name = await conn.getName(who)
+export async function welcomeHandler(conn, update) {
+  try {
+    const { id, participants, action } = update
+    for (let user of participants) {
+      if (action === 'add') {
+        let welImg = 'https://qu.ax/SfjSV.png'
+        let msg = await prepareWAMessageMedia({ image: { url: welImg } }, { upload: conn.waUploadToServer })
 
-   // ─── BIENVENIDA ───
-   if (m.messageStubType == 27) {
-      try {
-         let groupMetadata = await conn.groupMetadata(m.chat)
-         let desc = groupMetadata.desc || "🚀 Este grupo no tiene reglas Se Feliz Saiyajin👾."
-         
-         let text = `👊🏻🔥 ¡Escucha insecto @${who.split('@')[0]}!
+        const m = generateWAMessageFromContent(id, {
+          viewOnceMessage: {
+            message: {
+              ...msg,
+              caption: ` Bienvenido Bro @${user.split('@')[0]}`
+            }
+          }
+        }, { userJid: conn.user.id })
 
-Has entrado al campo de batalla del grupo. Aquí no hay lugar para los débiles.  
+        await conn.relayMessage(id, m.message, { messageId: m.key.id })
 
-📜 *Reglas del Grupo*:
-${desc}
+      } else if (action === 'remove') {
+         let byeImg = 'https://qu.ax/Rddry.png'
+        let msg = await prepareWAMessageMedia({ image: { url: byeImg } }, { upload: conn.waUploadToServer })
 
-🚀 El que rompa las reglas… conocerá mi furia Saiyajin. 🚀`
+        const m = generateWAMessageFromContent(id, {
+          viewOnceMessage: {
+            message: {
+              ...msg,
+              caption: `Nadie te quiso 💀 @${user.split('@')[0]}  
+`
+            }
+          }
+        }, { userJid: conn.user.id })
 
-         conn.sendMessage(m.chat, { text, mentions: [who] }, { quoted: m })
-      } catch (e) {
-         console.log(e)
+        await conn.relayMessage(id, m.message, { messageId: m.key.id })
       }
-   }
-
-   // ─── DESPEDIDA ───
-   if (m.messageStubType == 28) {
-      let text = `💥 El guerrero @${who.split('@')[0]} ha abandonado el campo de batalla.  
-
-No todos soportan el poder de este grupo… ¡patético! 👊🏻🔥`
-      conn.sendMessage(m.chat, { text, mentions: [who] }, { quoted: m })
-   }
+    }
+  } catch (e) {
+    console.log(e)
+  }
 }
-
-export default handler
