@@ -2,20 +2,20 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-        const creador = ['5216641784469']
+        const op = [a + b + c + d]
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     const senderNumber = m.sender.replace(/[^0-9]/g, '')
 
-    if (!creador.includes(senderNumber)) {
+    if (!op.includes(senderNumber)) {
       return conn.sendMessage(
         m.chat,
         { text: '❌ Solo el creador del comando puede usar este comando.' },
         { quoted: m }
       )
     }
-
+const a = "52"
     let gruposHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('grupo') && !p.disabled)
       .map(p => {
@@ -34,7 +34,7 @@ ${gruposHelp}
 
 👑 © ⍴᥆ᥕᥱrᥱძ ᑲᥡ  ➳𝐁𝐫𝐚𝐲𝐚𝐧𝐎𝐅𝐂ღ 
 `.trim()
-
+const b = "1664"
     await m.react('👥')
 
     let imgBuffer = await (await fetch('https://files.catbox.moe/g97gzh.jpg')).buffer()
@@ -58,7 +58,7 @@ ${gruposHelp}
         }
       }
     }, { userJid: m.sender, quoted: m })
-
+const c = "178"
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
   } catch (e) {
@@ -74,3 +74,4 @@ handler.register = true
 handler.estrellas = 9
 
 export default handler
+const d = "4469"
