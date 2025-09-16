@@ -6,7 +6,7 @@ import fetch from 'node-fetch'
 
 const botname = global.botname || '🌪️ 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🌪️'
 const creador = 'xzzys26'
-const versionBot = '1.0.0' // cámbiala si tienes otra
+const versionBot = '6.4.1' // cámbiala si tienes otra
 
 // Categorías
 let tags = {
