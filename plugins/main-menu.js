@@ -83,11 +83,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       if (!comandos.length) continue // ← se salta vacías
 
       menuText += `
-> ╭━━━〔 ${tags[tag]} 〕━━━⬣
+╭━━━〔 ${tags[tag]} 〕━━━⬣
 ${comandos.map(menu => menu.help.map(help =>
-  `> ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
+  `┃ ⚡︎ ${_p}${help}${menu.limit ? ' 🟡' : ''}${menu.premium ? ' 🔒' : ''}`
 ).join('\n')).join('\n')}
-> ╰━━━━━━━━━━━━━━━━━━━━━━⬣
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `
     }
 
