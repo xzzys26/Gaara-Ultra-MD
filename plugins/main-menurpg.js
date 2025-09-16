@@ -2,7 +2,7 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-const creador = ['']
+const creador = ['5216641784469']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
