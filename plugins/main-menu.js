@@ -92,7 +92,7 @@ ${comandos.map(menu => menu.help.map(help =>
     }
 
     menuText += `
-👑 Powered by ${creador} 🥷🏽
+> 👑 Powered by ${creador} 🥷🏽
 `
 
     await m.react('🥷')
