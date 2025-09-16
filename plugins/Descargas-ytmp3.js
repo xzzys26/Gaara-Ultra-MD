@@ -17,10 +17,8 @@ const handler = async (m, { conn, text, command }) => {
     const videoInfo = search.all[0];
     const { title, url } = videoInfo;
 
-    // Nombre de archivo seguro
     const fileName = `${title.replace(/[^a-zA-Z0-9 ]/g, '').trim().replace(/ +/g, '_').slice(0,50)}.mp3`;
 
-    // Descargar audio directo de YouTube
     const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
 
     await conn.sendMessage(m.chat, {
