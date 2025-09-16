@@ -4,11 +4,17 @@ import fetch from 'node-fetch'
 
     const creador = ['5216641784469'];
 
-    const senderNumber = m.sender.replace(/[^0-9]/g, '');
+    const creador = ['5216641784469']
 
+let handler = async (m, { conn, usedPrefix: _p }) => {
+  try {
+    // 📌 Extraer número del remitente
+    const senderNumber = m.sender.replace(/[^0-9]/g, '')
 
-    if (!OWNERS.includes(senderNumber)) {
-        return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' });
+    // 🚫 Bloquear si no es el creador
+    if (!creador.includes(senderNumber)) {
+      return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' }, { quoted: m })
+    }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
