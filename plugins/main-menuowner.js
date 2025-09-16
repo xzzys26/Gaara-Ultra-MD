@@ -56,7 +56,7 @@ ${ownerHelp}
 }
 
 handler.help = ['menuowner']
-handler.tags = ['main']
+handler.tags = ['creador]
 handler.command = ['menuowner', 'menuadmin']
 handler.register = true
 
