@@ -2,23 +2,27 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-    const creador = ['5216641784469'];
-
-    const senderNumber = m.sender.replace(/[^0-9]/g, '');
-
-
-    if (!OWNERS.includes(senderNumber)) {
-        return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' });
+// 🔐 Número autorizado (solo este puede usar el comando)
+const creador = ['5216641784469']
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
+    // 📌 Extraer número del remitente
+    const senderNumber = m.sender.replace(/[^0-9]/g, '')
+
+    // 🚫 Bloquear si no es el creador
+    if (!creador.includes(senderNumber)) {
+      return conn.sendMessage(m.chat, { text: '❌ Solo el owner puede usar este comando.' }, { quoted: m })
+    }
+
+    // ✅ Construcción del menú Owner
     let ownerHelp = Object.values(global.plugins)
       .filter(p => p?.tags?.includes('owner') && !p.disabled)
       .map(p => {
-        let helpText = Array.isArray(p.help) ? p.help[0] : p.help;
-        return `👑 ${_p}${helpText}`;
+        let helpText = Array.isArray(p.help) ? p.help[0] : p.help
+        return `👑 ${_p}${helpText}`
       })
-      .join('\n');
+      .join('\n')
 
     let menuText = `
 ╭━━━『👑 OWNER 』━━━╮
@@ -28,32 +32,37 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 
 ${ownerHelp}
 
-👑 © ⍴᥆ᥕᥱrᥱძ ᑲᥡ  ➳𝐁𝐫𝐚𝐲𝐚𝐧𝐎𝐅𝐂ღ 
+👑 © ⍴᥆ᥕᥱrᥱძ ᑲᥡ  ➳𝐁𝐫𝐚𝐲𝐚𝐧𝐎𝐅𝐂ღ
 `.trim()
 
     await m.react('👑')
 
+    // 📸 Imagen del menú
     let imgBuffer = await (await fetch('https://files.catbox.moe/hn9clc.jpg')).buffer()
     let media = await prepareWAMessageMedia({ image: imgBuffer }, { upload: conn.waUploadToServer })
 
-    let msg = generateWAMessageFromContent(m.chat, {
-      viewOnceMessage: {
-        message: {
-          imageMessage: {
-            ...media.imageMessage,
-            caption: menuText,
-            contextInfo: {
-              isForwarded: true,
-              forwardedNewsletterMessageInfo: {
-                newsletterJid: '120363394965381607@newsletter',
-                newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱 • Update',
-                serverMessageId: 101
+    let msg = generateWAMessageFromContent(
+      m.chat,
+      {
+        viewOnceMessage: {
+          message: {
+            imageMessage: {
+              ...media.imageMessage,
+              caption: menuText,
+              contextInfo: {
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                  newsletterJid: '120363394965381607@newsletter',
+                  newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱 • Update',
+                  serverMessageId: 101
+                }
               }
             }
           }
         }
-      }
-    }, { userJid: m.sender, quoted: m })
+      },
+      { userJid: m.sender, quoted: m }
+    )
 
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
@@ -64,7 +73,7 @@ ${ownerHelp}
 }
 
 handler.help = ['menuowner']
-handler.tags = ['creador']
+handler.tags = ['owner']
 handler.command = ['menuowner', 'menuadmin']
 handler.register = true
 
