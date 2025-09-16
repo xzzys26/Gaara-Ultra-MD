@@ -47,10 +47,19 @@ let tags = {
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let userId = m.mentionedJid?.[0] || m.sender
-    let user = global.db.data.users[userId] || { exp: 0, level: 1 }
+    let user = global.db.data.users[userId] || { exp: 0, level: 1, premium: false }
 
     let { level } = user
-    let totalUsers = Object.keys(global.db.data.users).length
+
+    // Inicializar base de datos si no existe
+    if (!global.db.data.users) global.db.data.users = {}
+
+    // Contar usuarios reales (exp > 0)
+    let totalUsers = Object.values(global.db.data.users).filter(u => u.exp > 0).length
+
+    // Contar usuarios premium (premium === true)
+    let totalPremium = Object.values(global.db.data.users).filter(u => u.premium).length
+
     let { min, xp, max } = xpRange(level, global.multiplier || 1)
 
     // Plugins activos
@@ -79,6 +88,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ┃ 💬 Saludo: *${saludo}*
 ┃ ⏳️ Uptime: *${uptime}*
 ┃ 👥 Usuarios: *${totalUsers}*
+┃ 💎 Premium: *${totalPremium}*
 ┃ ✨️ Nivel: *${level}*
 ┃ 💻 Hosting: *Deluxe Host VIP*
 ┃ 🔰 Versión: *${versionBot}*
