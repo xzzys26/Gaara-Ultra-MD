@@ -39,7 +39,6 @@ let tags = {
   'security': 'Seguridad',
   'custom': 'Personalizado'
 }
-}
 const creador = 'xzzys26'
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
