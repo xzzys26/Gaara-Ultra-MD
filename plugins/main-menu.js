@@ -77,11 +77,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ┃ 👤 Creador: *${creador}*
 ┃ 🔐 Estado: *${modo}*
 ┃ 💬 Saludo: *${saludo}*
-┃ 📡 Uptime: *${uptime}*
+┃ ⏳️ Uptime: *${uptime}*
 ┃ 👥 Usuarios: *${totalUsers}*
-┃ 🎚️ Nivel: *${level}*
+┃ ✨️ Nivel: *${level}*
 ┃ 💻 Hosting: *Deluxe Host VIP*
-┃ 📦 Versión: *${versionBot}*
+┃ 🔰 Versión: *${versionBot}*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `
 
