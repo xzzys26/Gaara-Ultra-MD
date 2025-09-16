@@ -2,13 +2,13 @@
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-const creador = [a + b + c + d]
+const op = [a + b + c + d]
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     const senderNumber = m.sender.replace(/[^0-9]/g, '')
 
-    if (!creador.includes(senderNumber)) {
+    if (!op.includes(senderNumber)) {
       return conn.sendMessage(
         m.chat,
         { text: '❌ Solo el creador del comando puede usar este comando.' },
