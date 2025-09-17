@@ -1,15 +1,15 @@
 // créditos github.com/BrayanOFC no quitar creditos
 async function handler(m, { conn }) {
   try {
-    await m.react('👑');
+    await m.react('👨🏻‍💻');
 
     // Primer creador
-    const name1 = 'BrayanOFC 👻';
-    const empresa1 = '✨ BrayanOFC - Servicios Tecnológicos ✨';
-    const numero1 = '+52 664 178 4469';
-    const dash1 = 'https://dash.skyultraplus.com';
-    const github1 = 'https://github.com/BrayanOFC';
-    const imagen1 = 'https://raw.githubusercontent.com/BrayanOFC/Adiciones/main/Contenido%2F2025090166.jpg';
+    const name1 = 'Xzzys26;
+    const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado Y Premium ⚡️;
+    const numero1 = 'Wa.me+18097769423;
+    const dash1 = 'https://dash.deluxehost.cl';
+    const github1 = 'https://github.com/xzzys26;
+    const imagen1 = 'https://files.catbox.moe/g3nbig.jpg';
 
     // Segundo creador
     const name2 = '👑 The-Carlos';
@@ -45,8 +45,8 @@ async function handler(m, { conn }) {
       text: caption,
       contextInfo: {
         externalAdReply: {
-          title: '👑 BrayanOFC 👑',
-          body: 'Servicios Tecnológicos de Alto Nivel 🚀',
+          title: 'Gaara-Ultra-MD ⚡️,
+          body: 'Servicios Privado Con Alta Calidad by Xzzys26',
           thumbnailUrl: imagen1,
           sourceUrl: dash1,
           mediaType: 1,
@@ -54,8 +54,8 @@ async function handler(m, { conn }) {
         },
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363394965381607@newsletter',
-          newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱 • Update',
+          newsletterJid: '120363422694102494@newsletter',
+          newsletterName: 'Gaara-Ultra-MD - Update ⚡️,
           serverMessageId: 777
         }
       }
