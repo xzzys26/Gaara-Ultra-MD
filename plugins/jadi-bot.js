@@ -70,7 +70,7 @@ ${listado}`.trim();
 }
 
 
-  const imageUrl = 'https://qu.ax/RRMde.jpg'; // Cambia si quieres
+  const imageUrl = 'https://files.catbox.moe/sq6q0q.jpg'; // Cambia si quieres
 
   const fkontak = {
     key: {
