@@ -4,7 +4,7 @@ async function handler(m, { conn }) {
     await m.react('👨🏻‍💻');
 
     // Primer creador
-    const name1 = 'Xzzys26;
+    const name1 = 'Xzzys26';
     const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado Y Premium ⚡️';
     const numero1 = 'Wa.me+18097769423';
     const dash1 = 'https://dash.deluxehost.cl';
