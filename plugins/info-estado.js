@@ -55,6 +55,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 ┃ 💻 *Plataforma:* ${platform()}
 ┃ 🗂️ *Memoria:* ${format(totalmem() - freemem())} / ${format(totalmem())}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
+
 `.trim()
 
   // Contacto para usar como mensaje citado (puedes ajustarlo)
