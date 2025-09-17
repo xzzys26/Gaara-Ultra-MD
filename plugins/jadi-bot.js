@@ -1,4 +1,4 @@
-// código creado x The Carlos 👑
+// código creado x The Carlos 👑 y Modificado Por Xzzys26 Para Gaara-Ultra-MD 
 async function handler(m, { conn: stars, usedPrefix }) {
   const maxSubBots = 324;
   const conns = Array.isArray(global.conns) ? global.conns : [];
