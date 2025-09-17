@@ -58,23 +58,40 @@ const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, co
     const mensaje = args.join` `;
     const info = mensaje ? `╰➤ ✉️ *Mensaje:* ${mensaje}` : "╰➤ 🚨 *Invocación masiva de Vegeta*";
 
-    let texto = `
-🌌═══ *GALACTIC SUMMON* ═══🌌
-👥 *Integrantes:* ${participants.length}
-🏷️ *Grupo:* ${await conn.getName(m.chat)}
+    const mensaje = args.join` `;
+const info = mensaje 
+    ? `┃ ✉️ 𝙼𝙴𝙽𝚂𝙰𝙹𝙴: ${mensaje}` 
+    : "┃ 🚨 𝙸𝙽𝚅𝙾𝙲𝙰𝙲𝙸Ó𝙽 𝙼𝙰𝚂𝙸𝚅𝙰 𝙳𝙴 𝙼𝙸𝙴𝙼𝙱𝚁𝙾𝚂";
+
+let texto = `╭━━━〔 ✦ 𝙂𝘼𝘼𝙍𝘼-𝙄𝙉𝙑𝙊𝘾𝘼𝘾𝙄𝙊𝙉 📢 ✦ 〕━━━╮
+┃ 𝙸𝙽𝚅𝙾𝙲𝙰𝙲𝙸Ó𝙽 𝙳𝙴 𝙼𝙸𝙴𝙼𝙱𝚁𝙾𝚂
+┃ 👥 𝙲𝚘𝚗𝚝𝚊𝚗𝚍𝚘: ${participants.length}
+┃ 🏷️ 𝙶𝚛𝚞𝚙𝚘: ${await conn.getName(m.chat)}
 ${info}
-━━━━━━━━━━━━━━━\n`;
+╰━━━━━━━━━━━━━━━━━━━━━━━╯\n`;
 
-    for (const miembro of participants) {
-        const number = miembro.id.split('@')[0];
-        const prefix = getPrefix(number);
-        const flag = countryFlags[prefix] || "🌍";
-        texto += `⚡ ${flag} @${number}\n`;
-    }
+for (const miembro of participants) {
+    const number = miembro.id.split('@')[0];
+    const prefix = getPrefix(number);
+    const flag = countryFlags[prefix] || "🌍";
+    texto += `┃ ⚡ ${flag} @${number}\n`;
+}
 
-    texto += `━━━━━━━━━━━━━━━
-🔥 *PODER DESATADO POR VEGETA* 🐉`;
+texto += `╰━━━━━━━━━━━━━━━━━━━━━━━╯
+✨ 𝙿𝙾𝙳𝙴𝚁 𝙳𝙴 𝙻𝙰 𝙸𝙽𝚅𝙾𝙲𝙰𝙲𝙸Ó𝙽 ✨
+`;
 
+conn.sendMessage(m.chat, {
+    text: texto.trim(),
+    mentions: participants.map(p => p.id)
+}, { quoted: m });
+
+handler.help = ['todos *<mensaje>*'];
+handler.tags = ['grupo'];
+handler.command = ['tagall', 'todos'];
+handler.group = true;
+
+export default handler;
     conn.sendMessage(m.chat, {
         text: texto.trim(),
         mentions: participants.map(p => p.id)
