@@ -92,7 +92,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   const react = emoji => m.react(emoji);
 
   if (!text) {
-    return conn.reply(m.chat, `🧩 Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
+    return conn.reply(m.chat, `⚡️ Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
   }
 
   if (!isValidYouTubeUrl(text)) {
@@ -128,10 +128,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       await conn.reply(m.chat, '💾 Espera, estoy descargando un archivo grande...', m);
     }
 
-    const caption = `
-╭───────────────◆
-│   🐉 *DESCARGA VEGETA* 🐉
-╰───────────────◆`.trim();
 
     const buffer = await fetch(url).then(res => res.buffer());
     await conn.sendFile(
@@ -153,7 +149,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   } catch (e) {
     await react('❌');
     isProcessingHeavy = false;
-    return m.reply(`🧨 *ERROR:* ${e.message}`);
+    return m.reply(`❌️ *ERROR:* ${e.message}`);
   }
 };
 
