@@ -48,7 +48,7 @@ async function handler(m, { conn }) {
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
           newsletterJid: '120363422694102494@newsletter',
-          newsletterName: 'Gaara-Ultra-MD - Update ⚡️,
+          newsletterName: 'Gaara-Ultra-MD - Update ⚡️',
           serverMessageId: 777
         }
       }
