@@ -55,32 +55,37 @@ setTimeout(resolve, 1000)
 }
 let timestamp = speed()
 let latensi = speed() - timestamp
-let vegeta = `╭─⬣「 *Info De ${botname}* 」⬣\n`
-vegeta += `│ 👑 *Creador* : @${owner[0][0].split('@s.whatsapp.net')[0]}\n`
-vegeta += `│ ${emoji} *Prefijo* : [  ${usedPrefix}  ]\n`
-vegeta += `│ 📦 *Total Plugins* : ${totalf}\n`
-vegeta += `│ 🖥️ *Plataforma* : ${platform()}\n`
-vegeta += `│ 📡 *Servidor* : ${hostname()}\n`
-vegeta += `│ 💻 *RAM* : ${format(totalmem() - freemem())} / ${format(totalmem())}\n`
-vegeta += `│ 💾 *FreeRAM* : ${format(freemem())}\n`
-vegeta += `│ 🚀 *Speed* : ${latensi.toFixed(4)} ms\n`
-vegeta += `│ ⏱️ *Uptime* : ${uptime}\n`
-vegeta += `│ 🔮 *Modo* : ${bot.public ? 'Privado' : 'Publico'}\n`
-vegeta += `│ ✈️ *Comandos Ejecutados* : ${toNum(totalStats)} ( *${totalStats}* )\n`
-vegeta += `│ 💫 *Grupos Registrados* : ${toNum(totalchats)} ( *${totalchats}* )\n`
-vegeta += `│ 📌 *Registrados* : ${toNum(totalreg)} ( *${totalreg}* ) Usuarios\n`
-vegeta += `╰─⬣\n\n`
-vegeta += `╭─⬣「 *Chats De ${botname}* 」⬣\n`
-vegeta += `│ 🪧 *${groupsIn.length}* Chats en Grupos\n`
-k
-vegeta += `│ 📰 *${groupsIn.length}* Grupos Unidos\n`
-vegeta += `│ 📄 *${groupsIn.length - groupsIn.length}* Grupos Salidos\n`
-vegeta += `│ 💬 *${chats.length - groupsIn.length}* Chats Privados\n`
-vegeta += `│ 💭 *${chats.length}* Chats Totales\n`
-vegeta += `╰─⬣\n\n`
-vegeta += `╭─⬣「 *NodeJS Uso de memoria* 」⬣\n`
-vegera += `${'```' + Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`).join('\n') + '```'}\n`
-vegeta += `╰─⬣`
+let vegeta = `
+╭━━━〔 *🌪️ INFO DE ${botname}* 〕━━━⬣
+┃ ➪ 👑 *Creador:* @${owner[0][0].split('@s.whatsapp.net')[0]}
+┃ ➪ ${emoji} *Prefijo:* [ ${usedPrefix} ]
+┃ ➪ 📦 *Total Plugins:* ${totalf}
+┃ ➪ 🖥️ *Plataforma:* ${platform()}
+┃ ➪ 📡 *Servidor:* ${hostname()}
+┃ ➪ 💻 *RAM:* ${format(totalmem() - freemem())} / ${format(totalmem())}
+┃ ➪ 💾 *Libre RAM:* ${format(freemem())}
+┃ ➪ 🚀 *Velocidad:* ${latensi.toFixed(4)} ms
+┃ ➪ ⏱️ *Uptime:* ${uptime}
+┃ ➪ 🔮 *Modo:* ${bot.public ? '🌐 Público' : '🔒 Privado'}
+┃ ➪ ✈️ *Comandos Ejecutados:* ${toNum(totalStats)} ( *${totalStats}* )
+┃ ➪ 💫 *Grupos Registrados:* ${toNum(totalchats)} ( *${totalchats}* )
+┃ ➪ 📌 *Usuarios Registrados:* ${toNum(totalreg)} ( *${totalreg}* )
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+
+╭━━━〔 *💬 CHATS DE ${botname}* 〕━━━⬣
+┃ ➪ 🪧 *${groupsIn.length}* Chats en Grupos
+┃ ➪ 📰 *${groupsIn.length}* Grupos Unidos
+┃ ➪ 📄 *${groupsIn.length - groupsIn.length}* Grupos Salidos
+┃ ➪ 💬 *${chats.length - groupsIn.length}* Chats Privados
+┃ ➪ 💭 *${chats.length}* Chats Totales
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+
+╭━━━〔 *⚡ NODEJS MEMORIA* 〕━━━⬣
+${'```' + Object.keys(used).map((key, _, arr) => 
+  `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`
+).join('\n') + '```'}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`.trim()
 
 await conn.reply(m.chat, vegeta, fkontak, { contextInfo: { mentionedJid: [owner[0][0] + '@s.whatsapp.net'] }})
 }
