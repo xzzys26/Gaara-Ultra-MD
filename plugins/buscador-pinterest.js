@@ -80,11 +80,11 @@ const pins = async (judul) => {
 };
 
 let handler = async (m, { conn, text }) => {
-  if (!text) return conn.sendMessage(m.chat, { text: `Ingresa un texto. Ejemplo: .pin gatos` }, { 
+  if (!text) return conn.sendMessage(m.chat, { text: `Ingresa un texto. Ejemplo: .pin Gaara` }, { 
     quoted: m,
     forwardedNewsletterMessageInfo: {
       newsletterJid: '120363422694102494@newsletter',
-      newsletterName: 'Gaara-Ultra-MD⚡️,
+      newsletterName: 'Gaara-Ultra-MD⚡️',
       serverMessageId: 100
     }
   });
@@ -116,7 +116,7 @@ let handler = async (m, { conn, text }) => {
       quoted: m,
       forwardedNewsletterMessageInfo: {
         newsletterJid: '120363422694102494@newsletter',
-        newsletterName: 'Gaara-Ultra-MD⚡️,
+        newsletterName: 'Gaara-Ultra-MD⚡️',
         serverMessageId: 100
       }
     });
@@ -137,7 +137,7 @@ let handler = async (m, { conn, text }) => {
       quoted: fkontak,
       forwardedNewsletterMessageInfo: {
         newsletterJid: '120363422694102494@newsletter',
-        newsletterName: 'Gaara-Ultra-MD ⚡️,
+        newsletterName: 'Gaara-Ultra-MD⚡️',
         serverMessageId: 100
       }
     });
@@ -150,7 +150,7 @@ let handler = async (m, { conn, text }) => {
       quoted: m,
       forwardedNewsletterMessageInfo: {
         newsletterJid: '120363422694102494@newsletter',
-        newsletterName: 'Gaara-Ultra-MD ⚡️,
+        newsletterName: 'Gaara-Ultra-MD⚡️',
         serverMessageId: 100
       }
     });
