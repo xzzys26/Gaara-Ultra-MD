@@ -38,7 +38,7 @@ async function handler(m, { conn }) {
       text: caption,
       contextInfo: {
         externalAdReply: {
-          title: 'Gaara-Ultra-MD ⚡️,
+          title: 'Gaara-Ultra-MD ⚡️',
           body: 'Servicios Privado Con Alta Calidad by Xzzys26',
           thumbnailUrl: imagen1,
           sourceUrl: dash1,
