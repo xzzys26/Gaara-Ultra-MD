@@ -9,7 +9,7 @@ let handler = async (m, { conn }) => {
 
     exec('neofetch --stdout', (error, stdout, stderr) => {
         let info = stdout.toString('utf-8').replace(/Memory:/, 'Ram:');
-        let result = `🐉 \`Ping :\` \`\`\`${latency.toFixed(1)} ms\`\`\`\n${info}`;
+        let result = `⚡️ \`Ping :\` \`\`\`${latency.toFixed(1)} ms\`\`\`\n${info}`;
         conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m });
     });
 };
