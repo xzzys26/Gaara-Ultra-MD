@@ -65,9 +65,9 @@ continue; // Si falla, intentar con la siguiente API
 if (!fileData) throw new Error('No se pudo descargar el archivo desde ninguna API');
 const file = Array.isArray(fileData) ? fileData[0] : fileData;
 const caption = `┏━━『 𝐌𝐄𝐃𝐈𝐀𝐅𝐈𝐑𝐄 』━━•
-┃❥ 𝐍𝐨𝐦𝐛𝐫𝐞 : ${file.filename}
-┃❥ 𝐏𝐞𝐬𝐨 : ${file.filesize}
-┃❥ 𝐓𝐢𝐩𝐨 : ${file.mimetype}
+┃🔰 𝐍𝐨𝐦𝐛𝐫𝐞 : ${file.filename}
+┃⚡️ 𝐏𝐞𝐬𝐨 : ${file.filesize}
+┃📂 𝐓𝐢𝐩𝐨 : ${file.mimetype}
 ╰━━━⊰ 𓃠 ${info.vs} ⊱━━━━•
 > ⏳ ᴱˢᵖᵉʳᵉ ᵘⁿ ᵐᵒᵐᵉⁿᵗᵒ ᵉⁿ ˡᵒˢ ᵠᵘᵉ ᵉⁿᵛᶦᵒˢ ˢᵘˢ ᵃʳᶜʰᶦᵛᵒˢ`.trim();
 const captionMessage = await conn.reply(m.chat, caption, m)
