@@ -2,7 +2,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { text, conn }) => {
-  if (!text) return m.reply('🐉 Ingresa lo que quieras buscar en Google\n\nEjemplo: .google quien es VEGETA-BOT-MB');
+  if (!text) return m.reply('⚡️ Ingresa lo que quieras buscar en Google\n\nEjemplo: .google quien es el personaje principal de Gaara');
 
   try {
     const apiUrl = `https://delirius-apiofc.vercel.app/search/googlesearch?query=${encodeURIComponent(text)}`;
