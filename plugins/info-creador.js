@@ -8,7 +8,7 @@ async function handler(m, { conn }) {
     const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado Y Premium ⚡️;
     const numero1 = 'Wa.me+18097769423;
     const dash1 = 'https://dash.deluxehost.cl';
-    const github1 = 'https://github.com/xzzys26;
+    const github1 = 'https://github.com/xzzys26';
     const imagen1 = 'https://files.catbox.moe/g3nbig.jpg';
 
     // Segundo creador
@@ -18,28 +18,21 @@ async function handler(m, { conn }) {
     const github2 = 'https://github.com/Thecarlos19';
 
     const caption = `
-┏━━━━━━━━━━━━━━━━━━━┓
-┃     👑 *CREADOR INFO* 👑      
-┗━━━━━━━━━━━━━━━━━━━┛
+╭━━━〔 👑 *CREADOR INFO* 👑 〕━━━⬣
+┃ ⚡︎ 🌟 *Nombre:* ${name1}
+┃ ⚡︎ 🏢 *Empresa:* ${empresa1}
+┃ ⚡︎ 📱 *Número:* ${numero1}
+┃ ⚡︎ 🔗 *Dash Sky:* ${dash1}
+┃ ⚡︎ 💻 *GitHub:* ${github1}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-🌟 *Nombre:* ${name1}
-🏢 *Empresa:* ${empresa1}
-📱 *Número:* ${numero1}
-🔗 *Dash Sky:* ${dash1}
-💻 *GitHub:* ${github1}
-
-━━━━━━━━━━━━━━━━━━━━━━━
-👑 *Segundo Creador* 👑
-━━━━━━━━━━━━━━━━━━━━━━━
-🌟 *Nombre:* ${name2}
-🏢 *Empresa:* ${empresa2}
-📱 *Número:* ${numero2}
-💻 *GitHub:* ${github2}
-
-━━━━━━━━━━━━━━━━━━━━━━━
-⚡ *Atención 24/7 • Calidad • Confianza* ⚡
-━━━━━━━━━━━━━━━━━━━━━━━
-    `.trim();
+╭━━━〔 👑 *SEGUNDO CREADOR* 👑 〕━━━⬣
+┃ ⚡︎ 🌟 *Nombre:* ${name2}
+┃ ⚡︎ 🏢 *Empresa:* ${empresa2}
+┃ ⚡︎ 📱 *Número:* ${numero2}
+┃ ⚡︎ 💻 *GitHub:* ${github2}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`.trim()
 
     await conn.sendMessage(m.chat, {
       text: caption,
