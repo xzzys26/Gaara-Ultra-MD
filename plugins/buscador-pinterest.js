@@ -83,8 +83,8 @@ let handler = async (m, { conn, text }) => {
   if (!text) return conn.sendMessage(m.chat, { text: `Ingresa un texto. Ejemplo: .pin gatos` }, { 
     quoted: m,
     forwardedNewsletterMessageInfo: {
-      newsletterJid: '120363403593951965@newsletter',
-      newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱*:·',
+      newsletterJid: '120363422694102494@newsletter',
+      newsletterName: 'Gaara-Ultra-MD⚡️,
       serverMessageId: 100
     }
   });
@@ -115,8 +115,8 @@ let handler = async (m, { conn, text }) => {
     if (!results || results.length === 0) return conn.sendMessage(m.chat, { text: `No se encontraron resultados para "${text}".` }, { 
       quoted: m,
       forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363403593951965@newsletter',
-        newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱*:·',
+        newsletterJid: '120363422694102494@newsletter',
+        newsletterName: 'Gaara-Ultra-MD⚡️,
         serverMessageId: 100
       }
     });
@@ -136,8 +136,8 @@ let handler = async (m, { conn, text }) => {
       caption: `Resultados de: ${text}\nCantidad de resultados: ${maxImages}`,
       quoted: fkontak,
       forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363403593951965@newsletter',
-        newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱*:·',
+        newsletterJid: '120363422694102494@newsletter',
+        newsletterName: 'Gaara-Ultra-MD ⚡️,
         serverMessageId: 100
       }
     });
@@ -149,8 +149,8 @@ let handler = async (m, { conn, text }) => {
     conn.sendMessage(m.chat, { text: 'Error al obtener imágenes de Pinterest.' }, { 
       quoted: m,
       forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363403593951965@newsletter',
-        newsletterName: '𝚅𝙴𝙶𝙴𝚃𝙰-𝙱𝙾𝚃-𝙼𝙱*:·',
+        newsletterJid: '120363422694102494@newsletter',
+        newsletterName: 'Gaara-Ultra-MD ⚡️,
         serverMessageId: 100
       }
     });
