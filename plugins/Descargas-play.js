@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
 const handler = async (m, { conn, args, usedPrefix }) => {
-    if (!args[0]) return conn.reply(m.chat, `🐉 Ingresa un texto para buscar en YouTube.\n> *Ejemplo:* ${usedPrefix + command} Shakira`, m);
+    if (!args[0]) return conn.reply(m.chat, `⚡️ Ingresa un texto para buscar en YouTube.\n> *Ejemplo:* ${usedPrefix + command} Shakira`, m);
 
     await m.react('🕓');
     try {
@@ -16,15 +16,17 @@ const handler = async (m, { conn, args, usedPrefix }) => {
 
         let messageText = `*Youtube - Download*\n\n`;
         messageText += `${video.titulo}\n\n`;
-        messageText += `*⌛ Duración:* ${video.duracion || 'No disponible'}\n`;
-        messageText += `*👤 Autor:* ${video.canal || 'Desconocido'}\n`;
-        messageText += `*📆 Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
-        messageText += `*🖇️ Url:* ${video.url}\n`;
+        messageText += '╭━━━━━━━━〔 *INFORMACIÓN DEL VIDEO* 〕━━━━━━━━╮\n';
+messageText += `┃ ✦ *⌛ Duración:* ${video.duracion || 'No disponible'}\n`;
+messageText += `┃ ✦ *👤 Autor:* ${video.canal || 'Desconocido'}\n`;
+messageText += `┃ ✦ *📆 Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
+messageText += `┃ ✦ *🖇️ Url:* ${video.url}\n`;
+messageText += '╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n';
 
         await conn.sendMessage(m.chat, {
             image: thumbnail,
             caption: messageText,
-            footer: `𝖯𑄜𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 BrayanOFC☁️`,
+            footer: `Play By Gaara-Ultra-MD`,
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
