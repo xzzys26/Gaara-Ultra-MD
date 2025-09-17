@@ -1,4 +1,4 @@
-//créditos y creador de código BrayanOFC Y Modificado Por xzzys26
+// créditos y creador de código BrayanOFC Y Modificado Por xzzys26
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
@@ -115,17 +115,18 @@ ${comandos.map(menu => menu.help.map(help =>
     await m.react('🥷')
     await m.react('⚡')
 
-    let imgBuffer = await (await fetch('https://files.catbox.moe/3np2gx.jpg')).buffer()
+    let vidBuffer = await (await fetch('https://files.catbox.moe/l9g3ax.mp4')).buffer() // cambia la URL por tu video corto
     let media = await prepareWAMessageMedia(
-      { image: imgBuffer },
+      { video: vidBuffer, gifPlayback: true },
       { upload: conn.waUploadToServer }
     )
 
     let msg = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
         message: {
-          imageMessage: {
-            ...media.imageMessage,
+          videoMessage: {
+            ...media.videoMessage,
+            gifPlayback: true,
             caption: menuText,
             contextInfo: {
               isForwarded: true,
