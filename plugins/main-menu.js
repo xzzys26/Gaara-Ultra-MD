@@ -1,4 +1,4 @@
-//créditos y creador de código BrayanOFC Y Modificado Por xzzys26
+/*créditos y creador de código BrayanOFC Y Modificado Por xzzys26
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
@@ -175,4 +175,4 @@ function getSaludo() {
   else saludo = "🌙 Buenas noches"
 
   return `${saludo} | 🕒 ${horaStr}`
-}
+}*/
