@@ -35,21 +35,26 @@ let handler = async (m, { conn, usedPrefix }) => {
   let speed = neww - old
 
   let blackclover = `
-╭━━━━◇◇◇━━━━⬣
-┃ ⚙️  *SISTEMA DE ESTADO*
-┃ 🔰 *VEGETA BOT MB* ⚔️
-╰━━━━◇◇◇━━━━⬣
+╭━━━〔 ⚡ *SISTEMA DE ESTADO* ⚡ 〕━━━⬣
+┃ 🌪️ *Bot:* ${botname}
+┃ 👑 *Creador:* BrayanOFC
+┃ ⚡ *Prefijo:* [ ${usedPrefix} ]
+┃ 📦 *Versión:* ${vs}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-👑 *Creador:* BrayanOFC 
-📟 *Prefijo:* [ ${usedPrefix} ]
-📦 *Versión:* ${vs}
+╭━━━〔 📊 *ESTADÍSTICAS* 📊 〕━━━⬣
+┃ 💬 *Total de Chats:* ${totalchats}
+┃ 🏮 *Grupos:* ${groupsIn.length}
+┃ 💌 *Privados:* ${totalchats - groupsIn.length}
+┃ 📌 *Usuarios Registrados:* ${toNum(totalreg)} 
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-💬 *Total de chats:* ${totalchats}
-📢 *Grupos:* ${groupsIn.length}
-📩 *Privados:* ${totalchats - groupsIn.length}
-
-🕰️ *Actividad:* ${muptime}
-🚀 *Velocidad:* ${speed.toFixed(3)}s
+╭━━━〔 🛰️ *RENDIMIENTO* 🛰️ 〕━━━⬣
+┃ ⏰ *Uptime:* ${muptime}
+┃ ⚡ *Velocidad:* ${speed.toFixed(3)}s
+┃ 💻 *Plataforma:* ${platform()}
+┃ 🗂️ *Memoria:* ${format(totalmem() - freemem())} / ${format(totalmem())}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `.trim()
 
   // Contacto para usar como mensaje citado (puedes ajustarlo)
