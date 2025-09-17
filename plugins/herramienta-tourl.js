@@ -9,11 +9,13 @@ let q = m.quoted ? m.quoted : m;
   if (!mime) return conn.reply(m.chat, `*${emojis} Responde a una imagen, vídeo o gif.*`, m, rcanal);
   let media = await q.download();
 let link = await catbox(media);
-  let caption = `*Tools - Tourl*
-
-  *» Size* :  ${formatBytes(media.length)}
-  *» Expired* :  Never
-  *» Url* :  ${link}`;
+  let caption = `
+╭━━━〔 🛠️ *TOOLS - TOURL* 🛠️ 〕━━━⬣
+┃ ⚡ *Size:* ${formatBytes(media.length)}
+┃ ⏳ *Expired:* Never
+┃ 🌐 *Url:* ${link}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`.trim()
 
   await m.reply(caption);
 }
