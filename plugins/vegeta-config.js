@@ -9,35 +9,37 @@ const handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, i
     participant: '0@s.whatsapp.net'
   };
 
-  const miniopcion = `🐉 *𝑂𝑃𝐶𝐼𝑂𝑁𝐸𝑆 𝑃𝐴𝑅𝐴 𝐺𝑅𝑈𝑃𝑂𝑆*
-${usedPrefix + command} welcome
-${usedPrefix + command} autoresponder
-${usedPrefix + command} autoaceptar
-${usedPrefix + command} autorechazar
-${usedPrefix + command} detect
-${usedPrefix + command} antidelete
-${usedPrefix + command} antilink
-${usedPrefix + command} antilink2
-${usedPrefix + command} nsfw
-${usedPrefix + command} autolevelup
-${usedPrefix + command} autosticker
-${usedPrefix + command} reaction
-${usedPrefix + command} antitoxic
-${usedPrefix + command} audios
-${usedPrefix + command} modoadmin
-${usedPrefix + command} antifake
-${usedPrefix + command} antibot
+  const miniopcion = `╭━━━〔 *⚡️ OPCIONES PARA GRUPOS* 〕━━━╮
+┃ ${usedPrefix + command} welcome
+┃ ${usedPrefix + command} autoresponder
+┃ ${usedPrefix + command} autoaceptar
+┃ ${usedPrefix + command} autorechazar
+┃ ${usedPrefix + command} detect
+┃ ${usedPrefix + command} antidelete
+┃ ${usedPrefix + command} antilink
+┃ ${usedPrefix + command} antilink2
+┃ ${usedPrefix + command} nsfw
+┃ ${usedPrefix + command} autolevelup
+┃ ${usedPrefix + command} autosticker
+┃ ${usedPrefix + command} reaction
+┃ ${usedPrefix + command} antitoxic
+┃ ${usedPrefix + command} audios
+┃ ${usedPrefix + command} modoadmin
+┃ ${usedPrefix + command} antifake
+┃ ${usedPrefix + command} antibot
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-🚀 *𝑂𝑃𝐶𝐼𝑂𝑁𝐸𝑆 𝑃𝐴𝑅𝐴 𝑀𝐼 𝐶𝑅𝐸𝐴𝐷𝑂𝑅*
+╭━━━〔 *🚀 OPCIONES PARA MI CREADOR* 〕━━━╮
+┃ ${usedPrefix + command} antisubots
+┃ ${usedPrefix + command} public
+┃ ${usedPrefix + command} status
+┃ ${usedPrefix + command} serbot
+┃ ${usedPrefix + command} restrict
+┃ ${usedPrefix + command} autoread
+┃ ${usedPrefix + command} antispam
+┃ ${usedPrefix + command} antiprivado
+╰━━━━━━━━━━━━━━━━━━━━━━╯`;
 
-${usedPrefix + command} antisubots
-${usedPrefix + command} public
-${usedPrefix + command} status
-${usedPrefix + command} serbot
-${usedPrefix + command} restrict
-${usedPrefix + command} autoread
-${usedPrefix + command} antispam
-${usedPrefix + command} antiprivado`;
 
   const isEnable = /true|enable|(turn)?on|1/i.test(command);
   const chat = global.db.data.chats[m.chat];
