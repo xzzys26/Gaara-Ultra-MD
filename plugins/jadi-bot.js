@@ -69,13 +69,6 @@ ${listado}`.trim();
 ⚠️ _Hay demasiados subbots conectados, no se puede mostrar la lista completa._`;
 }
 
-responseMessage += `
-
-╭━━━〔 *INFO* 〕━━━╮
-┃ ✎ Creador: xzzys26 ⚡
-┃ 🥷🏼 Sistema: Gaara-Ultra-MD ⚡️
-╰━━━━━━━━━━━━━━━━━━━━━━╯`;
-
 
   const imageUrl = 'https://qu.ax/RRMde.jpg'; // Cambia si quieres
 
