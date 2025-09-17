@@ -2,8 +2,8 @@ import fs from 'fs';
 
 let handler = async (m, { text, usedPrefix, command }) => {
 
-    const emoji = '🐉';
-    const emoji2 = '☁️';
+    const emoji = '⚡️';
+    const emoji2 = '📂';
     const msm = '❌'; 
 
     if (!text) {
