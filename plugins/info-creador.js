@@ -5,8 +5,8 @@ async function handler(m, { conn }) {
 
     // Primer creador
     const name1 = 'Xzzys26;
-    const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado Y Premium ⚡️;
-    const numero1 = 'Wa.me+18097769423;
+    const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado Y Premium ⚡️';
+    const numero1 = 'Wa.me+18097769423';
     const dash1 = 'https://dash.deluxehost.cl';
     const github1 = 'https://github.com/xzzys26';
     const imagen1 = 'https://files.catbox.moe/g3nbig.jpg';
