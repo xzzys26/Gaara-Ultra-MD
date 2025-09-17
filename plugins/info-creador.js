@@ -19,14 +19,14 @@ async function handler(m, { conn }) {
 
     const caption = `
 ╭━━━〔 👑 *CREADOR INFO* 👑 〕━━━⬣
-┃ ⚡︎ 🌟 *Nombre:* ${name1}
+┃ ⚡︎ 🙎🏻‍♂️ *Nombre:* ${name1}
 ┃ ⚡︎ 🏢 *Empresa:* ${empresa1}
 ┃ ⚡︎ 📱 *Número:* ${numero1}
-┃ ⚡︎ 🔗 *Dash Sky:* ${dash1}
+┃ ⚡︎ 🖇 *Dash Deluxe Host:* ${dash1}
 ┃ ⚡︎ 💻 *GitHub:* ${github1}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-╭━━━〔 👑 *SEGUNDO CREADOR* 👑 〕━━━⬣
+╭━━━〔 👑 *CO-CREADOR* 👑 〕━━━⬣
 ┃ ⚡︎ 🌟 *Nombre:* ${name2}
 ┃ ⚡︎ 🏢 *Empresa:* ${empresa2}
 ┃ ⚡︎ 📱 *Número:* ${numero2}
