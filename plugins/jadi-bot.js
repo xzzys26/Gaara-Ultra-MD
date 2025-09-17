@@ -26,52 +26,56 @@ async function handler(m, { conn: stars, usedPrefix }) {
   const totalUsers = users.length;
   const availableSlots = Math.max(0, maxSubBots - totalUsers);
 
-  const packname = global.packname || '🤖 𝙱𝙾𝗧';
-  const title = `⭑『 𝗦𝗨𝗕𝗕𝗢𝗧𝗦 𝗖𝗢𝗡𝗘𝗖𝗧𝗔𝗗𝗢𝗦 』⭑`;
-  const barra = '━━━━━━━━━━━━━━━━';
+  const packname = global.packname || '⚡️ 𝙂𝘼𝘼𝙍𝘼 𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 ⚡';
+const title = `⚡『 𝙎𝙐𝘽-𝘽𝙊𝙏𝙎 𝙊𝙉𝙇𝙄𝙉𝙀 』⚡`;
+const barra = '━━━━━━━━━━━━━━━━━━━━━━';
 
-  let responseMessage = '';
+let responseMessage = '';
 
-  if (totalUsers === 0) {
-    responseMessage = `╭═⬣ ${title}
-┃ 🐉 Total conectados: *0*
-┃ 🔮 Espacios disponibles: *${availableSlots}*
-╰═${barra}⬣
+if (totalUsers === 0) {
+  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
+┃ ⚡ Sub-Bots activos: *0*
+┃ ❌ Nadie conectado todavía
+┃ 📜 Espacios disponibles: *${availableSlots}*
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-No hay subbots conectados por ahora.`;
-  } else if (totalUsers <= 15) {
-    const listado = users
-      .map((v, i) => {
-        const num = v.user.jid.replace(/[^0-9]/g, '');
-        const nombre = v?.user?.name || v?.user?.pushName || '👻 𝚂𝚄𝙱-𝙱𝙾𝗧';
-        const waLink = `https://wa.me/${num}?text=${usedPrefix}code`;
-        return `╭╼⟪ ${packname} ⟫╾╮
-┃ #${i + 1} 👑 @${num}
-┃ 🐉 Link: ${waLink}
-┃ ☁️ Nombre: ${nombre}
-╰╼▣`;
-      })
-      .join('\n\n');
+> 📌 Conéctate ahora y forma parte de la red Ultra.`;
+} else if (totalUsers <= 15) {
+  const listado = users
+    .map((v, i) => {
+      const num = v.user.jid.replace(/[^0-9]/g, '');
+      const nombre = v?.user?.name || v?.user?.pushName || '🌟 𝙎𝙪𝙗-𝘽𝙤𝙩𝙨';
+      const waLink = `https://wa.me/${num}?text=${usedPrefix}code`;
+      return `╭━━━〔 ⚡ 𝙎𝙐𝘽-𝘽𝙊𝙏𝙎 𝙐𝙇𝙏𝙍𝘼 #${i + 1} 〕━━━╮
+┃ 👤 Usuario: @${num}
+┃ ⚡️ Nombre: ${nombre}
+┃ 🔗 Link: ${waLink}
+╰━━━━━━━━━━━━━━━━━━━━━━╯`;
+    })
+    .join('\n\n');
 
-    responseMessage = `╭═⬣ ${title}
-┃ 🐉 Total conectados: *${totalUsers}*
-┃ 👑 Espacios disponibles: *${availableSlots}*
-╰═${barra}⬣
+  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
+┃ 📜 Total conectados: *${totalUsers}*
+┃ ⚡ Espacios disponibles: *${availableSlots}*
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
 ${listado}`.trim();
-  } else {
-    responseMessage = `╭═⬣ ${title}
-┃ 🐉 Total conectados: *${totalUsers}*
-┃ 🔮 Espacios disponibles: *${availableSlots}*
-╰═${barra}⬣
+} else {
+  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
+┃ 📜 Total conectados: *${totalUsers}*
+┃ ⚡ Espacios disponibles: *${availableSlots}*
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-⚠️ Hay muchos subbots conectados, no se muestra la lista detallada.`;
-  }
+⚠️ _Hay demasiados subbots conectados, no se puede mostrar la lista completa._`;
+}
 
-  responseMessage += `
+responseMessage += `
 
-—
-Creador BrayanOFC 👑`;
+╭━━━〔 *INFO* 〕━━━╮
+┃ ✎ Creador: xzzys26 ⚡
+┃ 🥷🏼 Sistema: Gaara-Ultra-MD ⚡️
+╰━━━━━━━━━━━━━━━━━━━━━━╯`;
+
 
   const imageUrl = 'https://qu.ax/RRMde.jpg'; // Cambia si quieres
 
