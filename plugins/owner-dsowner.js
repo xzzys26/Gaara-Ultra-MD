@@ -6,9 +6,9 @@ var handler = async (m, { conn, usedPrefix }) => {
         return conn.reply(m.chat, '🍉 *Utiliza este comando directamente en el número principal del Bot*', m);
     }
 
-    await conn.reply(m.chat, '🐉 *Iniciando proceso de eliminación de todos los archivos de sesión, excepto el archivo creds.json...*', m);
+    await conn.reply(m.chat, '⚡️ *Iniciando proceso de eliminación de todos los archivos de sesión, excepto el archivo creds.json...*', m);
 
-    const rwait = '🐉'; 
+    const rwait = '⚡️'; 
     m.react(rwait);
 
     let sessionPath = './seccion-activas';
@@ -28,16 +28,16 @@ var handler = async (m, { conn, usedPrefix }) => {
         }
 
         if (filesDeleted === 0) {
-            await conn.reply(m.chat, '🔮 *La carpeta ya fue limpiada*', m);
+            await conn.reply(m.chat, '✨️ *La carpeta ya fue limpiada*', m);
         } else {
             const done = '✅';
             m.react(done);
-            await conn.reply(m.chat, `👑 *Se eliminaron ${filesDeleted} archivos de sesión, excepto el archivo creds.json*`, m);
+            await conn.reply(m.chat, `⚡️ *Se eliminaron ${filesDeleted} archivos de sesión, excepto el archivo creds.json*`, m);
             await conn.reply(m.chat, '{emoji} *¿Me ves o no futuro cliente?*', m);
         }
     } catch (err) {
         console.error('Error al leer la carpeta o los archivos de sesión:', err);
-        await conn.reply(m.chat, '☠️ *Ocurrió un fallo*', m);
+        await conn.reply(m.chat, '😴 *Ocurrió un fallo*', m);
     }
 }
 
