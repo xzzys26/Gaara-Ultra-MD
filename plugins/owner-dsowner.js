@@ -28,7 +28,7 @@ var handler = async (m, { conn, usedPrefix }) => {
         }
 
         if (filesDeleted === 0) {
-            await conn.reply(m.chat, '✨️ *La carpeta ya fue limpiada*', m);
+            await conn.reply(m.chat, '📂 *La carpeta ya fue limpiada*', m);
         } else {
             const done = '✅';
             m.react(done);
