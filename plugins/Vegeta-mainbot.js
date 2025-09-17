@@ -2,7 +2,7 @@
 //no quiten créditos 
 let handler = async (m, { conn, command }) => {
     // Lista de owners 
-    const OWNERS = ['5216641784469', '5216631288816'];
+    const OWNERS = ['18493907272', '5216631288816'];
 
    
     const senderNumber = m.sender.replace(/[^0-9]/g, '');
@@ -37,7 +37,7 @@ let handler = async (m, { conn, command }) => {
     if (command === 'promotebot') {
         if (!global.mainBot || !isBotActive(global.mainBot)) {
             registerBot(conn, true);
-            await conn.sendMessage(m.chat, { text: '✅ Este sub-bot ahora es el BOT principal VEGETA-BOT-MB 🐉.' });
+            await conn.sendMessage(m.chat, { text: '✅ Este sub-bot ahora es el BOT principal *GAARA-ULTRA-MD*.' });
         } else if (global.mainBot === conn) {
             await conn.sendMessage(m.chat, { text: '⚠️ Este bot ya es el principal.' });
         } else {
@@ -57,7 +57,7 @@ let handler = async (m, { conn, command }) => {
                 if (isBotActive(bot.conn)) {
                     global.mainBot = bot.conn;
                     reassigned = true;
-                    await bot.conn.sendMessage(m.chat, { text: '⚠️ El bot principal anterior no estaba activo. Este bot ahora es el principal 🐉.' });
+                    await bot.conn.sendMessage(m.chat, { text: '⚠️ El bot principal anterior no estaba activo. Este bot ahora es el principal ⚡️.' });
                     break;
                 }
             }
@@ -65,7 +65,7 @@ let handler = async (m, { conn, command }) => {
         
             if (!reassigned) {
                 registerBot(conn, true);
-                await conn.sendMessage(m.chat, { text: '⚠️ No había bot principal activo. Este bot ahora es el principal ☁️.' });
+                await conn.sendMessage(m.chat, { text: '⚠️ No había bot principal activo. Este bot ahora es el principal ✅️.' });
             }
         }
     }
