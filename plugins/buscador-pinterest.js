@@ -90,7 +90,7 @@ let handler = async (m, { conn, text }) => {
   });
 
   try {
-    const res2 = await fetch('https://files.catbox.moe/875ido.png');
+    const res2 = await fetch('https://files.catbox.moe/dloo3r.jpg');
     const thumb2 = Buffer.from(await res2.arrayBuffer());
 
     // Mensaje que simula el canal arriba
