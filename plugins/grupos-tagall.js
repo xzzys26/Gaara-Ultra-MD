@@ -8,7 +8,7 @@ let handler = async function (m, { conn, groupMetadata }) {
 
   const mensaje = [
     '╭━━━〔 *Gaara-Ultra-Invocación* 〕━━━⬣',
-    '┃ 🔥 ¡Invocación completada! 🔥',
+    '┃ *🔥 ¡Invocación completada! 🔥*',
     '┃ 📌 Todos los usuarios del chat han sido invocados:',
     listaUsuarios,
     '╰━━━━━━━━━━━━━━━━━━━━⬣'
