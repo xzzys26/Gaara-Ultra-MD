@@ -1,6 +1,6 @@
 // créditos by xzzys26 Para Gaara-Ultra-MD 
 
-async function handler(m, { conn, usedPrefix }) => {
+async function handler(m, { conn, usedPrefix }) {
   try {
     await m.react('👨🏻‍💻')
 
@@ -20,22 +20,24 @@ async function handler(m, { conn, usedPrefix }) => {
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
       buttons: [
         {
-          buttonId: `${usedPrefix}code`,
-          buttonText: { displayText: "🤖 𝗦𝘂𝗯-𝗕𝗼𝘁" },
-          type: 1
+          buttonId: `${usedPrefix}dash`,
+          buttonText: { displayText: "dash" },
+          type: 1,
         },
         {
           buttonId: `${usedPrefix}menu`,
-          buttonText: { displayText: "↩️ 𝗠𝗲𝗻𝘂" },
-          type: 1
-        }
+          buttonText: { displayText: "menu" },
+          type: 1,
+        },
       ],
       headerType: 4
     }, { quoted: m })
 
   } catch (error) {
     console.error('Error:', error)
-    await m.reply('❌ Error al mostrar información del creador')
+    await conn.sendMessage(m.chat, { 
+      text: '🤖 *Gaara-Ultra-MD*\n👤 *Creador:* xzzys26\n📱 *Número:* +18097769423\n🌐 *Dashboard:* https://dash.deluxehost.cl\n💻 *GitHub:* https://github.com/xzzys26\n\n*⚡ Servicios Privado Con Alta Calidad*'
+    }, { quoted: m })
   }
 }
 
