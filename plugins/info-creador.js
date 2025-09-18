@@ -21,12 +21,12 @@ async function handler(m, { conn, usedPrefix }) {
       buttons: [
         {
           buttonId: `${usedPrefix}code`,
-          buttonText: { displayText: "💻 Code" },
+          buttonText: { displayText: "🤖 𝗖𝗼𝗱𝗲" },
           type: 1,
         },
         {
           buttonId: `${usedPrefix}menu`,
-          buttonText: { displayText: "📖 Menu" },
+          buttonText: { displayText: "📜 𝗠𝗲𝗻𝘂" },
           type: 1,
         },
       ],
