@@ -10,7 +10,7 @@ const {
 let handler = async (message, { conn, text, usedPrefix, command }) => {
   // VARIABLES DEFINIDAS
   const avatar = 'https://files.catbox.moe/dloo3r.jpg'; 
-  const dev = 'Gaara-Ultra-MD; 
+  const dev = 'Xzzys26'; 
   const redes = 'https://xzys-ultra.vercel.app'; 
 
   if (!text) {
