@@ -1,5 +1,4 @@
 import speed from 'performance-now'
-import { exec } from 'child_process'
 import os from 'os'
 
 let handler = async (m, { conn }) => {
@@ -20,29 +19,19 @@ let handler = async (m, { conn }) => {
     const cpuModel = cpus[0].model;
     const cpuCores = cpus.length;
     
-    exec('neofetch --stdout', (error, stdout, stderr) => {
-        let neofetchInfo = '';
-        if (!error) {
-            neofetchInfo = stdout.toString('utf-8');
-        }
-        
-        let result = `
+    let result = `
 ╭━━━〔 ⚡ 𝚂𝙸𝚂𝚃𝙴𝙼𝙰 𝙸𝙽𝙵𝙾 ⚡ 〕━━━╮
-┃ ⚡ *Ping:* ${latency.toFixed(1)} ms
-┃ ⚡ *Plataforma:* ${platform} ${arch}
-┃ ⚡ *Sistema:* ${release}
-┃ ⚡ *Hostname:* ${hostname}
-┃ ⚡ *CPU:* ${cpuModel} (${cpuCores} núcleos)
-┃ ⚡ *RAM:* ${freeMem} GB libres de ${totalMem} GB
-┃ ⚡ *Uptime:* ${uptime}
-┃
-┃ ⚡ *Neofetch:*
-\`\`\`${neofetchInfo || 'Neofetch no disponible'}\`\`\`
+┃ 📡 *Ping:* ${latency.toFixed(1)} ms
+┃ 💻 *Plataforma:* ${platform} ${arch}
+┃ 🖥️ *Sistema:* ${release}
+┃ 🌐 *Hostname:* ${hostname}
+┃ 🔧 *CPU:* ${cpuModel} (${cpuCores} núcleos)
+┃ 🗂️ *RAM:* ${freeMem} GB libres de ${totalMem} GB
+┃ ⏳ *Uptime:* ${uptime}
 ╰━━━━━━━━━━━━━━━━━━━╯
-        `.trim();
-        
-        conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m });
-    });
+    `.trim();
+    
+    conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m });
 };
 
 function formatUptime(seconds) {
