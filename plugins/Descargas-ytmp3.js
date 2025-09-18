@@ -49,7 +49,7 @@ const apisExtra = [
     }
   },
   {
-    name: "The Carlos👑",
+    name: "BrayanOFC",
     fetchUrl: async (url) => {
       const res = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${encodeURIComponent(url)}`);
       const data = await res.json();
@@ -57,7 +57,7 @@ const apisExtra = [
     }
   },
   {
-    name: "The Carlos👑",
+    name: "BrayanOFC",
     fetchUrl: async (url) => {
       const res = await fetch(`https://axeel.my.id/api/download/audio?url=${encodeURIComponent(url)}`);
       const data = await res.json();
