@@ -14,20 +14,22 @@ async function handler(m, { conn }) {
 💻 *GitHub:* https://github.com/xzzys26
 `
 
-    const buttonMessage = {
-      image: { url: imageUrl },
+    const templateButtons = [
+      {index: 1, urlButton: {displayText: '📲 𝗪𝗵𝗮𝘁𝘀𝗮𝗽𝗽', url: 'https://wa.me/18097769423'}},
+      {index: 2, urlButton: {displayText: '🌐 𝗗𝗮𝘀𝗵', url: 'https://dash.deluxehost.cl'}},
+      {index: 3, quickReplyButton: {displayText: '🤖 𝗛𝗮𝘀𝘁𝗲 𝗦𝘂𝗯-𝗕𝗼𝘁', id: '.code'}},
+      {index: 4, quickReplyButton: {displayText: '↩️ 𝗩𝗼𝗹𝘃𝗲𝗿 𝗔𝗹 𝗠𝗲𝗻𝘂', id: '.menu'}}
+    ]
+
+    const templateMessage = {
+      image: {url: imageUrl},
       caption: messageText,
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
-      buttons: [
-        { buttonId: 'contact', buttonText: { displayText: '📲 𝗪𝗵𝗮𝘁𝘀𝗮𝗽𝗽' }, type: 1 },
-        { buttonId: '.dash', buttonText: { displayText: '🌐 𝗗𝗮𝘀𝗵' }, type: 1 },
-        { buttonId: '.code', buttonText: { displayText: '🤖 𝗛𝗮𝘀𝘁𝗲 𝗦𝘂𝗯-𝗕𝗼𝘁' }, type: 1 },
-        { buttonId: '.menu', buttonText: { displayText: '↩️ 𝗩𝗼𝗹𝘃𝗲𝗿 𝗔𝗹 𝗠𝗲𝗻𝘂' }, type: 1 }
-      ],
+      templateButtons: templateButtons,
       headerType: 4
     }
 
-    await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
+    await conn.sendMessage(m.chat, templateMessage, { quoted: m })
 
   } catch (error) {
     console.error('Error:', error)
