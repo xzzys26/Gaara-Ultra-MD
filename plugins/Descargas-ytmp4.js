@@ -35,7 +35,22 @@ async function getSize(url) {
   }
 }
 
-async function ytdl(url) {
+async function apiAdonix(url) {
+  let apiUrl = `https://myapiadonix.vercel.app/api/ytmp3?url=${encodeURIComponent(url)}`;
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+
+  if (!data.status || !data.result?.url) {
+    throw new Error('API Adonix no devolvió datos válidos');
+  }
+
+  return {
+    url: data.result.url,
+    title: data.result.title || 'Video sin título'
+  };
+}
+
+async function apiFallback(url) {
   const headers = {
     accept: '*/*',
     'accept-language': 'en-US,en;q=0.9',
@@ -52,22 +67,27 @@ async function ytdl(url) {
   const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/))([^&?/]+)/)?.[1];
   if (!videoId) throw new Error('ID de video no encontrado');
 
+  const init = await (await fetch(`https://d.ymcdn.org/api/v1/init?p=y&23=1llum1n471&_=${Date.now()}`, { headers })).json();
+  const convert = await (await fetch(`${init.convertURL}&v=${videoId}&f=mp4&_=${Date.now()}`, { headers })).json();
+
+  let info;
+  for (let i = 0; i < 3; i++) {
+    const res = await fetch(convert.progressURL, { headers });
+    info = await res.json();
+    if (info.progress === 3) break;
+    await new Promise(r => setTimeout(r, 1000));
+  }
+
+  if (!info || !convert.downloadURL) throw new Error('API fallback no devolvió datos');
+  return { url: convert.downloadURL, title: info.title || 'Video sin título' };
+}
+
+async function ytdl(url) {
   try {
-    const init = await (await fetch(`https://d.ymcdn.org/api/v1/init?p=y&23=1llum1n471&_=${Date.now()}`, { headers })).json();
-    const convert = await (await fetch(`${init.convertURL}&v=${videoId}&f=mp4&_=${Date.now()}`, { headers })).json();
-
-    let info;
-    for (let i = 0; i < 3; i++) {
-      const res = await fetch(convert.progressURL, { headers });
-      info = await res.json();
-      if (info.progress === 3) break;
-      await new Promise(res => setTimeout(res, 1000));
-    }
-
-    if (!info || !convert.downloadURL) throw new Error('No se pudo obtener la URL de descarga');
-    return { url: convert.downloadURL, title: info.title || 'Video sin título' };
-  } catch (e) {
-    throw new Error(`Error en la descarga: ${e.message}`);
+    return await apiAdonix(url); // primero la tuya
+  } catch (e1) {
+    console.log('⚠️ API Adonix falló, usando fallback...', e1.message);
+    return await apiFallback(url); // si falla, usa la otra
   }
 }
 
@@ -92,7 +112,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   const react = emoji => m.react(emoji);
 
   if (!text) {
-    return conn.reply(m.chat, `⚡️ Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
+    return conn.reply(m.chat, `🧩 Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
   }
 
   if (!isValidYouTubeUrl(text)) {
@@ -110,12 +130,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     return conn.reply(m.chat, '⚠️ Ya estoy procesando un archivo pesado. Espera un momento.', m);
   }
 
-  await react('🔍');
+  await react('⏳');
 
   try {
     const { url, title } = await ytdl(text);
     const size = await getSize(url);
-    if (!size) throw new Error('No se pudo determinar el tamaño del video');
 
     if (size > MAX_FILE_SIZE) {
       await react('🔴');
@@ -128,28 +147,37 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       await conn.reply(m.chat, '💾 Espera, estoy descargando un archivo grande...', m);
     }
 
+    const caption = `
+╭╌╌〔 *⚡️ GAARA-ULTRA ⚡️* 〕╌╌╮
+┃ 🧿 *Título:* ${title}
+╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯`.trim();
 
     const buffer = await fetch(url).then(res => res.buffer());
-    await conn.sendFile(
-      m.chat,
-      buffer,
-      `${title}.mp4`,
-      caption,
-      m,
-      null,
-      {
+
+    if (size >= VIDEO_THRESHOLD) {
+      
+      await conn.sendMessage(m.chat, {
+        document: buffer,
         mimetype: 'video/mp4',
-        asDocument: size >= VIDEO_THRESHOLD,
-        filename: `${title}.mp4`
-      }
-    );
+        fileName: `${title}.mp4`,
+        caption: caption
+      }, { quoted: m });
+    } else {
+      
+      await conn.sendMessage(m.chat, {
+        video: buffer,
+        mimetype: 'video/mp4',
+        fileName: `${title}.mp4`,
+        caption: caption
+      }, { quoted: m });
+    }
 
     await react('✅');
     isProcessingHeavy = false;
   } catch (e) {
     await react('❌');
     isProcessingHeavy = false;
-    return m.reply(`❌️ *ERROR:* ${e.message}`);
+    return m.reply(`🧨 *ERROR:* ${e.message}`);
   }
 };
 
