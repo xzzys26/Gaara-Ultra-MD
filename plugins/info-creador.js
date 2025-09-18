@@ -6,7 +6,7 @@ async function handler(m, { conn }) {
     await m.react('👨🏻‍💻')
     
     // Imagen del creador
-    const imageUrl = 'https://files.catbox.moe/g3nbig.jpg'
+    const imageUrl = 'https://files.catbox.moe/inqghn.jpg'
 
     // Preparamos la imagen
     const media = await prepareWAMessageMedia(
