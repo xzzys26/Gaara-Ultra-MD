@@ -4,10 +4,8 @@ async function handler(m, { conn }) {
   try {
     await m.react('👨🏻‍💻')
 
-    // Imagen del creador
     const imageUrl = 'https://files.catbox.moe/inqghn.jpg'
 
-    // Texto del info creador
     let messageText = `
 🤖 *Gaara-Ultra-MD*
 👤 *Creador:* xzzys26
@@ -16,20 +14,19 @@ async function handler(m, { conn }) {
 💻 *GitHub:* https://github.com/xzzys26
 `
 
-    // Mensaje con botones usando el formato correcto
     const buttonMessage = {
       image: { url: imageUrl },
       caption: messageText,
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
       buttons: [
-        { buttonId: 'contact', buttonText: { displayText: '📞 WhatsApp' }, type: 1 },
-        { buttonId: 'dashboard', buttonText: { displayText: '🌐 Dashboard' }, type: 1 },
-        { buttonId: '.menu', buttonText: { displayText: '🏠 Menú Principal' }, type: 1 }
+        { buttonId: 'contact', buttonText: { displayText: '📲 𝗪𝗵𝗮𝘁𝘀𝗮𝗽𝗽' }, type: 1 },
+        { buttonId: 'dashboard', buttonText: { displayText: '🌐 𝗗𝗮𝘀𝗵' }, type: 1 },
+        { buttonId: '.code', buttonText: { displayText: '🤖 𝗛𝗮𝘀𝘁𝗲 𝗦𝘂𝗯-𝗕𝗼𝘁' }, type: 1 },
+        { buttonId: '.menu', buttonText: { displayText: '↩️ 𝗩𝗼𝗹𝘃𝗲𝗿 𝗔𝗹 𝗠𝗲𝗻𝘂' }, type: 1 }
       ],
       headerType: 4
     }
 
-    // Enviamos el mensaje
     await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 
   } catch (error) {
