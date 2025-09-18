@@ -77,7 +77,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     let uptime = clockString(process.uptime() * 1000)
 
     // Modo (Privado / Público)
-    let modo = global.opts?.self ? "🔒 Privado" : "🌐 Público"
+    let modo = global.opts?.self ? "🔒 Privado" : "🥷🏼 Privado"
 
     // Bloque inicial
     let menuText = `
@@ -112,7 +112,7 @@ ${comandos.map(menu => menu.help.map(help =>
 > 👑 Powered by ${creador} 🥷🏽
 `
 
-    await m.react('🥷')
+    await m.react('✅️')
     await m.react('⚡')
 
     let vidBuffer = await (await fetch('https://files.catbox.moe/z0ygkv.mp4')).buffer() // cambia la URL por tu video corto
