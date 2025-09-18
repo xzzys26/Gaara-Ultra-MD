@@ -112,8 +112,8 @@ ${comandos.map(menu => menu.help.map(help =>
 > 👑 Powered by ${creador} 🥷🏽
 `
 
+    await m.react('⚡️')
     await m.react('✅️')
-    await m.react('⚡')
 
     let vidBuffer = await (await fetch('https://files.catbox.moe/z0ygkv.mp4')).buffer() // cambia la URL por tu video corto
     let media = await prepareWAMessageMedia(
