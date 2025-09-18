@@ -80,7 +80,7 @@ async function fetchBuffer(url) {
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   const react = emoji => m.react(emoji);
 
-  if (!text) return conn.reply(m.chat, `🧩 Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
+  if (!text) return conn.reply(m.chat, `⚡️ Uso: ${usedPrefix}${command} <enlace de YouTube>`, m);
 
   if (!isValidYouTubeUrl(text)) {
     await react('🔴');
@@ -135,7 +135,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   } catch (e) {
     await react('❌');
     isProcessingHeavy = false;
-    return m.reply(`🧨 *ERROR:* ${e.message}`);
+    return m.reply(`📌 *ERROR:* ${e.message}`);
   }
 };
 
