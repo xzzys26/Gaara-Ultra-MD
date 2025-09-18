@@ -16,15 +16,15 @@ const handler = async (m, { conn, args, usedPrefix }) => {
 
         let messageText = `*Youtube - Download*\n\n`;
         messageText += `${video.titulo}\n\n`;
-        messageText += `⌛ Duración: ${video.duracion || 'No disponible'}\n`;
-messageText += `👤 Autor: ${video.canal || 'Desconocido'}\n`;
-messageText += `📆 Publicado: ${convertTimeToSpanish(video.publicado)}\n`;
-messageText += `🔗 Url: ${video.url}\n`;
+        messageText += `> ❍ Duración: ${video.duracion || 'No disponible'}\n`;
+messageText += `> ❍ Autor: ${video.canal || 'Desconocido'}\n`;
+messageText += `> ❍ Publicado: ${convertTimeToSpanish(video.publicado)}\n`;
+messageText += `> ❍ Url: ${video.url}\n`;
 
         await conn.sendMessage(m.chat, {
             image: thumbnail,
             caption: messageText,
-            footer: `Play By Gaara-Ultra-MD`,
+            footer: `𝙋𝙇𝘼𝙔 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿⚡️`,
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
@@ -33,12 +33,12 @@ messageText += `🔗 Url: ${video.url}\n`;
             buttons: [
                 {
                     buttonId: `${usedPrefix}ytmp3 ${video.url}`,
-                    buttonText: { displayText: 'Audio' },
+                    buttonText: { displayText: '𝗮𝘂𝗱𝗶𝗼 🎶' },
                     type: 1,
                 },
                 {
                     buttonId: `${usedPrefix}ytmp4 ${video.url}`,
-                    buttonText: { displayText: 'Video' },
+                    buttonText: { displayText: '𝗩𝗶𝗱𝗲𝗼 🎬' },
                     type: 1,
                 }
             ],
