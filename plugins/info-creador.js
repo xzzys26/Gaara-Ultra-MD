@@ -5,17 +5,12 @@ async function handler(m, { conn }) {
 
     // Primer creador
     const name1 = 'Xzzys26';
-    const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado ⚡️';
+    const empresa1 = 'Xzzys26 (erenxito) - Servicios Privado⚡️';
     const numero1 = 'Wa.me+18097769423';
     const dash1 = 'https://dash.deluxehost.cl';
     const github1 = 'https://github.com/xzzys26';
     const imagen1 = 'https://files.catbox.moe/g3nbig.jpg';
 
-    // Segundo creador
-    const name2 = '👑 The-Carlos';
-    const empresa2 = '⚡ Servicios Tecnológicos ⚡';
-    const numero2 = '+52 55 4487 6071';
-    const github2 = 'https://github.com/Thecarlos19';
 
     const caption = `
 ╭━━━〔 👑 *CREADOR INFO* 👑 〕━━━⬣
@@ -24,13 +19,6 @@ async function handler(m, { conn }) {
 ┃ ⚡︎ 📱 *Número:* ${numero1}
 ┃ ⚡︎ 🖇 *Dash Deluxe Host:* ${dash1}
 ┃ ⚡︎ 💻 *GitHub:* ${github1}
-╰━━━━━━━━━━━━━━━━━━━━━━⬣
-
-╭━━━〔 👑 *CO-CREADOR* 👑 〕━━━⬣
-┃ ⚡︎ 🌟 *Nombre:* ${name2}
-┃ ⚡︎ 🏢 *Empresa:* ${empresa2}
-┃ ⚡︎ 📱 *Número:* ${numero2}
-┃ ⚡︎ 💻 *GitHub:* ${github2}
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `.trim()
 
