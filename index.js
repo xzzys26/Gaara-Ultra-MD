@@ -111,7 +111,7 @@ opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${vegetasessions}/creds.json`)) {
 do {
-opcion = await question(colors("Seleccione una opción:\n") + qrOption("1. ➪Con código QR\n") + textOption("2. ➪ Con código de texto de 8 dígitos\n--> "))
+opcion = await question(colors("Seleccione una opción:\n") + qrOption("1. ➪ Con código QR\n") + textOption("2. ➪ Con código de texto de 8 dígitos\n--> "))
 if (!/^[1-2]$/.test(opcion)) {
 console.log(chalk.bold.redBright(`⚠︎ No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${vegetasessions}/creds.json`))
