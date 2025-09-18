@@ -20,7 +20,7 @@ async function handler(m, { conn }) {
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
       buttons: [
         { buttonId: 'contact', buttonText: { displayText: '📲 𝗪𝗵𝗮𝘁𝘀𝗮𝗽𝗽' }, type: 1 },
-        { buttonId: 'dashboard', buttonText: { displayText: '🌐 𝗗𝗮𝘀𝗵' }, type: 1 },
+        { buttonId: '.dash', buttonText: { displayText: '🌐 𝗗𝗮𝘀𝗵' }, type: 1 },
         { buttonId: '.code', buttonText: { displayText: '🤖 𝗛𝗮𝘀𝘁𝗲 𝗦𝘂𝗯-𝗕𝗼𝘁' }, type: 1 },
         { buttonId: '.menu', buttonText: { displayText: '↩️ 𝗩𝗼𝗹𝘃𝗲𝗿 𝗔𝗹 𝗠𝗲𝗻𝘂' }, type: 1 }
       ],
