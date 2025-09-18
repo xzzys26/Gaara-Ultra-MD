@@ -6,7 +6,7 @@ let handler = async (m, { conn }) => {
     let sentMsg = await conn.reply(m.chat, '🏓 𝙲𝙰𝙻𝙲𝚄𝙻𝙰𝙽𝙳𝙾 𝙿𝙸𝙽𝙶 𝚈 𝙳𝙰𝚃𝙾𝚂 𝙳𝙴𝙻 𝚂𝙸𝚂𝚃𝙴𝙼𝙰...', m);
 
     let latency = speed() - timestamp;
-    
+
     // Información del sistema
     const arch = os.arch();
     const platform = os.platform();
@@ -19,6 +19,9 @@ let handler = async (m, { conn }) => {
     const cpuModel = cpus[0].model;
     const cpuCores = cpus.length;
     
+    // Obtener el uptime real del proceso de Node.js (desde que se inició el bot)
+    const botUptime = formatUptime(process.uptime());
+
     let result = `
 ╭━━━〔 ⚡ 𝚂𝙸𝚂𝚃𝙴𝙼𝙰 𝙸𝙽𝙵𝙾 ⚡ 〕━━━╮
 ┃ 📡 *Ping:* ${latency.toFixed(1)} ms
@@ -27,10 +30,11 @@ let handler = async (m, { conn }) => {
 ┃ 🌐 *Hostname:* ${hostname}
 ┃ 🔧 *CPU:* ${cpuModel} (${cpuCores} núcleos)
 ┃ 🗂️ *RAM:* ${freeMem} GB libres de ${totalMem} GB
-┃ ⏳ *Uptime:* ${uptime}
+┃ ⏳ *Uptime Sistema:* ${uptime}
+┃ 🤖 *Uptime Bot:* ${botUptime}
 ╰━━━━━━━━━━━━━━━━━━━╯
     `.trim();
-    
+
     conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m });
 };
 
@@ -40,7 +44,7 @@ function formatUptime(seconds) {
     const hours = Math.floor(seconds / (60 * 60));
     seconds %= 60 * 60;
     const minutes = Math.floor(seconds / 60);
-    
+
     return `${days}d ${hours}h ${minutes}m`;
 }
 
