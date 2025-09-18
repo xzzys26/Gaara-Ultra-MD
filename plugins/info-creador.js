@@ -1,6 +1,6 @@
 // créditos by xzzys26 Para Gaara-Ultra-MD 
 
-async function handler(m, { conn }) {
+async function handler(m, { conn, usedPrefix }) => {
   try {
     await m.react('👨🏻‍💻')
 
@@ -14,15 +14,23 @@ async function handler(m, { conn }) {
 💻 *GitHub:* https://github.com/xzzys26
 `
 
-    
     await conn.sendMessage(m.chat, {
       image: { url: imageUrl },
       caption: messageText,
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
-      templateButtons: [
-        {index: 1, quickReplyButton: {displayText: '🤖 𝗦𝘂𝗯-𝗕𝗼𝘁', id: '.code'}},
-        {index: 2, quickReplyButton: {displayText: '↩️ 𝗠𝗲𝗻𝘂', id: '.menu'}}
-      ]
+      buttons: [
+        {
+          buttonId: `${usedPrefix}code`,
+          buttonText: { displayText: "🤖 𝗦𝘂𝗯-𝗕𝗼𝘁" },
+          type: 1
+        },
+        {
+          buttonId: `${usedPrefix}menu`,
+          buttonText: { displayText: "↩️ 𝗠𝗲𝗻𝘂" },
+          type: 1
+        }
+      ],
+      headerType: 4
     }, { quoted: m })
 
   } catch (error) {
