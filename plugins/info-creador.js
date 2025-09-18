@@ -20,8 +20,8 @@ async function handler(m, { conn, usedPrefix }) {
       footer: '*⚡ Servicios Privado Con Alta Calidad*',
       buttons: [
         {
-          buttonId: `${usedPrefix}dash`,
-          buttonText: { displayText: "dash" },
+          buttonId: `${usedPrefix}code`,
+          buttonText: { displayText: "Sub-Bot" },
           type: 1,
         },
         {
