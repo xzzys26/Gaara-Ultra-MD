@@ -19,7 +19,7 @@ let handler = async (m, { conn }) => {
     const cpuModel = cpus[0].model;
     const cpuCores = cpus.length;
     
-    // Obtener el uptime real del proceso de Node.js (desde que se inició el bot)
+    
     const botUptime = formatUptime(process.uptime());
 
     let result = `
