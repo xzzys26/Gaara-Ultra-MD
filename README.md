@@ -89,7 +89,7 @@ npm start
 ```
 
 
-### **`CREADOR DEL BOT X CO-CREADOR 🥷🏼⚡️`**
+### **`CREADOR DEL BOT 🥷🏼⚡️`**
 <div style="display: flex; gap: 10px;">
   <a href="https://github.com/xzzys26" style="text-decoration: none;">
     <img src="https://github.com/xzzys26.png" width="130" height="130" alt="xzzys26" style="border-radius: 50%;" />
