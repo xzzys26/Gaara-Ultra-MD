@@ -18,12 +18,13 @@ const handler = async (m, { conn, text, args, usedPrefix, command }) => {
     let { nickname } = data.result.author;
 
     let caption = `
-⚔️ *Descargador de TikTok*
-
-◦ 👤 *Autor:* ${nickname}
-◦ 📌 *Título:* ${title}
-◦ ⏱️ *Duración:* ${duration}
-`.trim();
+let caption = `
+╭━━━〔 ⚡️ *GAARA-ULTRA-DESCARGA* ⚡️ 〕━━━⬣
+┃ 👤 *Autor:* ${nickname}
+┃ 📌 *Título:* ${title}
+┃ ⏱️ *Duración:* ${duration}
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
+`.trim()
 
     await conn.sendMessage(m.chat, {
       video: { url: play },
