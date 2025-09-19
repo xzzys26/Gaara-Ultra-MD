@@ -42,7 +42,7 @@ let handler = async (message, { conn, text, usedPrefix, command }) => {
           mediaType: 1, 
           showAdAttribution: true,
           title: 'Gaara-Ultra-MD Descargas'
-          body: dev,
+          'body: dev,
           previewType: 0, 
           thumbnail: avatar,
           sourceUrl: redes 
