@@ -41,7 +41,7 @@ global.vs = '2.13.2'
 global.vsJB = '5.0'
 global.nameqr = 'Gaara-Ultra-MD' 
 global.namebot = 'Gaara-Ultra-MD'
-global.vegetasessions = 'Gaara Sessions'
+global.vegetasessions = 'GaaraSessions'
 global.jadi = 'JadiBots' 
 global.vegetaJadibts = true
 
