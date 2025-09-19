@@ -41,7 +41,7 @@ const ddownr = {
 
 const apisExtra = [
   {
-    name: "Black-clover-MD",
+    name: "BrayanOFC",
     fetchUrl: async (url) => {
       const res = await fetch(`https://api.vreden.my.id/api/ytmp3?url=${encodeURIComponent(url)}`);
       const data = await res.json();
