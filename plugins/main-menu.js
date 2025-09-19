@@ -77,19 +77,17 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     let uptime = clockString(process.uptime() * 1000)
 
     // Modo (Privado / Público)
-    let modo = global.opts?.self ? "🔒 Privado" : "🥷🏼 Privado"
+    let modo = global.opts?.self ? "🔒 Privado" : "🚀 Público"
 
     // Bloque inicial
     let menuText = `
 ╭━━━〔  *GAARA-ULTRA-MENU*  〕━━━⬣
 ┃ 🤖 Nombre: *${botname}*
-┃ 👤 Creador: *${creador}*
-┃ 🔐 Estado: *${modo}*
+┃ 👑 Creador: *${creador}*
+┃ ⚡️ Estado: *${modo}*
 ┃ 💬 Saludo: *${saludo}*
 ┃ ⏳️ Uptime: *${uptime}*
 ┃ 💎 Premium: *${totalPremium}*
-┃ 🎯 Nivel: *${level}*
-┃ 💻 Hosting: *Deluxe Host VIP*
 ┃ 🔰 Versión: *${versionBot}*
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `
