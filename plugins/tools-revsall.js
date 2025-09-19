@@ -53,7 +53,7 @@ await m.react('✅');
 conn.reply(m.chat, `*Error:* ${err.message}`, m);
 }}
 
-handler.command = ['revsall'];
+handler.command = ['revsall', 'xz'];
 handler.help = ['revsall'];
 handler.tags = ['owner'];
 handler.owner = true;
