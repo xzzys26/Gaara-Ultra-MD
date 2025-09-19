@@ -5,14 +5,14 @@ import path from 'path';
 
 var handler = async (m, { usedPrefix, command }) => {
     try {
-        await m.react('🔥'); 
+        await m.react('📊'); 
         conn.sendPresenceUpdate('composing', m.chat);
 
         const pluginsDir = './plugins';
 
         const files = fs.readdirSync(pluginsDir).filter(file => file.endsWith('.js'));
 
-        let response = `🔥 *ℝ𝔼𝕍𝕀𝕊𝕀𝕆ℕ 𝔻𝔼 𝕊𝕐ℕ𝕋𝔸𝕏 𝔼ℝℝ𝕆ℝ𝕊:*\n\n`;
+        let response = `🛠️ *ʀᴇᴠɪsɴᴀᴅᴏ ᴇʀʀᴏʀᴇs sɪɴᴛᴀxʏs:*\n\n`;
         let hasErrors = false;
 
         for (const file of files) {
@@ -20,20 +20,20 @@ var handler = async (m, { usedPrefix, command }) => {
                 await import(path.resolve(pluginsDir, file));
             } catch (error) {
                 hasErrors = true;
-                response += `✧ *Error en:* ${file}\n${error.message}\n\n`;
+                response += `⚡ *Error en:* ${file}\n${error.message}\n\n`;
             }
         }
 
         if (!hasErrors) {
-            response += '👁️ ¡𝑻𝑶𝑫𝑶 𝑬𝑺𝑻𝑨 𝑬𝑵 𝑶𝑹𝑫𝑬𝑵! 𝑵𝑶 𝑺𝑬 𝑫𝑬𝑻𝑬𝑪𝑻𝑨𝑹𝑶𝐍 𝑬𝑹𝑹𝑶𝑹𝑬𝑺 𝑫𝑬 𝑺𝑰𝑵𝑻𝑨𝑿𝑰𝑺.';
+            response += '✅ 𝙏𝙊𝘿𝙊 𝙀𝙎𝙏𝘼 𝙀𝙉 𝙊𝙍𝘿𝙀𝙉 𝙉𝙊 𝙃𝘼𝙔 𝙀𝙍𝙍𝙊𝙍𝙀𝙎';
         }
 
         await conn.reply(m.chat, response, m);
-        await m.react('🔥');
+        await m.react('🛠️');
     } catch (err) {
         await m.react('✖️'); 
         console.error(err);
-        conn.reply(m.chat, '❀ *Ocurrió un fallo al verificar los plugins.*', m);
+        conn.reply(m.chat, '❌ *Ocurrió un fallo al verificar los plugins.*', m);
     }
 };
 
