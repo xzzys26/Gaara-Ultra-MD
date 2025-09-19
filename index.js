@@ -44,9 +44,9 @@ console.log(chalk.bold.redBright(`
 ╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `))
 
-console.log(chalk.bold.magentaBright('╔═══════════════════════════════════════╗'))
-console.log(chalk.bold.cyanBright('║       Desarrollado por xzzys26 👑   ║'))
-console.log(chalk.bold.magentaBright('╚═══════════════════════════════════════╝\n'))
+console.log(chalk.bold.magentaBright('╭━━━〔 👑 INFO CREADOR 👑 〕━━━⬣'))
+console.log(chalk.bold.cyanBright('┃ ✦ Desarrollado por xzzys26 👑'))
+console.log(chalk.bold.magentaBright('╰━━━━━━━━━━━━━━━━━━━━━━⬣\n'))
 
 protoType()
 serialize()
