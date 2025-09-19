@@ -38,10 +38,10 @@ const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 console.log(chalk.bold.redBright(`
-╔═══════════════════════════════════════╗
-║   ⚡ Gaara-Ultra-MD ACTIVADO ⚡         ║
-║   ¡Prepárate para para usar MD Ultra   ║
-╚═══════════════════════════════════════╝
+╭━━━〔⚡️ Gaara-Ultra-MD Conexión ⚡️〕━━━⬣
+┃ ✅️ Sistema ACTIVADO con éxito
+┃ 🚀 ¡Prepárate para dominar con Ultra!
+╰━━━━━━━━━━━━━━━━━━━━━━⬣
 `))
 
 console.log(chalk.bold.magentaBright('╔═══════════════════════════════════════╗'))
