@@ -26,49 +26,39 @@ async function handler(m, { conn: stars, usedPrefix }) {
   const totalUsers = users.length;
   const availableSlots = Math.max(0, maxSubBots - totalUsers);
 
-  const packname = global.packname || '⚡️ 𝙂𝘼𝘼𝙍𝘼 𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 ⚡';
-const title = `⚡『 𝙎𝙐𝘽-𝘽𝙊𝙏𝙎 𝙊𝙉𝙇𝙄𝙉𝙀 』⚡`;
-const barra = '━━━━━━━━━━━━━━━━━━━━━━';
+  const title = `⚡『 𝙎𝙐𝘽-𝘽𝙊𝙏𝙎 𝙊𝙉𝙇𝙄𝙉𝙀 』⚡`;
 
-let responseMessage = '';
+  let responseMessage = '';
 
-if (totalUsers === 0) {
-  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
+  if (totalUsers === 0) {
+    responseMessage = `╭━━━〔 *${title}* 〕━━━╮
 ┃ ⚡ Sub-Bots activos: *0*
 ┃ ❌ Nadie conectado todavía
 ┃ 📜 Espacios disponibles: *${availableSlots}*
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
 
 > 📌 Conéctate ahora y forma parte de la red Ultra.`;
-} else if (totalUsers <= 15) {
-  const listado = users
-    .map((v, i) => {
-      const num = v.user.jid.replace(/[^0-9]/g, '');
-      const nombre = v?.user?.name || v?.user?.pushName || '🌟 𝙎𝙪𝙗-𝘽𝙤𝙩𝙨';
-      const waLink = `https://wa.me/${num}?text=${usedPrefix}code`;
-      return `╭━━━〔 ⚡ 𝙎𝙐𝘽-𝘽𝙊𝙏𝙎 𝙐𝙇𝙏𝙍𝘼 #${i + 1} 〕━━━╮
+  } else {
+    const listado = users
+      .map((v, i) => {
+        const num = v.user.jid.replace(/[^0-9]/g, '');
+        const nombre = v?.user?.name || v?.user?.pushName || '🌟 𝙎𝙪𝙗-𝘽𝙤𝙩';
+        const waLink = `https://wa.me/${num}?text=${usedPrefix}code`;
+        return `╭━━━〔 ⚡ 𝙎𝙐𝘽-𝘽𝙊𝙏 #${i + 1} 〕━━━╮
 ┃ 👤 Usuario: @${num}
 ┃ ⚡️ Nombre: ${nombre}
 ┃ 🔗 Link: ${waLink}
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`;
-    })
-    .join('\n\n');
+      })
+      .join('\n\n');
 
-  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
+    responseMessage = `╭━━━〔 *${title}* 〕━━━╮
 ┃ 📜 Total conectados: *${totalUsers}*
 ┃ ⚡ Espacios disponibles: *${availableSlots}*
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
 
 ${listado}`.trim();
-} else {
-  responseMessage = `╭━━━〔 *${title}* 〕━━━╮
-┃ 📜 Total conectados: *${totalUsers}*
-┃ ⚡ Espacios disponibles: *${availableSlots}*
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-⚠️ _Hay demasiados subbots conectados, no se puede mostrar la lista completa._`;
-}
-
+  }
 
   const imageUrl = 'https://files.catbox.moe/sq6q0q.jpg'; // Cambia si quieres
 
