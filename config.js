@@ -74,9 +74,9 @@ global.correo = 'erenxz01@gmail.com'
 // global.catalogo = fs.readFileSync('./src/catalogo.jpg')
 global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: global.packname, orderTitle: 'Bang', thumbnail: global.catalogo, sellerJid: '0@s.whatsapp.net'}}}
 global.ch = {
-ch1: '120363422694102494@newsletter',
-ch2: "120363422694102494@newsletter",
-ch3: "120363422694102494@newsletter"
+ch1: '120363374610252774@newsletter',
+ch2: "120363374610252774@newsletter",
+ch3: "120363374610252774@newsletter"
 }
 global.multiplier = 60
 
