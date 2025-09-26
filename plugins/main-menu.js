@@ -129,7 +129,7 @@ ${comandos.map(menu => menu.help.map(help =>
             contextInfo: {
               isForwarded: true,
               forwardedNewsletterMessageInfo: {
-                newsletterJid: '120363374610252774@newsletter',
+                newsletterJid: '120363420232527331@newsletter',
                 newsletterName: '𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 𝑭𝑰𝑿 ⚡',
                 serverMessageId: 100
               }
