@@ -18,7 +18,7 @@
 <p align="center">
   <a href="https://wa.me/526641784469"><img src="https://img.shields.io/badge/Soporte-WhatsApp-green?style=for-the-badge&logo=whatsapp"/></a>
   <a href="https://wa.me/18493907272"><img src="https://img.shields.io/badge/Creador-Contacto-blue?style=for-the-badge&logo=whatsapp"/></a>
-  <a href="https://whatsapp.com/channel/0029Vb5yFNP72WU14BQqel1V"><img src="https://img.shields.io/badge/Canal-WhatsApp-purple?style=for-the-badge&logo=whatsapp"/></a>
+  <a href="https://whatsapp.com/channel/0029VbBQ5sf4NVioq39Efn0v"><img src="https://img.shields.io/badge/Canal-WhatsApp-purple?style=for-the-badge&logo=whatsapp"/></a>
 </p>
 
 ---
@@ -31,7 +31,6 @@
 
 ## ✨ Características
 
-- 🚀 **Sin prefijos** → escribe `menu` en lugar de `!menu`.
 - 🧩 **Sistema de Plugins** → cada comando es independiente en la carpeta `plugins`.
 - 📜 **Menú automático** → generado dinámicamente con los plugins instalados.
 - 🎮 **Comandos interactivos** → con botones y respuestas rápidas.
