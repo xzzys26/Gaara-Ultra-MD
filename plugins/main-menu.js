@@ -1,4 +1,5 @@
 // créditos y creador de código BrayanOFC Y Modificado Por xzzys26
+
 import { xpRange } from '../lib/levelling.js'
 import ws from 'ws'
 import { generateWAMessageFromContent, prepareWAMessageMedia } from '@whiskeysockets/baileys'
@@ -6,7 +7,7 @@ import fetch from 'node-fetch'
 
 const botname = global.botname || '🌪️ 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 🌪️'
 const creador = 'https://xzys-ultra.vercel.app'
-const versionBot = '2.4.1' // cámbiala si tienes otra
+const versionBot = '6.5.9' // cámbiala si tienes otra
 
 // Categorías
 let tags = {
@@ -107,7 +108,7 @@ ${comandos.map(menu => menu.help.map(help =>
     }
 
     menuText += `
-> 👑 Powered by ${creador} 🥷🏽
+> 👑 Powered by leo xzzsy 🥷🏽
 `
 
     await m.react('⚡️')
