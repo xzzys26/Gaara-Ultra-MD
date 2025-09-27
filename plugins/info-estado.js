@@ -1,112 +1,129 @@
-import ws from 'ws'
-import { performance } from 'perf_hooks'
 import os from 'os'
+import process from 'process'
 
 let handler = async (m, { conn, usedPrefix }) => {
-  // Obtener información del bot
-  let botname = conn.user.name || "Bot"
-  let _muptime = 0
-  
-  // Intentar obtener uptime del proceso principal
-  if (process.send) {
-    try {
-      process.send('uptime')
-      _muptime = await new Promise(resolve => {
-        process.once('message', resolve)
-        setTimeout(() => resolve(0), 1000)
-      }) * 1000
-    } catch (e) {
-      _muptime = process.uptime() * 1000
+    // Medición REAL del ping - enviando un mensaje y midiendo el tiempo
+    const startTime = Date.now()
+    let loadingMsg = await conn.sendMessage(m.chat, { 
+        text: '📡 Midiendo ping real...' 
+    }, { quoted: m })
+    const realPing = Date.now() - startTime
+
+    // Información del bot
+    let botname = conn.user.name || "Bot"
+    let owner = 'xzzys26'
+    let vs = global.vs || '3.2.1'
+
+    // Uptime REAL del bot
+    let botUptime = process.uptime()
+    let uptimeFormatted = formatUptime(botUptime)
+
+    // Estadísticas REALES de la base de datos
+    let totalreg = Object.keys(global.db?.data?.users || {}).length || 0
+    let totalchats = Object.keys(global.db?.data?.chats || {}).length || 0
+
+    // Información REAL de conexiones
+    const chats = Object.entries(conn.chats || {})
+    const groups = chats.filter(([id]) => id.endsWith('@g.us'))
+    const privados = chats.filter(([id]) => id.endsWith('@s.whatsapp.net'))
+    const broadcasts = chats.filter(([id]) => id.endsWith('@broadcast'))
+
+    // Información REAL del sistema
+    let platform = os.platform()
+    let arch = os.arch()
+    let totalmem = os.totalmem()
+    let freemem = os.freemem()
+    let usedmem = totalmem - freemem
+    let cpus = os.cpus()
+    let cpuModel = cpus[0]?.model || 'Desconocido'
+    let cpuCores = cpus.length
+
+    // Estado REAL de la conexión WebSocket
+    let wsStatus = '🔴 Desconectado'
+    if (conn.ws) {
+        switch (conn.ws.readyState) {
+            case 0: wsStatus = '🟡 Conectando'; break
+            case 1: wsStatus = '🟢 Conectado'; break
+            case 2: wsStatus = '🟠 Desconectando'; break
+            case 3: wsStatus = '🔴 Desconectado'; break
+        }
     }
-  } else {
-    _muptime = process.uptime() * 1000
-  }
-  
-  let muptime = clockString(_muptime)
-  
-  // Obtener estadísticas
-  let totalreg = Object.keys(global.db?.data?.users || {}).length || 0
-  let totalchats = Object.keys(global.db?.data?.chats || {}).length || 0
-  
-  // Obtener información de chats
-  const chats = Object.entries(conn.chats || {}).filter(([id, data]) => data && !id.endsWith('broadcast'))
-  const groups = chats.filter(([id]) => id.endsWith('@g.us'))
-  const privados = chats.filter(([id]) => id.endsWith('@s.whatsapp.net'))
-  
-  // Medir velocidad
-  let old = performance.now()
-  // Pequeña operación para medir
-  let sum = 0
-  for (let i = 0; i < 1000000; i++) sum += i
-  let neww = performance.now()
-  let speed = neww - old
-  
-  // Información del sistema
-  let platform = os.platform()
-  let totalmem = os.totalmem()
-  let freemem = os.freemem()
-  
-  // Formatear memoria
-  const formatMemory = (bytes) => {
-    if (bytes === 0) return '0 B'
-    const k = 1024
-    const sizes = ['B', 'KB', 'MB', 'GB']
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-  }
-  
-  let vs = global.vs || '3.2.1'
-  let pp = "https://files.catbox.moe/p83c9e.jpg"
-  
-  let estadoMsg = `
-╭━━━〔 ⚡ *SISTEMA DE ESTADO* ⚡ 〕━━━⬣
-┃ 🌪️ *Bot:* ${botname}
-┃ 👑 *Creador:* xzzys26 
-┃ ⚡ *Prefijo:* [ ${usedPrefix} ]
-┃ 📦 *Versión:* ${vs}
-╰━━━━━━━━━━━━━━━━━━━━━━⬣
 
-╭━━━〔 📊 *ESTADÍSTICAS* 📊 〕━━━⬣
-┃ 💬 *Total de Chats:* ${totalchats}
-┃ 🏮 *Grupos:* ${groups.length}
-┃ 💌 *Privados:* ${privados.length}
-┃ 📌 *Usuarios Registrados:* ${totalreg} 
-╰━━━━━━━━━━━━━━━━━━━━━━⬣
+    // Velocidad REAL del procesador
+    let speedTestStart = Date.now()
+    let operations = 0
+    for (let i = 0; i < 1000000; i++) {
+        operations += Math.sqrt(i) * Math.random()
+    }
+    let speedTestEnd = Date.now()
+    let cpuSpeed = speedTestEnd - speedTestStart
 
-╭━━━〔 🛰️ *RENDIMIENTO* 🛰️ 〕━━━⬣
-┃ ⏰ *Uptime:* ${muptime}
-┃ ⚡ *Velocidad:* ${speed.toFixed(3)}ms
-┃ 💻 *Plataforma:* ${platform}
-┃ 🗂️ *Memoria:* ${formatMemory(totalmem - freemem)} / ${formatMemory(totalmem)}
-╰━━━━━━━━━━━━━━━━━━━━━━⬣
+    // Formatear memoria
+    const formatMemory = (bytes) => {
+        const gb = bytes / (1024 * 1024 * 1024)
+        return gb.toFixed(2) + ' GB'
+    }
+
+    // Porcentaje de uso de memoria
+    let memoryUsage = ((usedmem / totalmem) * 100).toFixed(1)
+
+    let estadoMsg = `
+╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+┃          📊 *ESTADO REAL* 📊         ┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+🤖 *INFORMACIÓN DEL BOT*
+├─ 🌪️ *Nombre:* ${botname}
+├─ 👑 *Creador:* ${owner}
+├─ ⚡ *Prefijo:* ${usedPrefix}
+├─ 📦 *Versión:* ${vs}
+├─ 📡 *Ping Real:* ${realPing} ms
+├─ 🔌 *Conexión:* ${wsStatus}
+
+📈 *ESTADÍSTICAS ACTIVAS*
+├─ 💬 *Chats Totales:* ${totalchats}
+├─ 🏮 *Grupos:* ${groups.length}
+├─ 💌 *Privados:* ${privados.length}
+├─ 📢 *Broadcasts:* ${broadcasts.length}
+├─ 👥 *Usuarios Registrados:* ${totalreg}
+
+⚙️ *RENDIMIENTO DEL SISTEMA*
+├─ ⏰ *Uptime Bot:* ${uptimeFormatted}
+├─ 🚀 *Velocidad CPU:* ${cpuSpeed} ms
+├─ 💻 *Plataforma:* ${platform} ${arch}
+├─ 🔧 *Procesador:* ${cpuModel.split('@')[0]}
+├─ 🎯 *Núcleos:* ${cpuCores}
+├─ 🗂️ *Memoria Usada:* ${formatMemory(usedmem)} (${memoryUsage}%)
+├─ 💾 *Memoria Libre:* ${formatMemory(freemem)}
+├─ 💰 *Memoria Total:* ${formatMemory(totalmem)}
+
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 `.trim()
 
-  try {
-    // Enviar mensaje con imagen
-    await conn.sendMessage(m.chat, {
-      image: { url: pp },
-      caption: estadoMsg,
-      mentions: [m.sender]
-    }, { quoted: m })
-  } catch (e) {
-    // Si falla el envío con imagen, enviar solo texto
+    // Editar el mensaje de carga con la información real
     await conn.sendMessage(m.chat, { 
-      text: estadoMsg,
-      mentions: [m.sender]
-    }, { quoted: m })
-  }
+        text: estadoMsg, 
+        edit: loadingMsg.key 
+    })
 }
 
-handler.help = ['status']
+handler.help = ['status', 'estado', 'ping']
 handler.tags = ['info']
-handler.command = /^(estado|status|estate|state|stado|stats)$/i
+handler.command = /^(estado|status|estate|state|stado|stats|ping|speed)$/i
 handler.register = true
 
 export default handler
 
-function clockString(ms) {
-  let h = Math.floor(ms / 3600000)
-  let m = Math.floor(ms / 60000) % 60
-  let s = Math.floor(ms / 1000) % 60
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':')
+function formatUptime(seconds) {
+    let days = Math.floor(seconds / (24 * 60 * 60))
+    let hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60))
+    let minutes = Math.floor((seconds % (60 * 60)) / 60)
+    
+    if (days > 0) {
+        return `${days}d ${hours}h ${minutes}m`
+    } else if (hours > 0) {
+        return `${hours}h ${minutes}m`
+    } else {
+        return `${minutes}m`
+    }
 }
