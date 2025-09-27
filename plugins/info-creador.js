@@ -9,7 +9,7 @@ async function handler(m, { conn, usedPrefix }) {
     let messageText = `
 🤖 *Gaara-Ultra-MD*
 👤 *Creador:* xzzys26
-📱 *Número:* +18097769423
+📱 *Número:* +18493907272
 🌐 *Dashboard:* https://dash.deluxehost.cl
 💻 *GitHub:* https://github.com/xzzys26
 `
