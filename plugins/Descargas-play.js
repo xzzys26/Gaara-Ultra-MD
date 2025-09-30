@@ -1,9 +1,11 @@
 import yts from 'yt-search'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const ctxErr = (global.rcanalx || {})
-  const ctxWarn = (global.rcanalw || {})
-  const ctxOk = (global.rcanalr || {})
+  // Desactivar sistema de economía para este comando
+  if (global.db?.data?.users?.[m.sender]) {
+    global.db.data.users[m.sender].dolares = global.db.data.users[m.sender].dolares || 0
+    // No restar dólares
+  }
 
   if (!text) {
     return conn.reply(m.chat, `
@@ -20,13 +22,13 @@ ${usedPrefix + command} <nombre de la canción>
 • ${usedPrefix + command} LiSA crossing field
 
 🍱 ¡Encuentra tu música favorita! 🎶📖
-    `.trim(), m, ctxWarn)
+    `.trim(), m)
   }
 
   try {
     const searchResults = await yts(text)
     if (!searchResults.videos.length) {
-      return conn.reply(m.chat, '❌ No encontré esa canción 🎵\n\n🍙 ¡Por favor, verifica el nombre! 📖', m, ctxErr)
+      return conn.reply(m.chat, '❌ No encontré esa canción 🎵\n\n🍙 ¡Por favor, verifica el nombre! 📖', m)
     }
 
     const video = searchResults.videos[0]
@@ -43,7 +45,6 @@ ${usedPrefix + command} <nombre de la canción>
 ✅ ¡Búsqueda exitosa!
 🍱 ¡Aquí tienes la información de tu canción! 🎶📖`
 
-    // Enviar solo la imagen con caption simple
     await conn.sendMessage(m.chat, {
       image: { url: video.thumbnail },
       caption: songInfo
@@ -60,6 +61,12 @@ ${usedPrefix + command} <nombre de la canción>
     )
   }
 }
+
+// Configuración especial para evitar cobros
+handler.limit = false
+handler.premium = false
+handler.free = true  // Marcar como comando gratuito
+handler.register = false
 
 handler.help = ['play <canción>', 'song <canción>', 'musica <canción>', 'buscar <canción>']
 handler.tags = ['downloader']
