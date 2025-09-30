@@ -1,87 +1,70 @@
-import yts from 'yt-search';
-import fetch from 'node-fetch';
-import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
+import yts from 'yt-search'
 
-const handler = async (m, { conn, args, usedPrefix }) => {
-    if (!args[0]) return conn.reply(m.chat, `⚡️ Ingresa un texto para buscar en YouTube.\n> *Ejemplo:* ${usedPrefix + command} Shakira`, m);
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+  const ctxErr = (global.rcanalx || {})
+  const ctxWarn = (global.rcanalw || {})
+  const ctxOk = (global.rcanalr || {})
 
-    await m.react('🕓');
-    try {
-        let searchResults = await searchVideos(args.join(" "));
+  if (!text) {
+    return conn.reply(m.chat, `
+🍙📚 Itsuki Nakano - Buscador de Música 🎵✨
 
-        if (!searchResults.length) throw new Error('No se encontraron resultados.');
+🌟 ¡Como tutora musical, puedo ayudarte a encontrar canciones!
 
-        let video = searchResults[0];
-        let thumbnail = await (await fetch(video.miniatura)).buffer();
+📝 Forma de uso:
+${usedPrefix + command} <nombre de la canción>
 
-        let messageText = `*Youtube - Download*\n\n`;
-        messageText += `${video.titulo}\n\n`;
-        messageText += `> ❍ Duración: ${video.duracion || 'No disponible'}\n`;
-messageText += `> ❍ Autor: ${video.canal || 'Desconocido'}\n`;
-messageText += `> ❍ Publicado: ${convertTimeToSpanish(video.publicado)}\n`;
-messageText += `> ❍ Url: ${video.url}\n`;
+💡 Ejemplos:
+• ${usedPrefix + command} unravel Tokyo ghoul
+• ${usedPrefix + command} spy x family ending
+• ${usedPrefix + command} LiSA crossing field
 
-        await conn.sendMessage(m.chat, {
-            image: thumbnail,
-            caption: messageText,
-            footer: `𝙋𝙇𝘼𝙔 𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿⚡️`,
-            contextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true
-            },
-            buttons: [
-                {
-                    buttonId: `${usedPrefix}ytmp3 ${video.url}`,
-                    buttonText: { displayText: '𝗮𝘂𝗱𝗶𝗼 🎶' },
-                    type: 1,
-                },
-                {
-                    buttonId: `${usedPrefix}ytmp4 ${video.url}`,
-                    buttonText: { displayText: '𝗩𝗶𝗱𝗲𝗼 🎬' },
-                    type: 1,
-                }
-            ],
-            headerType: 1,
-            viewOnce: true
-        }, { quoted: m });
+🍱 ¡Encuentra tu música favorita! 🎶📖
+    `.trim(), m, ctxWarn)
+  }
 
-        await m.react('✅');
-    } catch (e) {
-        console.error(e);
-        await m.react('✖️');
-        conn.reply(m.chat, '*`Error al buscar el video.`*', m);
+  try {
+    const searchResults = await yts(text)
+    if (!searchResults.videos.length) {
+      return conn.reply(m.chat, '❌ No encontré esa canción 🎵\n\n🍙 ¡Por favor, verifica el nombre! 📖', m, ctxErr)
     }
-};
 
-handler.help = ['play','play2'];
-handler.tags = ['descargas'];
-handler.command = ['play','play2'];
-export default handler;
+    const video = searchResults.videos[0]
 
-async function searchVideos(query) {
-    try {
-        const res = await yts(query);
-        return res.videos.slice(0, 10).map(video => ({
-            titulo: video.title,
-            url: video.url,
-            miniatura: video.thumbnail,
-            canal: video.author.name,
-            publicado: video.timestamp || 'No disponible',
-            vistas: video.views || 'No disponible',
-            duracion: video.duration.timestamp || 'No disponible'
-        }));
-    } catch (error) {
-        console.error('Error en yt-search:', error.message);
-        return [];
-    }
+    const songInfo = `🎵📚 Itsuki Nakano - Música Encontrada 🍙✨
+
+🎼 Título: ${video.title}
+⏱️ Duración: ${video.timestamp}
+👤 Artista/Canal: ${video.author.name}
+📊 Vistas: ${video.views.toLocaleString()}
+📅 Publicado: ${video.ago}
+🔗 URL: ${video.url}
+
+✅ ¡Búsqueda exitosa!
+🍱 ¡Aquí tienes la información de tu canción! 🎶📖`
+
+    // Enviar solo la imagen con caption simple
+    await conn.sendMessage(m.chat, {
+      image: { url: video.thumbnail },
+      caption: songInfo
+    })
+
+  } catch (error) {
+    console.error('Error en play:', error)
+    await conn.reply(m.chat, 
+      `❌ Error en la búsqueda\n\n` +
+      `🍙 ¡Lo siento! No pude buscar esta canción.\n\n` +
+      `🔧 Error: ${error.message}\n\n` +
+      `📖 ¡Intenta con otro nombre o más tarde! 🍱✨`,
+      m
+    )
+  }
 }
 
-function convertTimeToSpanish(timeText) {
-    return timeText
-        .replace(/year/, 'año').replace(/years/, 'años')
-        .replace(/month/, 'mes').replace(/months/, 'meses')
-        .replace(/day/, 'día').replace(/days/, 'días')
-        .replace(/hour/, 'hora').replace(/hours/, 'horas')
-        .replace(/minute/, 'minuto').replace(/minutes/, 'minutos');
-}
+handler.help = ['play <canción>', 'song <canción>', 'musica <canción>', 'buscar <canción>']
+handler.tags = ['downloader']
+handler.command = ['play', 'song', 'musica', 'music', 'buscar']
+handler.limit = true
+handler.premium = false
+
+export default handler
