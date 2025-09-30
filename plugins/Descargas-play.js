@@ -64,7 +64,5 @@ ${usedPrefix + command} <nombre de la canción>
 handler.help = ['play <canción>', 'song <canción>', 'musica <canción>', 'buscar <canción>']
 handler.tags = ['downloader']
 handler.command = ['play', 'song', 'musica', 'music', 'buscar']
-handler.limit = true
-handler.premium = false
 
 export default handler
