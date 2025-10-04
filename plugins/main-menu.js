@@ -78,7 +78,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     let uptime = clockString(process.uptime() * 1000)
 
     // Modo (Privado / Público)
-    let modo = global.opts?.self ? "*Ⓟⓥ Privado*" : "*Ⓟ Público*"
+    let modo = global.opts?.self ? "Ⓟⓥ Privado" : "Ⓟ Público"
 
     // Bloque inicial
     let menuText = `
