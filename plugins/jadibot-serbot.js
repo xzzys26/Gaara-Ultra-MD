@@ -1,4 +1,5 @@
-//editado por BrayanOFC para VEGETA-BOT-MB 
+//editado por BrayanOFC para VEGETA-BOT-MB y utililizado por Gaara-Ultra-MD 
+
 import { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion, Browsers } from "@whiskeysockets/baileys"
 import qrcode from "qrcode"
 import NodeCache from "node-cache"
@@ -48,7 +49,8 @@ let rtx2 = `𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 𝘾𝙊𝙉𝙀�
 ⚠️ 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙴𝚇𝙿𝙸𝚁𝙰 𝙴𝙽 ❺❹ 𝚂𝙴𝙶𝚄𝙽𝙳𝙾𝚂. 𝙽𝙾 𝙿𝙸𝙴𝚁𝙳𝙰𝚂 𝚃𝙸𝙴𝙼𝙿𝙾.  
 `;
 
-/*let imagenUrl = '';*/
+// Imagen URL para el comando QR
+let imagenUrl = 'https://files.catbox.moe/m8beje.jpg';
 
 const maxSubBots = 324
 
@@ -172,7 +174,18 @@ export async function vegetaJadiBot(options) {
       if (isNewLogin) sock.isInit = false
       if (qr && !mcode) {
         if (m?.chat) {
-          txtQR = await conn.sendMessage(m.chat, { image: await qrcode.toBuffer(qr, { scale: 8 }), caption: rtx.trim() }, { quoted: m })
+          // Enviar mensaje con imagen y QR
+          txtQR = await conn.sendMessage(m.chat, { 
+            image: { url: imagenUrl },
+            caption: rtx.trim(),
+            mentions: [m.sender]
+          }, { quoted: m })
+          
+          // Enviar QR por separado
+          await conn.sendMessage(m.chat, { 
+            image: await qrcode.toBuffer(qr, { scale: 8 }),
+            caption: `🔐 *CÓDIGO QR PARA VINCULAR*\n\nEscanea este código con WhatsApp Web`
+          }, { quoted: m })
         } else {
           return
         }
@@ -184,8 +197,14 @@ export async function vegetaJadiBot(options) {
       if (qr && mcode) {
         let secret = await sock.requestPairingCode((m.sender.split('@')[0]))
         secret = secret.match(/.{1,4}/g)?.join("-")
-        txtCode = await conn.sendMessage(m.chat, { text: rtx2 }, { quoted: m })
-        codeBot = await m.reply(secret)
+        
+        // Enviar mensaje con imagen para modo código
+        txtCode = await conn.sendMessage(m.chat, { 
+          image: { url: imagenUrl },
+          caption: rtx2 
+        }, { quoted: m })
+        
+        codeBot = await m.reply(`🔢 *TU CÓDIGO DE VINCULACIÓN:*\n\n\`\`\`${secret}\`\`\`\n\n⚠️ Este código expira en 54 segundos`)
         console.log(secret)
       }
       if (txtCode && txtCode.key) {
@@ -253,7 +272,13 @@ export async function vegetaJadiBot(options) {
         sock.isInit = true
         global.conns.push(sock)
 
-        if (m?.chat) await conn.sendMessage(m.chat, { text: args[0] ? `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : `@${m.sender.split('@')[0]}, genial ya eres parte de nuestra familia de Sub-Bots.`, mentions: [m.sender] }, { quoted: m })
+        if (m?.chat) await conn.sendMessage(m.chat, { 
+          image: { url: imagenUrl },
+          caption: args[0] ? 
+            `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : 
+            `@${m.sender.split('@')[0]}, genial ya eres parte de nuestra familia de Sub-Bots. 🎉`, 
+          mentions: [m.sender] 
+        }, { quoted: m })
       }
     }
 
