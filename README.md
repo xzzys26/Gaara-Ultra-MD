@@ -1,6 +1,6 @@
 <!-- Banner -->
 <h1 align="center">
-  <img src="https://files.catbox.moe/2823n5.jpg" width="700"/>
+  <img src="https://files.catbox.moe/dm5qgl.jpg" width="700"/>
   <br>
   🌪️ GAARA ULTRA MD 🌪️
 </h1>
