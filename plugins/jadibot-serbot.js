@@ -25,32 +25,9 @@ let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
 
-let rtx = `𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 𝘾𝙊𝙉𝙀𝙓𝙄𝙊𝙉 ⚡ 
-> ✦ 𝙲𝙾𝙽𝙴𝚇𝙸Ó𝙽 𝚂𝚄𝙱-𝙱𝙾𝚃 (𝙼𝙾𝙳𝙾 𝚀𝚁) 🚀  
-
-⚡︎ 𝙰𝙿𝚄𝙽𝚃𝙰 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙲𝙾𝙽 𝙾𝚃𝚁𝙾 𝙳𝙸𝚂𝙿𝙾𝚂𝙸𝚃𝙸𝚅𝙾 𝙾 𝙿𝙲 𝚈 𝚃𝚁𝙰𝙽𝚂𝙵𝙾𝚁𝙼𝙰 𝚃𝚄 𝙲𝙾𝙽𝙴𝚇𝙸Ó𝙽 𝙴𝙽 𝚄𝙽 *𝚂𝚄𝙱-𝙱𝙾𝚃 𝙰𝙲𝚃𝙸𝚅𝙾*.  
-
-➺ ❶ 𝙰𝙱𝚁𝙴 𝙻𝙾𝚂 𝚃𝚁𝙴𝚂 𝙿𝚄𝙽𝚃𝙾𝚂 𝙴𝙽 𝙻𝙰 𝙴𝚂𝙲𝚄𝚁𝙰 𝚂𝚄𝙿𝙴𝚁𝙸𝙾𝚁.  
-➺ ❷ 𝚅𝙰 𝙰 *"𝙳𝙸𝚂𝙿𝙾𝚂𝙸𝚃𝙸𝚅𝙾𝚂 𝚅𝙸𝙽𝙲𝚄𝙻𝙰𝙳𝙾𝚂"*.  
-➺ ❸ 𝙴𝚂𝙲𝙰𝙽𝙴 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙲𝙾𝙽É𝙲𝚃𝙰𝚃𝙴 𝙰𝙻 𝙱𝙾𝚃.  
-
-⚠️ 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙴𝚇𝙿𝙸𝚁𝙰 𝙴𝙽 ❺❹ 𝚂𝙴𝙶𝚄𝙽𝙳𝙾𝚂. 𝙽𝙾 𝙿𝙸𝙴𝚁𝙳𝙰𝚂 𝚃𝙸𝙴𝙼𝙿𝙾.  
-`;
-
-let rtx2 = `𝙂𝘼𝘼𝙍𝘼-𝙐𝙇𝙏𝙍𝘼-𝙈𝘿 𝘾𝙊𝙉𝙀𝙓𝙄𝙊𝙉 ⚡
-> ✦ 𝙲𝙾𝙽𝙴𝚇𝙸𝙾𝙽 𝚂𝚄𝙱-𝙱𝙾𝚃 (𝙼𝙾𝙳𝙾 𝙲𝙾𝙳𝙸𝙶𝙾) 👑   
-
-⚡︎ 𝚄𝚂𝙰 𝙴𝚂𝚃𝙴 𝙲Ó𝙳𝙸𝙶𝙾 𝙿𝙰𝚁𝙰 𝙲𝙾𝙽𝚅𝙴𝚁𝚃𝙸𝚁𝚃𝙴 𝙴𝙽 𝚄𝙽 *𝚂𝚄𝙱-𝙱𝙾𝚃 𝚃𝙴𝙼𝙿𝙾𝚁𝙰𝙻*.  
-
-➺ ❶ 𝙰𝙱𝚁𝙴 𝙻𝙾𝚂 𝚃𝚁𝙴𝚂 𝙿𝚄𝙽𝚃𝙾𝚂 𝙴𝙽 𝙻𝙰 𝙴𝚂𝚀𝚄𝙸𝙽𝙰 𝚂𝚄𝙿𝙴𝚁𝙸𝙾𝚁.  
-➺ ❷ 𝚅𝙰 𝙰 *"𝙳𝙸𝚂𝙿𝙾𝚂𝙸𝚃𝙸𝚅𝙾𝚂 𝚅𝙸𝙽𝙲𝚄𝙻𝙰𝙳𝙾𝚂"*.  
-➺ ❸ 𝙴𝚂𝙲𝙰𝙽𝙴 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙲𝙾𝙽É𝙲𝚃𝙰𝚃𝙴 𝙰𝙻 𝙱𝙾𝚃.  
-
-⚠️ 𝙴𝙻 𝙲Ó𝙳𝙸𝙶𝙾 𝚀𝚁 𝙴𝚇𝙿𝙸𝚁𝙰 𝙴𝙽 ❺❹ 𝚂𝙴𝙶𝚄𝙽𝙳𝙾𝚂. 𝙽𝙾 𝙿𝙸𝙴𝚁𝙳𝙰𝚂 𝚃𝙸𝙴𝙼𝙿𝙾.  
-`;
-
-// Imagen URL para el comando QR
-let imagenUrl = 'https://files.catbox.moe/m8beje.jpg';
+// Imágenes URL para diferentes partes del proceso
+let imagenUrlCode = 'https://files.catbox.moe/m8beje.jpg'; // Imagen para código
+let imagenUrlWelcome = 'https://files.catbox.moe/dm5qgl.jpg'; // Imagen de bienvenida cuando se conecta
 
 const maxSubBots = 324
 
@@ -174,17 +151,14 @@ export async function vegetaJadiBot(options) {
       if (isNewLogin) sock.isInit = false
       if (qr && !mcode) {
         if (m?.chat) {
-          // Enviar mensaje con imagen y QR
+          // Enviar imagen para QR
           txtQR = await conn.sendMessage(m.chat, { 
-            image: { url: imagenUrl },
-            caption: rtx.trim(),
-            mentions: [m.sender]
+            image: { url: imagenUrlQR }
           }, { quoted: m })
           
-          // Enviar QR por separado
+          // Enviar QR
           await conn.sendMessage(m.chat, { 
-            image: await qrcode.toBuffer(qr, { scale: 8 }),
-            caption: `🔐 *CÓDIGO QR PARA VINCULAR*\n\nEscanea este código con WhatsApp Web`
+            image: await qrcode.toBuffer(qr, { scale: 8 })
           }, { quoted: m })
         } else {
           return
@@ -197,14 +171,14 @@ export async function vegetaJadiBot(options) {
       if (qr && mcode) {
         let secret = await sock.requestPairingCode((m.sender.split('@')[0]))
         secret = secret.match(/.{1,4}/g)?.join("-")
-        
-        // Enviar mensaje con imagen para modo código
-        txtCode = await conn.sendMessage(m.chat, { 
-          image: { url: imagenUrl },
-          caption: rtx2 
+
+        // Enviar imagen para código
+        await conn.sendMessage(m.chat, { 
+          image: { url: imagenUrlCode }
         }, { quoted: m })
-        
-        codeBot = await m.reply(`🔢 *TU CÓDIGO DE VINCULACIÓN:*\n\n\`\`\`${secret}\`\`\`\n\n⚠️ Este código expira en 54 segundos`)
+
+        // Enviar código
+        codeBot = await m.reply(`${secret}`)
         console.log(secret)
       }
       if (txtCode && txtCode.key) {
@@ -273,7 +247,7 @@ export async function vegetaJadiBot(options) {
         global.conns.push(sock)
 
         if (m?.chat) await conn.sendMessage(m.chat, { 
-          image: { url: imagenUrl },
+          image: { url: imagenUrlWelcome },
           caption: args[0] ? 
             `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : 
             `@${m.sender.split('@')[0]}, genial ya eres parte de nuestra familia de Sub-Bots. 🎉`, 
