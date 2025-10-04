@@ -114,7 +114,7 @@ ${comandos.map(menu => menu.help.map(help =>
     await m.react('⚡️')
     await m.react('✅️')
 
-    let vidBuffer = await (await fetch('https://files.catbox.moe/z0ygkv.mp4')).buffer() // cambia la URL por tu video corto
+    let vidBuffer = await (await fetch('https://files.catbox.moe/dkvp8h.mp4')).buffer() // cambia la URL por tu video corto
     let media = await prepareWAMessageMedia(
       { video: vidBuffer, gifPlayback: true },
       { upload: conn.waUploadToServer }
@@ -130,8 +130,8 @@ ${comandos.map(menu => menu.help.map(help =>
             contextInfo: {
               isForwarded: true,
               forwardedNewsletterMessageInfo: {
-                newsletterJid: '120363420232527331@newsletter',
-                newsletterName: '𝑮𝑨𝑨𝑹𝑨 𝑼𝑳𝑻𝑹𝑨-𝑴𝑫 𝑭𝑰𝑿 ⚡',
+                newsletterJid: '120363417252896376@newsletter',
+                newsletterName: '𝗨𝗽𝗱𝗮𝘁𝗲 𝗚𝗮𝗮𝗿𝗮 𝗨𝗹𝘁𝗿𝗮-𝗠𝗗 👑⚡',
                 serverMessageId: 100
               }
             }
