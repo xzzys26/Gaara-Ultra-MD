@@ -86,7 +86,6 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 ┃ ❒ *Nombre*: *${botname}*
 ┃ ❒ *Creador*: *${creador}*
 ┃ ❒ *Estado*: *${modo}*
-┃ ❒ *Saludo*: *${saludo}*
 ┃ ❒ *Uptime*: *${uptime}*
 ┃ ❒ *Premium*: *${totalPremium}*
 ┃ ❒ *Versión*: *${versionBot}*
