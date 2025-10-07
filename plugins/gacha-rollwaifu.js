@@ -43,12 +43,11 @@ let handler = async (m, { conn }) => {
     const userId = m.sender
     const now = Date.now()
 
-    // Cooldown de 15 minutos
     if (cooldowns[userId] && now < cooldowns[userId]) {
         const remainingTime = Math.ceil((cooldowns[userId] - now) / 1000)
         const minutes = Math.floor(remainingTime / 60)
         const seconds = remainingTime % 60
-        return conn.sendMessage(m.chat, { text: `《✧》Debes esperar ${seconds} segundos* para usar *#rw* de nuevo.` }, { quoted: m })
+        return await conn.reply(m.chat, `《✧》Debes esperar *${minutes} minutos y ${seconds} segundos* para usar *#rw* de nuevo.`, m)
     }
 
     try {
@@ -58,44 +57,34 @@ let handler = async (m, { conn }) => {
 
         const harem = await loadHarem()
         const userEntry = harem.find(entry => entry.characterId === randomCharacter.id)
-
         const statusMessage = randomCharacter.user 
             ? `Reclamado por @${randomCharacter.user.split('@')[0]}` 
             : 'Libre'
 
-        const message = `📃 Nombre » *${randomCharacter.name}*
-🌸 Género » *${randomCharacter.gender}*
-💰 Valor » *${randomCharacter.value}*
-📌 Estado » ${statusMessage}
-🧬 Fuente » *${randomCharacter.source}*
-🆔️ ID: *${randomCharacter.id}*`
+        const message = `❒ Nombre » *${randomCharacter.name}*
+✦ Género ➪ *${randomCharacter.gender}*
+✦ Valor ➪ *${randomCharacter.value}*
+✦ Estado ➪ ${statusMessage}
+✦ Fuente ➪ *${randomCharacter.source}*
+✦ ID: *${randomCharacter.id}*`
 
-        // Menciones si ya está reclamado
         const mentions = userEntry ? [userEntry.userId] : []
+        await conn.sendFile(m.chat, randomImage, `${randomCharacter.name}.jpg`, message, m, { mentions })
 
-        // Enviar imagen con texto
-        await conn.sendMessage(m.chat, {
-            image: { url: randomImage },
-            caption: message,
-            mentions
-        }, { quoted: m })
-
-        // Si está libre, actualizar archivo
         if (!randomCharacter.user) {
             await saveCharacters(characters)
         }
 
-        // Cooldown 15 minutos
-        cooldowns[userId] = now + 15 * 1000
+        cooldowns[userId] = now + 15 * 60 * 1000
 
     } catch (error) {
-        conn.sendMessage(m.chat, { text: `✘ Error al cargar el personaje: ${error.message}` }, { quoted: m })
+        await conn.reply(m.chat, `✘ Error al cargar el personaje: ${error.message}`, m)
     }
 }
 
-handler.help = ['rw', 'ver', 'rollwaifu']
+handler.help = ['ver', 'rw', 'rollwaifu']
 handler.tags = ['gacha']
-handler.command = ['rw', 'ver', 'rollwaifu']
+handler.command = ['ver', 'rw', 'rollwaifu']
 handler.group = true
 
 export default handler
